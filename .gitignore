@@ -14,3 +14,4 @@ backend/prisma/*.db
 .turbo/
 .claude/
 .tools/
+.vercel/
