@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Packing Entry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#17261E;font-variant-numeric:tabular-nums}
+a{text-decoration:none}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.app{display:flex;width:1280px;height:800px;background:#F3F5F1;overflow:hidden}
+.side{width:208px;background:#12301F;padding:20px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;flex:none}
+.brand{color:#fff;font-weight:700;font-size:16px;padding:4px 10px 12px}
+.nav{display:block;color:#CFE2D6;font-size:14px;font-weight:500;padding:9px 10px;border-radius:8px}
+.nav:hover{background:#1D4531}
+.nav.on{background:#E3F0E7;color:#12301F;font-weight:700}
+.grp{color:#8FB09C;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 10px 4px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{height:60px;flex:none;background:#fff;border-bottom:1px solid #DDE3DB;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top h1{margin:0;font-size:20px;font-weight:700}
+.body{flex:1;min-height:0;padding:20px 24px;overflow:hidden;display:flex;gap:16px}
+.card{background:#fff;border:1px solid #DDE3DB;border-radius:12px;padding:18px}
+.muted{color:#5B6B61}
+.btn{min-height:40px;padding:0 16px;border-radius:10px;border:1px solid #C9D2C8;background:#fff;color:#17261E;font-size:14px;font-weight:600}
+.btn.p{background:#1F6B45;border-color:#1F6B45;color:#fff}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.g{background:#E3F0E7;color:#14502F}.a{background:#FBF0D5;color:#6B4600}.b{background:#E6EDF8;color:#1D3F78}
+.lbl{font-size:13px;font-weight:600;color:#3E4F45;margin-bottom:4px;display:block}
+.in{height:44px;border:1px solid #C9D2C8;border-radius:10px;padding:0 12px;font-size:15px;background:#fff;box-sizing:border-box;width:100%}
+.in2{height:38px;border:1px solid #C9D2C8;border-radius:8px;padding:0 8px;font-size:14px;background:#fff;box-sizing:border-box;width:64px;text-align:right}
+.row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0}
+.br{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #EEF1EC;font-size:14px}
+h2{margin:0 0 12px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#5B6B61}
+</style>
+<style>.app{width:100%;min-width:1280px;height:100vh;min-height:800px}</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">[YOUR BRAND]</div>
+    <div class="grp">Sell</div>
+    <a class="nav" href="dashboard.html">Dashboard</a>
+    <a class="nav" href="pos.html">POS</a>
+    <a class="nav" href="orders.html">Order desk</a>
+    <a class="nav" href="returns.html">Returns</a>
+    <div class="grp">Stock</div>
+    <a class="nav" href="items.html">Items</a>
+    <a class="nav" href="receive-stock.html">Receive stock</a>
+    <a class="nav on" href="packing.html">Packing</a>
+    <a class="nav" href="batches.html">Batches</a>
+    <a class="nav" href="labels.html">Barcode labels</a>
+    <div class="grp">Money</div>
+    <a class="nav" href="b2b.html">B2B and receivables</a>
+    <a class="nav" href="reports.html">Reports</a>
+    <div class="grp">Admin</div>
+    <a class="nav" href="settings.html">Settings</a>
+  </aside>
+  <div class="main">
+    <div class="top">
+      <h1>Packing entry</h1>
+      <span class="pill b">Sample data</span>
+      <span class="pill g">PK-0042</span>
+      <div style="flex:1"></div>
+      <button class="btn">Recent packing runs</button>
+    </div>
+    <div class="body">
+      <div style="flex:1;min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start">
+        <div class="card">
+          <h2>1. Raw material used</h2>
+          <label class="lbl" for="ri">Raw item</label>
+          <select id="ri" class="in"><option>Ragi (loose) · 118 kg on hand</option></select>
+          <div class="lbl" style="margin-top:12px">Source batches, first expiry first</div>
+          <div class="br">
+            <div><b>RAGI-260915A</b><div class="muted" style="font-size:12.5px">[Supplier B] · BB 15 Mar 2027 · 18 kg left</div></div>
+            <div><input class="in2" aria-label="Kg used from RAGI-260915A" value="18"> kg</div>
+          </div>
+          <div class="br">
+            <div><b>RAGI-261006A</b><div class="muted" style="font-size:12.5px">[Supplier A] · BB 06 Apr 2027 · 100 kg left</div></div>
+            <div><input class="in2" aria-label="Kg used from RAGI-261006A" value="7"> kg</div>
+          </div>
+          <div class="muted" style="font-size:13px;margin-top:8px">Total 25 kg · average cost ₹44.33 /kg · value ₹1,108.25</div>
+        </div>
+        <div class="card">
+          <h2>2. Packs produced</h2>
+          <label class="lbl" for="pi">Finished pack</label>
+          <select id="pi" class="in"><option>Ragi Flour 500 g</option></select>
+          <div class="lbl" style="margin-top:12px">One pack batch per source lot</div>
+          <div class="br">
+            <div><b>RF500-261006A</b><div class="muted" style="font-size:12.5px">from RAGI-260915A · BB 03 Feb 2027</div></div>
+            <div><input class="in2" aria-label="Packs in batch 261006A" value="35"> packs</div>
+          </div>
+          <div class="br">
+            <div><b>RF500-261006B</b><div class="muted" style="font-size:12.5px">from RAGI-261006A · BB 03 Feb 2027</div></div>
+            <div><input class="in2" aria-label="Packs in batch 261006B" value="13"> packs</div>
+          </div>
+          <div class="muted" style="font-size:13px;margin-top:8px">Best before = pack date + 120 days (item shelf life). Expected yield from 25 kg: 50 packs.</div>
+        </div>
+        <div class="card">
+          <h2>3. Packaging consumed</h2>
+          <div class="row"><span>Pouch 500 g (printed)</span><b>48 nos</b></div>
+          <div class="row"><span>Barcode label 50×25</span><b>48 nos</b></div>
+          <button class="btn" style="margin-top:8px">Add packaging item</button>
+        </div>
+        <div class="card">
+          <h2>4. Wastage</h2>
+          <div class="row"><span>From RAGI-260915A</span><span><input class="in2" aria-label="Wastage kg lot A" value="0.5"> kg</span></div>
+          <div class="row"><span>From RAGI-261006A</span><span><input class="in2" aria-label="Wastage kg lot B" value="0.5"> kg</span></div>
+          <div class="muted" style="font-size:13px;margin-top:8px">Check: (35 + 13) × 0.5 kg = 24.0 kg + 1.0 kg wastage = 25.0 kg used</div>
+        </div>
+      </div>
+      <div class="card" style="width:340px;flex:none;display:flex;flex-direction:column;gap:6px">
+        <h2>Result</h2>
+        <div class="row"><span class="muted">Raw material cost</span><span>₹1,108.25</span></div>
+        <div class="row"><span class="muted">Packaging cost</span><span>₹196.80</span></div>
+        <div class="row" style="border-top:1px solid #EEF1EC;padding-top:8px"><span>Total run cost</span><b>₹1,305.05</b></div>
+        <div style="background:#E3F0E7;border-radius:12px;padding:14px;margin-top:6px">
+          <div class="muted" style="font-size:13px">Cost per pack</div>
+          <div style="font-size:30px;font-weight:700;color:#12301F">₹27.19</div>
+          <div style="font-size:13px">vs MRP ₹90 · margin before GST ₹58.52</div>
+        </div>
+        <div class="muted" style="font-size:12.5px;line-height:1.4;margin-top:6px">Both pack batches carry the item's weighted-average cost. Posts ledger lines per batch: raw out, packaging out, packs in, wastage.</div>
+        <div style="font-size:13px;margin-top:6px"><b>Labels to print</b><br>35 × RF500-261006A<br>13 × RF500-261006B</div>
+        <div style="flex:1"></div>
+        <button class="btn">Save and print labels</button>
+        <button class="btn p" style="min-height:48px">Save packing run</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

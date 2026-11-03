@@ -1,0 +1,680 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ---------- Phase 1: Foundations ----------
+
+enum Role {
+  OWNER
+  CASHIER
+  WAREHOUSE
+  DELIVERY
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  roles        Role[]
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  auditLogs AuditLog[]
+
+  @@map("user")
+}
+
+// Settings changes are logged (HANDOVER.md section 3).
+model AuditLog {
+  id         String   @id @default(uuid())
+  ts         DateTime @default(now())
+  userId     String
+  entity     String
+  entityId   String
+  action     String
+  beforeJson Json?
+  afterJson  Json?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([entity, entityId])
+  @@map("audit_log")
+}
+
+model TaxClass {
+  id   String @id @default(uuid())
+  name String @unique // e.g. "Ghee", "Flours", "Millet grains"
+  hsn  String? // left null until confirmed with the CA
+
+  rates TaxRate[]
+  items Item[]
+
+  @@map("tax_class")
+}
+
+// Effective-dated so a rate change never alters past bills.
+model TaxRate {
+  id            String   @id @default(uuid())
+  taxClassId    String
+  ratePct       Decimal  @db.Decimal(5, 2)
+  effectiveFrom DateTime
+
+  taxClass TaxClass @relation(fields: [taxClassId], references: [id])
+
+  @@index([taxClassId, effectiveFrom])
+  @@map("tax_rate")
+}
+
+model Item {
+  id             String   @id @default(uuid())
+  code           String   @unique // e.g. "RF500", used in label barcode ITEMCODE-BATCHCODE
+  name           String
+  size           String? // e.g. "500 g"
+  unit           String // kg, nos, etc.
+  ean13          String? // for WooCommerce / online listing, independent of the label barcode
+  taxClassId     String?
+  categoryId     String? // Rice, Atta, Ghee ... maintained by the owner in Settings
+  mrpPaise       Int? // tax-inclusive MRP
+  shelfLifeDays  Int?
+  reorderLevel   Int?
+  trackBatches   Boolean  @default(true)
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  taxClass TaxClass? @relation(fields: [taxClassId], references: [id])
+  category Category? @relation(fields: [categoryId], references: [id])
+
+  batches              Batch[]
+  stockLedgerEntries   StockLedger[]
+  stockBalances        StockBalance[]
+  itemCost             ItemCost?
+  goodsReceiptLines    GoodsReceiptLine[]
+  stockCountLines      StockCountLine[]
+  saleLines            SaleLine[]              @relation("SaleLineItem")
+  orderLines           OrderLine[]
+  packUnits            PackUnit[]
+
+  @@map("item")
+}
+
+// Bill numbers are allocated in the finalisation transaction, never at draft (no gaps).
+// Product category (Rice, Atta, Ghee ...). The owner keeps this list in Settings.
+model Category {
+  id     String  @id @default(uuid())
+  name   String  @unique
+  active Boolean @default(true)
+
+  items Item[]
+
+  @@map("category")
+}
+
+model DocumentSeries {
+  id     String @id @default(uuid())
+  prefix String @unique // "MK-", "WH-", "INV-", "CN-"
+  nextNo Int    @default(1)
+
+  @@map("document_series")
+}
+
+// ---------- Phase 2: Stock core ----------
+
+model Supplier {
+  id    String  @id @default(uuid())
+  name  String
+  gstin String?
+
+  batches        Batch[]
+  goodsReceipts  GoodsReceipt[]
+
+  @@map("supplier")
+}
+
+enum BatchStatus {
+  ACTIVE
+  HOLD
+}
+
+model Batch {
+  id            String      @id @default(uuid())
+  itemId        String
+  code          String      @unique // e.g. "RAGI-261006A", "RF500-261006A"
+  supplierId    String?
+  supplierLot   String?
+  receivedOn    DateTime?
+  mfgDate       DateTime?
+  bestBefore    DateTime? // required when item.trackBatches, enforced at the API layer
+  status        BatchStatus @default(ACTIVE)
+
+  item     Item      @relation(fields: [itemId], references: [id])
+  supplier Supplier? @relation(fields: [supplierId], references: [id])
+
+
+  stockLedgerEntries StockLedger[]
+  stockBalances      StockBalance[]
+  goodsReceiptLines  GoodsReceiptLine[]
+  stockCountLines    StockCountLine[]
+  saleLineBatches    SaleLineBatch[]  @relation("SaleLineBatchBatch")
+  orderLineBatches   OrderLineBatch[]
+  packUnits          PackUnit[]
+
+  @@index([itemId, bestBefore])
+  @@map("batch")
+}
+
+enum PackUnitStatus {
+  IN_STOCK
+  RESERVED // scanned onto a held bill
+  SOLD
+}
+
+// One row per physical pack. Its label carries its own code, so scanning the same pack twice
+// can't add it twice. consumedRef records what took the pack, e.g. "Hold:<saleId>" or
+// "Sale:<saleId>", so a void or cancel can put it back.
+model PackUnit {
+  id          String         @id @default(uuid())
+  code        String         @unique // e.g. "BANSI500-261026A-0001"
+  itemId      String
+  batchId     String
+  status      PackUnitStatus @default(IN_STOCK)
+  consumedRef String?
+  createdAt   DateTime       @default(now())
+
+  item  Item  @relation(fields: [itemId], references: [id])
+  batch Batch @relation(fields: [batchId], references: [id])
+
+  @@index([batchId, status])
+  @@index([consumedRef])
+  @@map("pack_unit")
+}
+
+enum LedgerReason {
+  RECEIPT
+  SALE
+  RETURN
+  ADJUST
+  COUNT
+}
+
+// Append-only. Corrections are reversing entries, never UPDATE/DELETE (enforced by a DB trigger
+// in the phase-2 migration, not just app-level convention).
+model StockLedger {
+  id           String       @id @default(uuid())
+  ts           DateTime     @default(now())
+  itemId       String
+  batchId      String?
+  qtyDelta     Decimal      @db.Decimal(12, 3)
+  reason       LedgerReason
+  refType      String
+  refId        String
+  unitCostPaise Int?
+
+  item  Item   @relation(fields: [itemId], references: [id])
+  batch Batch? @relation(fields: [batchId], references: [id])
+
+  @@index([itemId, batchId])
+  @@index([refType, refId])
+  @@map("stock_ledger")
+}
+
+// Derived from StockLedger; verified by a nightly reconciliation job.
+model StockBalance {
+  itemId  String
+  batchId String
+  qty     Decimal @db.Decimal(12, 3)
+
+  item  Item  @relation(fields: [itemId], references: [id])
+  batch Batch @relation(fields: [batchId], references: [id])
+
+  @@id([itemId, batchId])
+  @@map("stock_balance")
+}
+
+// Item-level weighted-average cost. Batches carry no cost of their own.
+model ItemCost {
+  itemId      String  @id
+  avgCostPaise Int
+  qtyOnHand   Decimal @db.Decimal(12, 3)
+
+  item Item @relation(fields: [itemId], references: [id])
+
+  @@map("item_cost")
+}
+
+enum PaymentMode {
+  CREDIT
+  CASH
+  UPI
+}
+
+enum GoodsReceiptStatus {
+  ACTIVE
+  VOID
+}
+
+model GoodsReceipt {
+  id             String             @id @default(uuid())
+  supplierId     String
+  supplierBillNo String
+  billDate       DateTime
+  paymentMode    PaymentMode
+  status         GoodsReceiptStatus @default(ACTIVE)
+  createdAt      DateTime           @default(now())
+  voidedAt       DateTime?
+
+  supplier Supplier           @relation(fields: [supplierId], references: [id])
+  lines    GoodsReceiptLine[]
+
+  @@map("goods_receipt")
+}
+
+model GoodsReceiptLine {
+  id             String  @id @default(uuid())
+  receiptId      String
+  itemId         String
+  receivedAs     String? // free-text pack description, e.g. "2 bags x 50 kg"
+  qtyBase        Decimal @db.Decimal(12, 3)
+  ratePaise      Int
+  taxRateSnapshot Decimal @db.Decimal(5, 2)
+  amountPaise    Int
+  batchId        String?
+
+  receipt GoodsReceipt @relation(fields: [receiptId], references: [id])
+  item    Item         @relation(fields: [itemId], references: [id])
+  batch   Batch?       @relation(fields: [batchId], references: [id])
+
+  @@map("goods_receipt_line")
+}
+
+enum StockCountStatus {
+  OPEN
+  CLOSED
+}
+
+model StockCount {
+  id        String           @id @default(uuid())
+  ts        DateTime         @default(now())
+  status    StockCountStatus @default(OPEN)
+
+  lines StockCountLine[]
+
+  @@map("stock_count")
+}
+
+model StockCountLine {
+  id          String  @id @default(uuid())
+  countId     String
+  itemId      String
+  batchId     String?
+  countedQty  Decimal @db.Decimal(12, 3)
+  systemQty   Decimal @db.Decimal(12, 3)
+
+  count StockCount @relation(fields: [countId], references: [id])
+  item  Item       @relation(fields: [itemId], references: [id])
+  batch Batch?     @relation(fields: [batchId], references: [id])
+
+  @@map("stock_count_line")
+}
+
+// ---------- Phase 3: Packing ----------
+
+// ---------- Phase 4: POS / Sales ----------
+
+enum Channel {
+  WALK_IN
+  PHONE
+  ONLINE
+  EMAIL
+  SOCIAL
+}
+
+// Cashier discount is capped at the channel max, no override (HANDOVER.md non-negotiables).
+model ChannelDiscount {
+  channel    Channel @id
+  defaultPct Decimal @db.Decimal(5, 2)
+  maxPct     Decimal @db.Decimal(5, 2)
+
+  @@map("channel_discount")
+}
+
+enum SalesPoint {
+  MARKET_STALL
+  WAREHOUSE_COUNTER
+}
+
+enum SaleStatus {
+  HELD
+  FINALIZED
+  VOID
+}
+
+// Only CASH/UPI are implemented in phase 4; CREDIT_NOTE/B2B_CREDIT are modeled now (per
+// HANDOVER.md section 2's day-1 decision) but rejected by the service until returns (phase 6) and
+// B2B (phase 7) land.
+enum SalePaymentMode {
+  CASH
+  UPI
+  CREDIT_NOTE
+  B2B_CREDIT
+}
+
+// Totals are null while HELD — a held bill is a draft with no stock movement and no bill number;
+// both happen only at finalisation, in the same transaction (non-negotiable).
+model Sale {
+  id            String     @id @default(uuid())
+  number        String?    @unique // e.g. "MK-000125"; allocated at finalize, not at hold
+  salesPoint    SalesPoint
+  channel       Channel
+  status        SaleStatus @default(HELD)
+  customerPhone String?
+  discountPct   Decimal    @db.Decimal(5, 2)
+  grossPaise    Int?
+  discountPaise Int?
+  netPaise      Int?
+  taxablePaise  Int?
+  taxPaise      Int?
+  roundOffPaise Int?
+  deliveryChargePaise Int? // set only for a bill created from a dispatched Order; included in totalPaise
+  totalPaise    Int?
+  createdAt     DateTime   @default(now())
+  finalizedAt   DateTime?
+  voidedAt      DateTime?
+
+  lines    SaleLine[]
+  payments Payment[]
+  returns  Return[]
+  order    Order?
+
+  @@map("sale")
+}
+
+model SaleLine {
+  id         String  @id @default(uuid())
+  saleId     String
+  itemId     String
+  qty        Decimal @db.Decimal(12, 3)
+  mrpPaise   Int
+  taxRatePct Decimal @db.Decimal(5, 2)
+  batchId    String? // set when the line is one exact batch (scanned packs), so a held bill keeps it
+
+  sale Sale @relation(fields: [saleId], references: [id])
+  item Item @relation("SaleLineItem", fields: [itemId], references: [id])
+
+  batches SaleLineBatch[]
+
+  @@map("sale_line")
+}
+
+// The batch(es) actually decremented for this line. For a bundle line, these point at the
+// components' batches (via batch.itemId), not the bundle item's own batch — bundles have none.
+model SaleLineBatch {
+  id         String  @id @default(uuid())
+  saleLineId String
+  batchId    String
+  qty        Decimal @db.Decimal(12, 3)
+
+  saleLine SaleLine @relation(fields: [saleLineId], references: [id])
+  batch    Batch    @relation("SaleLineBatchBatch", fields: [batchId], references: [id])
+
+  returnLines ReturnLine[]
+
+  @@map("sale_line_batch")
+}
+
+model Payment {
+  id           String          @id @default(uuid())
+  saleId       String
+  mode         SalePaymentMode
+  amountPaise  Int
+  reference    String?
+  creditNoteId String? // set when mode = CREDIT_NOTE — which note was redeemed, and by how much
+
+  sale       Sale        @relation(fields: [saleId], references: [id])
+  creditNote CreditNote? @relation(fields: [creditNoteId], references: [id])
+
+  @@map("payment")
+}
+
+// ---------- Settings master data ----------
+
+// Delivery zones — master data for the Order desk (phase 5), not consumed by anything yet.
+model DeliveryZone {
+  id            String  @id @default(uuid())
+  name          String  @unique
+  pincodes      String? // free-text for now, e.g. "400001, 400002"
+  feePaise      Int
+  freeFromPaise Int
+  active        Boolean @default(true)
+
+  orders Order[]
+
+  @@map("delivery_zone")
+}
+
+enum CustomerType {
+  RETAIL
+  B2B
+}
+
+// Master data only for now — not yet linked from Sale. B2B invoicing (credit terms, INV- series,
+// receivables) is phase 7 and isn't wired into POS/finalize.
+model Customer {
+  id               String       @id @default(uuid())
+  name             String
+  type             CustomerType
+  gstin            String?
+  creditLimitPaise Int?
+  termsDays        Int?
+  active           Boolean      @default(true)
+  createdAt        DateTime     @default(now())
+
+  creditNotes CreditNote[]
+  orders      Order[]
+
+  @@map("customer")
+}
+
+// ---------- Phase 6: Returns and credit notes ----------
+
+enum ReturnDisposition {
+  REFUND
+  CREDIT_NOTE
+}
+
+enum RefundMode {
+  CASH
+  UPI
+}
+
+// A credit note is identified by its own number, not by who holds it — matches a printed slip at
+// the stall: redeemable by whoever presents it, never expires (HANDOVER.md section 2). customerId
+// is optional — only meaningful for a tracked (e.g. B2B) customer, not a walk-in return.
+model CreditNote {
+  id           String   @id @default(uuid())
+  number       String   @unique // e.g. "CN-000001"
+  customerId   String?
+  amountPaise  Int
+  balancePaise Int
+  issuedAt     DateTime @default(now())
+
+  customer Customer? @relation(fields: [customerId], references: [id])
+  return   Return?
+  payments Payment[]
+
+  @@map("credit_note")
+}
+
+// Always against a specific finalized sale. Disposition REFUND pays cash/UPI back out (recorded
+// here, not as a Payment — that table is money coming IN for a sale); CREDIT_NOTE issues a note
+// instead. An "exchange" (HANDOVER.md section 4) is just this with CREDIT_NOTE followed by a new
+// sale paid with that note — not a third disposition.
+model Return {
+  id           String            @id @default(uuid())
+  saleId       String
+  disposition  ReturnDisposition
+  refundMode   RefundMode? // required when disposition = REFUND
+  creditNoteId String?           @unique // set when disposition = CREDIT_NOTE
+  reason       String?
+  totalPaise   Int
+  createdAt    DateTime          @default(now())
+
+  sale       Sale        @relation(fields: [saleId], references: [id])
+  creditNote CreditNote? @relation(fields: [creditNoteId], references: [id])
+  lines      ReturnLine[]
+
+  @@map("return")
+}
+
+// Points at the exact SaleLineBatch being reversed (not just itemId/batchId) so the quantity
+// returnable is checked against what that specific batch actually sold, and restocking always
+// lands on the same batch it came from (HANDOVER.md section 4: "restock to the same batch").
+model ReturnLine {
+  id              String  @id @default(uuid())
+  returnId        String
+  saleLineBatchId String
+  qty             Decimal @db.Decimal(12, 3)
+  mrpPaise        Int
+  restock         Boolean @default(true) // false = write-off (damaged); refunded/credited but not restocked
+
+  return        Return        @relation(fields: [returnId], references: [id])
+  saleLineBatch SaleLineBatch @relation(fields: [saleLineBatchId], references: [id])
+
+  @@map("return_line")
+}
+
+// Singleton (always id = "singleton", enforced app-side, not by the DB) — the one real business
+// behind this install. CLAUDE.md forbids inventing GSTIN/FSSAI/UPI details, so these all start
+// null/placeholder and only ever hold what the owner actually typed in Settings.
+model BusinessProfile {
+  id            String  @id
+  name          String
+  address       String?
+  gstin         String?
+  fssaiNumber   String?
+  phone         String?
+  email         String?
+  logoUrl       String?
+  upiId         String?
+  upiQrImageUrl String?
+
+  @@map("business_profile")
+}
+
+// ---------- Phase 5: Order desk and delivery ----------
+
+enum OrderStatus {
+  NEW
+  PACKED
+  DISPATCHED
+  DELIVERED
+  CANCELLED
+}
+
+enum OrderPaymentPlan {
+  PREPAID
+  COD
+  UPI_ON_DELIVERY
+}
+
+// What the delivery staff actually collected at the door — distinct from paymentPlan, which is
+// the plan made when the order was taken.
+enum DeliveryCollectionMode {
+  CASH
+  UPI
+  ALREADY_PAID
+}
+
+// Phone/email/social/online orders. Stock is only informally "reserved" by an order existing in
+// NEW/PACKED status — nothing currently blocks another sale from selling the same units in the
+// meantime; true reservation tracking is a known gap, not built in this pass. The real stock
+// movement happens at pack time (FEFO), and the bill number only at dispatch (HANDOVER.md
+// section 5 non-negotiable — never at draft). Bundle items aren't supported here yet (phase 4
+// handles those in POS); creating an order with one is rejected.
+model Order {
+  id                   String                  @id @default(uuid())
+  code                 String                  @unique // own series, prefix "OR-"
+  channel              Channel
+  salesPoint           SalesPoint // which bill series (MK-/WH-) applies once dispatched
+  status               OrderStatus             @default(NEW)
+  paymentPlan          OrderPaymentPlan
+  prepaidMode          SalePaymentMode? // CASH or UPI, captured at order time when paymentPlan = PREPAID
+  prepaidReference     String?
+  customerId           String?
+  customerName         String
+  customerPhone        String?
+  deliveryAddress      String?
+  zoneId               String?
+  discountPct          Decimal                 @db.Decimal(5, 2)
+  grossPaise           Int
+  discountPaise        Int
+  netPaise             Int
+  taxablePaise         Int
+  taxPaise             Int
+  roundOffPaise        Int
+  deliveryChargePaise  Int
+  totalPaise           Int // goods + delivery
+  deliveryStaffName    String? // free text, e.g. "Ramesh" — no separate staff-assignment system
+  collectedMode        DeliveryCollectionMode?
+  collectedAmountPaise Int?
+  cashHandedOverAt     DateTime? // office reconciliation of cash the delivery staff is holding
+  cancelReason         String?
+  saleId               String?                 @unique // set at dispatch
+  createdAt            DateTime                @default(now())
+  packedAt             DateTime?
+  dispatchedAt         DateTime?
+  deliveredAt          DateTime?
+  cancelledAt          DateTime?
+
+  customer Customer?     @relation(fields: [customerId], references: [id])
+  zone     DeliveryZone? @relation(fields: [zoneId], references: [id])
+  sale     Sale?         @relation(fields: [saleId], references: [id])
+  lines    OrderLine[]
+
+  @@map("order")
+}
+
+model OrderLine {
+  id         String  @id @default(uuid())
+  orderId    String
+  itemId     String
+  qty        Decimal @db.Decimal(12, 3)
+  mrpPaise   Int
+  taxRatePct Decimal @db.Decimal(5, 2)
+
+  order   Order            @relation(fields: [orderId], references: [id])
+  item    Item             @relation(fields: [itemId], references: [id])
+  batches OrderLineBatch[]
+
+  @@map("order_line")
+}
+
+// Filled in at pack time (FEFO), mirroring SaleLineBatch.
+model OrderLineBatch {
+  id          String  @id @default(uuid())
+  orderLineId String
+  batchId     String
+  qty         Decimal @db.Decimal(12, 3)
+
+  orderLine OrderLine @relation(fields: [orderLineId], references: [id])
+  batch     Batch     @relation(fields: [batchId], references: [id])
+
+  @@map("order_line_batch")
+}
+
+// Express session store (connect-pg-simple). Declared so Prisma migrations own the table.
+model Session {
+  sid    String   @id @db.VarChar
+  sess   Json     @db.Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire], map: "IDX_session_expire")
+  @@map("session")
+}

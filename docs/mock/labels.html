@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Barcode Labels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#17261E;font-variant-numeric:tabular-nums}
+a{text-decoration:none}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.app{display:flex;width:1280px;height:800px;background:#F3F5F1;overflow:hidden}
+.side{width:208px;background:#12301F;padding:20px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;flex:none}
+.brand{color:#fff;font-weight:700;font-size:16px;padding:4px 10px 12px}
+.nav{display:block;color:#CFE2D6;font-size:14px;font-weight:500;padding:9px 10px;border-radius:8px}
+.nav:hover{background:#1D4531}
+.nav.on{background:#E3F0E7;color:#12301F;font-weight:700}
+.grp{color:#8FB09C;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 10px 4px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{height:60px;flex:none;background:#fff;border-bottom:1px solid #DDE3DB;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top h1{margin:0;font-size:20px;font-weight:700}
+.body{flex:1;min-height:0;padding:20px 24px;overflow:hidden;display:flex;gap:16px}
+.card{background:#fff;border:1px solid #DDE3DB;border-radius:12px}
+.muted{color:#5B6B61}
+.btn{min-height:40px;padding:0 16px;border-radius:10px;border:1px solid #C9D2C8;background:#fff;color:#17261E;font-size:14px;font-weight:600}
+.btn.p{background:#1F6B45;border-color:#1F6B45;color:#fff}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:12px;color:#5B6B61;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:9px 14px;border-bottom:1px solid #DDE3DB;background:#FAFBF9}
+.tbl td{padding:8px 14px;border-bottom:1px solid #EEF1EC}
+.tbl tr.sel td{background:#E3F0E7}
+.r{text-align:right}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.b{background:#E6EDF8;color:#1D3F78}.g{background:#E3F0E7;color:#14502F}
+.in{height:38px;border:1px solid #C9D2C8;border-radius:8px;padding:0 10px;font-size:14px;background:#fff;box-sizing:border-box;width:80px;text-align:right}
+.bars{display:flex;height:40px;align-items:stretch}
+.bars span{background:#000;display:block}
+</style>
+<style>.app{width:100%;min-width:1280px;height:100vh;min-height:800px}</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">[YOUR BRAND]</div>
+    <div class="grp">Sell</div>
+    <a class="nav" href="dashboard.html">Dashboard</a>
+    <a class="nav" href="pos.html">POS</a>
+    <a class="nav" href="orders.html">Order desk</a>
+    <a class="nav" href="returns.html">Returns</a>
+    <div class="grp">Stock</div>
+    <a class="nav" href="items.html">Items</a>
+    <a class="nav" href="receive-stock.html">Receive stock</a>
+    <a class="nav" href="packing.html">Packing</a>
+    <a class="nav" href="batches.html">Batches</a>
+    <a class="nav on" href="labels.html">Barcode labels</a>
+    <div class="grp">Money</div>
+    <a class="nav" href="b2b.html">B2B and receivables</a>
+    <a class="nav" href="reports.html">Reports</a>
+    <div class="grp">Admin</div>
+    <a class="nav" href="settings.html">Settings</a>
+  </aside>
+  <div class="main">
+    <div class="top">
+      <h1>Barcode labels</h1>
+      <span class="pill b">Sample data</span>
+      <div style="flex:1"></div>
+      <select aria-label="Label size" style="height:40px;border-radius:10px;border:1px solid #C9D2C8;padding:0 10px;font-size:14px;background:#fff"><option>50 × 25 mm · thermal roll</option><option>38 × 25 mm</option></select>
+    </div>
+    <div class="body">
+      <div class="card" style="flex:1;min-width:0;overflow:hidden">
+        <table class="tbl">
+          <thead><tr><th>Item and batch</th><th>Label barcode</th><th>Best before</th><th class="r">Labels</th></tr></thead>
+          <tbody>
+            <tr class="sel"><td><b>Ragi Flour 500 g</b><div class="muted" style="font-size:12.5px">Batch 261006A · packed 06 Oct 2026</div></td><td>RF500-261006A</td><td>03 Feb 2027</td><td class="r"><input class="in" aria-label="Labels for RF500-261006A" value="35"></td></tr>
+            <tr><td><b>Ragi Flour 500 g</b><div class="muted" style="font-size:12.5px">Batch 261006B · packed 06 Oct 2026</div></td><td>RF500-261006B</td><td>03 Feb 2027</td><td class="r"><input class="in" aria-label="Labels for RF500-261006B" value="13"></td></tr>
+            <tr><td><b>Jowar Flour 500 g</b><div class="muted" style="font-size:12.5px">Batch 260928A · packed 28 Sep 2026</div></td><td>JF500-260928A</td><td>28 Dec 2026</td><td class="r"><input class="in" aria-label="Labels for JF500-260928A" value="0"></td></tr>
+            <tr><td><b>A2 Cow Ghee 500 g</b><div class="muted" style="font-size:12.5px">Batch 261001A · packed 01 Oct 2026</div></td><td>GH500-261001A</td><td>01 Jul 2027</td><td class="r"><input class="in" aria-label="Labels for GH500-261001A" value="0"></td></tr>
+            <tr><td><b>Foxtail Millet 500 g</b><div class="muted" style="font-size:12.5px">Batch 260915A · packed 15 Sep 2026</div></td><td>FM500-260915A</td><td>15 Jun 2027</td><td class="r"><input class="in" aria-label="Labels for FM500-260915A" value="0"></td></tr>
+          </tbody>
+        </table>
+        <div style="padding:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="btn">Add from packing run PK-0042</button>
+          <button class="btn">Reprint for a batch</button>
+          <span class="muted" style="font-size:13px">Labels are printed per batch, so each carries its own barcode.</span>
+        </div>
+      </div>
+      <div class="card" style="width:420px;flex:none;padding:18px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:16px;font-weight:700">Label preview</div>
+        <div style="width:330px;height:178px;border:1px solid #333;border-radius:4px;background:#fff;padding:10px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;align-self:center">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div style="font-weight:700;font-size:15px;line-height:1.1">Ragi Flour<br><span style="font-weight:500;font-size:12px">Net wt. 500 g</span></div>
+            <div style="font-weight:700;font-size:15px">MRP ₹90</div>
+          </div>
+          <div>
+            <div class="bars" aria-label="Code 128 barcode RF500-261006A" role="img">
+              <span style="width:2px;margin-right:1px"></span><span style="width:1px;margin-right:2px"></span><span style="width:3px;margin-right:1px"></span><span style="width:1px;margin-right:1px"></span><span style="width:2px;margin-right:2px"></span><span style="width:1px;margin-right:1px"></span><span style="width:1px;margin-right:3px"></span><span style="width:2px;margin-right:1px"></span><span style="width:3px;margin-right:2px"></span><span style="width:1px;margin-right:1px"></span><span style="width:2px;margin-right:1px"></span><span style="width:1px;margin-right:2px"></span><span style="width:3px;margin-right:1px"></span><span style="width:2px;margin-right:1px"></span><span style="width:1px;margin-right:3px"></span><span style="width:2px;margin-right:1px"></span><span style="width:1px;margin-right:1px"></span><span style="width:3px;margin-right:2px"></span><span style="width:1px;margin-right:1px"></span><span style="width:2px;margin-right:1px"></span><span style="width:2px;margin-right:2px"></span><span style="width:1px;margin-right:1px"></span><span style="width:3px;margin-right:1px"></span><span style="width:1px;margin-right:2px"></span><span style="width:2px;margin-right:1px"></span><span style="width:1px;margin-right:1px"></span><span style="width:2px;margin-right:1px"></span><span style="width:3px"></span>
+            </div>
+            <div style="text-align:center;font-size:11px;font-weight:600;letter-spacing:.04em">RF500-261006A</div>
+          </div>
+          <div style="font-size:10.5px;line-height:1.35">Batch 261006A · Pkd 06 Oct 2026 · <b>Best before 03 Feb 2027</b><br>FSSAI [NUMBER] · Incl. all taxes</div>
+        </div>
+        <div class="muted" style="font-size:13px;line-height:1.5">The barcode is Code 128 holding item code plus batch code. Scanning it at the POS deducts from exactly this batch. Barcode art here is a sample.</div>
+        <div style="flex:1"></div>
+        <div class="muted" style="font-size:13px">48 labels · 1 roll</div>
+        <button class="btn">Download PDF</button>
+        <button class="btn p" style="min-height:48px">Print labels</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

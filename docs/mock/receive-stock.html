@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Receive Stock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#17261E;font-variant-numeric:tabular-nums}
+a{text-decoration:none}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.app{display:flex;width:1280px;height:800px;background:#F3F5F1;overflow:hidden}
+.side{width:208px;background:#12301F;padding:20px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;flex:none}
+.brand{color:#fff;font-weight:700;font-size:16px;padding:4px 10px 12px}
+.nav{display:block;color:#CFE2D6;font-size:14px;font-weight:500;padding:9px 10px;border-radius:8px}
+.nav:hover{background:#1D4531}
+.nav.on{background:#E3F0E7;color:#12301F;font-weight:700}
+.grp{color:#8FB09C;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 10px 4px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{height:60px;flex:none;background:#fff;border-bottom:1px solid #DDE3DB;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top h1{margin:0;font-size:20px;font-weight:700}
+.body{flex:1;min-height:0;padding:20px 24px;overflow:hidden;display:flex;gap:16px}
+.card{background:#fff;border:1px solid #DDE3DB;border-radius:12px}
+.muted{color:#5B6B61}
+.btn{min-height:40px;padding:0 16px;border-radius:10px;border:1px solid #C9D2C8;background:#fff;color:#17261E;font-size:14px;font-weight:600}
+.btn.p{background:#1F6B45;border-color:#1F6B45;color:#fff}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:12px;color:#5B6B61;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:9px 12px;border-bottom:1px solid #DDE3DB;background:#FAFBF9}
+.tbl td{padding:8px 12px;border-bottom:1px solid #EEF1EC}
+.r{text-align:right}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.g{background:#E3F0E7;color:#14502F}.a{background:#FBF0D5;color:#6B4600}.b{background:#E6EDF8;color:#1D3F78}
+.lbl{font-size:13px;font-weight:600;color:#3E4F45;margin-bottom:4px;display:block}
+.in{height:40px;border:1px solid #C9D2C8;border-radius:8px;padding:0 10px;font-size:14px;background:#fff;box-sizing:border-box;width:100%}
+.l2{font-size:12px;font-weight:600;color:#3E4F45;margin-bottom:3px;display:block}
+.in2{height:36px;border:1px solid #C9D2C8;border-radius:8px;padding:0 10px;font-size:13.5px;background:#fff;box-sizing:border-box;width:100%}
+.code{height:36px;border-radius:8px;background:#E3F0E7;color:#12301F;font-weight:700;font-size:13.5px;display:flex;align-items:center;padding:0 10px;box-sizing:border-box}
+.row{display:flex;justify-content:space-between;font-size:14px;padding:4px 0}
+</style>
+<style>.app{width:100%;min-width:1280px;height:100vh;min-height:800px}</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">[YOUR BRAND]</div>
+    <div class="grp">Sell</div>
+    <a class="nav" href="dashboard.html">Dashboard</a>
+    <a class="nav" href="pos.html">POS</a>
+    <a class="nav" href="orders.html">Order desk</a>
+    <a class="nav" href="returns.html">Returns</a>
+    <div class="grp">Stock</div>
+    <a class="nav" href="items.html">Items</a>
+    <a class="nav on" href="receive-stock.html">Receive stock</a>
+    <a class="nav" href="packing.html">Packing</a>
+    <a class="nav" href="batches.html">Batches</a>
+    <a class="nav" href="labels.html">Barcode labels</a>
+    <div class="grp">Money</div>
+    <a class="nav" href="b2b.html">B2B and receivables</a>
+    <a class="nav" href="reports.html">Reports</a>
+    <div class="grp">Admin</div>
+    <a class="nav" href="settings.html">Settings</a>
+  </aside>
+  <div class="main">
+    <div class="top">
+      <h1>Receive stock</h1>
+      <span class="pill b">Sample data</span>
+      <div style="flex:1"></div>
+      <button class="btn">Purchase register</button>
+      <button class="btn">Supplier payments</button>
+    </div>
+    <div class="body">
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="padding:16px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px">
+          <div><label class="lbl" for="sp">Supplier</label><select id="sp" class="in"><option>[Supplier A], Nashik</option></select></div>
+          <div><label class="lbl" for="bn">Supplier bill no.</label><input id="bn" class="in" value="SB/2026/884"></div>
+          <div><label class="lbl" for="bd">Bill date</label><input id="bd" class="in" value="06 Oct 2026"></div>
+          <div><label class="lbl" for="pt">Payment</label><select id="pt" class="in"><option>On credit</option><option>Paid in cash</option><option>Paid by UPI</option></select></div>
+        </div>
+        <div class="card" style="overflow:hidden;flex:1">
+          <table class="tbl">
+            <thead><tr><th>Item</th><th>Received as</th><th class="r">Qty (base)</th><th class="r">Rate</th><th class="r">GST</th><th class="r">Amount</th></tr></thead>
+            <tbody>
+              <tr><td><b>Ragi (loose)</b></td><td>2 bags × 50 kg</td><td class="r">100 kg</td><td class="r">₹44.00 /kg</td><td class="r">5%</td><td class="r">₹4,620</td></tr>
+              <tr><td colspan="6" style="background:#FAFBF9;padding:8px 12px 12px">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:10px;align-items:end">
+                  <div><label class="l2" for="l1">Supplier lot no.</label><input id="l1" class="in2" value="L-5521"></div>
+                  <div><label class="l2" for="d1">Pack / mfg date</label><input id="d1" class="in2" value="01 Oct 2026"></div>
+                  <div><label class="l2" for="e1">Best before (required)</label><input id="e1" class="in2" value="06 Apr 2027"></div>
+                  <div><span class="l2">Batch code (auto)</span><div class="code">RAGI-261006A</div></div>
+                </div>
+              </td></tr>
+              <tr><td><b>Ghee, bulk</b></td><td>3 tins × 15 kg</td><td class="r">45 kg</td><td class="r">₹520.00 /kg</td><td class="r">5%</td><td class="r">₹24,570</td></tr>
+              <tr><td colspan="6" style="background:#FAFBF9;padding:8px 12px 12px">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1.3fr;gap:10px;align-items:end">
+                  <div><label class="l2" for="l2">Supplier lot no.</label><input id="l2" class="in2" value="G-8841"></div>
+                  <div><label class="l2" for="d2">Pack / mfg date</label><input id="d2" class="in2" value="30 Sep 2026"></div>
+                  <div><label class="l2" for="e2">Best before (required)</label><input id="e2" class="in2" value="30 Jun 2027"></div>
+                  <div><span class="l2">Batch code (auto)</span><div class="code">GHEEB-261006A</div></div>
+                </div>
+              </td></tr>
+              <tr><td><b>Pouch 500 g (printed)</b></td><td>1 pack × 500 nos</td><td class="r">500 nos</td><td class="r">₹3.50 /no</td><td class="r">18%</td><td class="r">₹2,065</td></tr>
+              <tr><td colspan="6" class="muted" style="font-size:12.5px;padding:6px 12px">Packaging is not batch-tracked.</td></tr>
+              <tr><td style="color:#5B6B61">Scan or search to add an item</td><td></td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="width:340px;flex:none;padding:18px;display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:16px;font-weight:700">Receipt summary</div>
+        <div class="row"><span class="muted">Taxable value</span><span>₹29,550</span></div>
+        <div class="row"><span class="muted">Input GST (CGST + SGST)</span><span>₹1,705</span></div>
+        <div class="row" style="font-weight:700;font-size:16px;border-top:1px solid #EEF1EC;padding-top:8px"><span>Bill total</span><span>₹31,255</span></div>
+        <div style="border-top:1px solid #EEF1EC;padding-top:10px;font-size:14px;font-weight:700">Average cost after receipt</div>
+        <div class="row"><span>Ragi (loose)</span><span>₹46.20 → ₹44.33 /kg</span></div>
+        <div class="row"><span>Ghee, bulk</span><span>₹498.00 → ₹509.38 /kg</span></div>
+        <div class="muted" style="font-size:12.5px;line-height:1.4">Cost stays an item-level weighted average. Batches track supplier, lot and best-before, not cost.</div>
+        <div style="border-top:1px solid #EEF1EC;padding-top:10px;font-size:14px;font-weight:700">Ragi (loose) batches on hand</div>
+        <div style="font-size:13px;line-height:1.45"><b>RAGI-261006A</b> · [Supplier A] · 100 kg<br><span class="muted">BB 06 Apr 2027 · this receipt</span></div>
+        <div style="font-size:13px;line-height:1.45"><b>RAGI-260915A</b> · [Supplier B] · 18 kg<br><span class="muted">BB 15 Mar 2027</span></div>
+        <div style="flex:1"></div>
+        <button class="btn">Attach bill photo</button>
+        <button class="btn">Print batch tags for bags and tins</button>
+        <button class="btn p" style="min-height:48px">Save receipt and bill</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

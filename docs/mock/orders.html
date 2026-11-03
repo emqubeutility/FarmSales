@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#17261E;font-variant-numeric:tabular-nums}
+a{text-decoration:none}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.app{display:flex;width:1280px;height:800px;background:#F3F5F1;overflow:hidden}
+.side{width:208px;background:#12301F;padding:20px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;flex:none}
+.brand{color:#fff;font-weight:700;font-size:16px;padding:4px 10px 12px}
+.nav{display:block;color:#CFE2D6;font-size:14px;font-weight:500;padding:9px 10px;border-radius:8px}
+.nav:hover{background:#1D4531}
+.nav.on{background:#E3F0E7;color:#12301F;font-weight:700}
+.grp{color:#8FB09C;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 10px 4px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{height:60px;flex:none;background:#fff;border-bottom:1px solid #DDE3DB;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top h1{margin:0;font-size:20px;font-weight:700}
+.body{flex:1;min-height:0;padding:20px 24px;overflow:hidden;display:flex;flex-direction:column;gap:16px}
+.muted{color:#5B6B61}
+.btn{min-height:40px;padding:0 16px;border-radius:10px;border:1px solid #C9D2C8;background:#fff;color:#17261E;font-size:14px;font-weight:600}
+.btn.p{background:#1F6B45;border-color:#1F6B45;color:#fff}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.g{background:#E3F0E7;color:#14502F}.a{background:#FBF0D5;color:#6B4600}.rd{background:#FBE4E1;color:#8A1F1F}.b{background:#E6EDF8;color:#1D3F78}
+.col{flex:1;min-width:0;background:#E9EDE7;border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:10px}
+.col h2{margin:0;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#3E4F45;padding:2px 4px;display:flex;justify-content:space-between}
+.oc{background:#fff;border:1px solid #DDE3DB;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.oc b{font-size:14.5px}
+</style>
+<style>.app{width:100%;min-width:1280px;height:100vh;min-height:800px}</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">[YOUR BRAND]</div>
+    <div class="grp">Sell</div>
+    <a class="nav" href="dashboard.html">Dashboard</a>
+    <a class="nav" href="pos.html">POS</a>
+    <a class="nav on" href="orders.html">Order desk</a>
+    <a class="nav" href="returns.html">Returns</a>
+    <div class="grp">Stock</div>
+    <a class="nav" href="items.html">Items</a>
+    <a class="nav" href="receive-stock.html">Receive stock</a>
+    <a class="nav" href="packing.html">Packing</a>
+    <a class="nav" href="batches.html">Batches</a>
+    <a class="nav" href="labels.html">Barcode labels</a>
+    <div class="grp">Money</div>
+    <a class="nav" href="b2b.html">B2B and receivables</a>
+    <a class="nav" href="reports.html">Reports</a>
+    <div class="grp">Admin</div>
+    <a class="nav" href="settings.html">Settings</a>
+  </aside>
+  <div class="main">
+    <div class="top">
+      <h1>Order desk</h1>
+      <span class="pill b">Sample data</span>
+      <div style="flex:1"></div>
+      <select aria-label="Filter by channel" style="height:40px;border-radius:10px;border:1px solid #C9D2C8;padding:0 10px;font-size:14px;background:#fff"><option>All channels</option><option>Phone</option><option>Instagram / WhatsApp</option><option>Online shop</option></select>
+      <button class="btn">Delivery run list</button>
+      <button class="btn p">New order</button>
+    </div>
+    <div class="body">
+      <div style="display:flex;gap:12px;flex:1;min-height:0">
+        <div class="col">
+          <h2>New <span>2</span></h2>
+          <div class="oc"><div style="display:flex;justify-content:space-between"><b>OR-2042</b><span class="pill b">Instagram</span></div><div>Meera K. · Zone 2</div><div class="muted">3 items · Prepaid UPI</div><div style="display:flex;justify-content:space-between"><b>₹2,140</b><span class="muted">Stock reserved</span></div></div>
+          <div class="oc"><div style="display:flex;justify-content:space-between"><b>OR-2044</b><span class="pill b">Phone</span></div><div>R. Deshmukh · Zone 1</div><div class="muted">2 items · COD</div><div style="display:flex;justify-content:space-between"><b>₹1,020</b><span class="muted">Stock reserved</span></div></div>
+        </div>
+        <div class="col">
+          <h2>Packed <span>1</span></h2>
+          <div class="oc"><div style="display:flex;justify-content:space-between"><b>OR-2041</b><span class="pill b">Phone</span></div><div>S. Iyer · Zone 3</div><div class="muted">4 items · UPI on delivery</div><div class="muted">Batches picked at packing, first expiry first</div><div style="display:flex;justify-content:space-between"><b>₹1,260</b><span class="muted">Delivery ₹60</span></div><button class="btn p" style="min-height:36px">Dispatch and bill</button></div>
+        </div>
+        <div class="col">
+          <h2>Out for delivery <span>2</span></h2>
+          <div class="oc"><div style="display:flex;justify-content:space-between"><b>OR-2043</b><span class="pill g">Bill MK-000121</span></div><div>A. Patil · Zone 1</div><div class="muted">COD · with Ramesh</div><div style="display:flex;justify-content:space-between"><b>₹780</b><span class="pill a">Collect cash</span></div></div>
+          <div class="oc"><div style="display:flex;justify-content:space-between"><b>OR-2040</b><span class="pill g">Bill MK-000120</span></div><div>Green Bowl Café · Zone 2</div><div class="muted">UPI on delivery · with Ramesh</div><div style="display:flex;justify-content:space-between"><b>₹2,960</b><span class="pill a">Collect UPI</span></div></div>
+        </div>
+        <div class="col">
+          <h2>Delivered <span>3</span></h2>
+          <div class="oc"><div style="display:flex;justify-content:space-between"><b>OR-2038</b><span class="pill g">Paid</span></div><div>N. Shah · Zone 1</div><div class="muted">UPI · ref ****4821</div><b>₹1,540</b></div>
+          <div class="oc"><div style="display:flex;justify-content:space-between"><b>OR-2037</b><span class="pill a">Cash with staff</span></div><div>P. Joshi · Zone 4</div><div class="muted">COD · not handed over</div><b>₹1,890</b><button class="btn" style="min-height:36px">Mark cash received</button></div>
+        </div>
+        <div class="col">
+          <h2>Cancelled <span>1</span></h2>
+          <div class="oc"><div style="display:flex;justify-content:space-between"><b>OR-2036</b><span class="pill rd">Failed</span></div><div>K. Menon · Zone 4</div><div class="muted">Not reachable · stock released</div><b>₹640</b></div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #DDE3DB;border-radius:12px;padding:12px 16px;display:flex;gap:28px;font-size:14px">
+        <span class="muted">Bill numbers are assigned at dispatch, so the series stays gapless.</span>
+        <span class="muted">Stock is reserved by item when confirmed; the batch is allocated when the order is packed.</span>
+        <span class="muted">Delivery charge = zone fee, or ₹0 once goods total reaches the zone's free-delivery minimum.</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

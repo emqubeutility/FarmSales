@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Returns and Credit Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#17261E;font-variant-numeric:tabular-nums}
+a{text-decoration:none}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.app{display:flex;width:1280px;height:800px;background:#F3F5F1;overflow:hidden}
+.side{width:208px;background:#12301F;padding:20px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;flex:none}
+.brand{color:#fff;font-weight:700;font-size:16px;padding:4px 10px 12px}
+.nav{display:block;color:#CFE2D6;font-size:14px;font-weight:500;padding:9px 10px;border-radius:8px}
+.nav:hover{background:#1D4531}
+.nav.on{background:#E3F0E7;color:#12301F;font-weight:700}
+.grp{color:#8FB09C;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 10px 4px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{height:60px;flex:none;background:#fff;border-bottom:1px solid #DDE3DB;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top h1{margin:0;font-size:20px;font-weight:700}
+.body{flex:1;min-height:0;padding:20px 24px;overflow:hidden;display:flex;gap:16px}
+.card{background:#fff;border:1px solid #DDE3DB;border-radius:12px}
+.muted{color:#5B6B61}
+.btn{min-height:40px;padding:0 16px;border-radius:10px;border:1px solid #C9D2C8;background:#fff;color:#17261E;font-size:14px;font-weight:600}
+.btn.p{background:#1F6B45;border-color:#1F6B45;color:#fff}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:12px;color:#5B6B61;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:9px 14px;border-bottom:1px solid #DDE3DB;background:#FAFBF9}
+.tbl td{padding:9px 14px;border-bottom:1px solid #EEF1EC}
+.r{text-align:right}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.b{background:#E6EDF8;color:#1D3F78}.g{background:#E3F0E7;color:#14502F}
+.in{height:38px;border:1px solid #C9D2C8;border-radius:8px;padding:0 10px;font-size:14px;background:#fff;box-sizing:border-box}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid #DDE3DB;border-radius:10px;padding:12px;font-size:14px}
+.opt.on{border-color:#1F6B45;background:#E3F0E7}
+.row{display:flex;justify-content:space-between;font-size:14px;padding:4px 0}
+</style>
+<style>.app{width:100%;min-width:1280px;height:100vh;min-height:800px}</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">[YOUR BRAND]</div>
+    <div class="grp">Sell</div>
+    <a class="nav" href="dashboard.html">Dashboard</a>
+    <a class="nav" href="pos.html">POS</a>
+    <a class="nav" href="orders.html">Order desk</a>
+    <a class="nav on" href="returns.html">Returns</a>
+    <div class="grp">Stock</div>
+    <a class="nav" href="items.html">Items</a>
+    <a class="nav" href="receive-stock.html">Receive stock</a>
+    <a class="nav" href="packing.html">Packing</a>
+    <a class="nav" href="batches.html">Batches</a>
+    <a class="nav" href="labels.html">Barcode labels</a>
+    <div class="grp">Money</div>
+    <a class="nav" href="b2b.html">B2B and receivables</a>
+    <a class="nav" href="reports.html">Reports</a>
+    <div class="grp">Admin</div>
+    <a class="nav" href="settings.html">Settings</a>
+  </aside>
+  <div class="main">
+    <div class="top">
+      <h1>New return</h1>
+      <span class="pill b">Sample data</span>
+      <div style="flex:1"></div>
+      <button class="btn">Credit note register</button>
+      <button class="btn">Look up credit note</button>
+    </div>
+    <div class="body">
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="padding:14px 16px;display:flex;gap:12px;align-items:center">
+          <label for="bill" class="muted" style="font-size:14px">Original bill</label>
+          <input id="bill" class="in" style="width:200px" value="MK-000118">
+          <span style="font-size:14px">04 Oct 2026 12:14 · Walk-in · Market Stall · Cash</span>
+          <div style="flex:1"></div>
+          <span class="pill g">Found</span>
+        </div>
+        <div class="card" style="overflow:hidden">
+          <table class="tbl">
+            <thead><tr><th>Item</th><th class="r">Sold</th><th class="r">Return qty</th><th>Condition</th><th class="r">Refund value</th></tr></thead>
+            <tbody>
+              <tr><td><b>A2 Cow Ghee 500 g</b><div class="muted" style="font-size:12.5px">Batch GH500-261001A · ₹780.00 − 0% discount</div></td><td class="r">1</td><td class="r"><input class="in" aria-label="Return quantity ghee" style="width:64px;text-align:right" value="1"></td><td><select class="in" aria-label="Condition ghee"><option>Write off (jar leaked)</option><option>Restock</option></select></td><td class="r"><b>₹780.00</b></td></tr>
+              <tr><td><b>Ragi Flour 500 g</b><div class="muted" style="font-size:12.5px">Batch RF500-260920A · ₹90.00 − 0% discount</div></td><td class="r">2</td><td class="r"><input class="in" aria-label="Return quantity ragi" style="width:64px;text-align:right" value="0"></td><td><select class="in" aria-label="Condition ragi"><option>Restock</option><option>Write off</option></select></td><td class="r">₹0.00</td></tr>
+              <tr><td><b>Jaggery 500 g</b><div class="muted" style="font-size:12.5px">Batch JG500-260920A · ₹95.00 − 0% discount</div></td><td class="r">2</td><td class="r"><input class="in" aria-label="Return quantity jaggery" style="width:64px;text-align:right" value="0"></td><td><select class="in" aria-label="Condition jaggery"><option>Restock</option><option>Write off</option></select></td><td class="r">₹0.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card" style="padding:16px;display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:15px;font-weight:700">Resolution</div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+            <div class="opt"><span style="width:16px;height:16px;border-radius:999px;border:2px solid #8A9A90;flex:none;margin-top:2px"></span><div><b>Refund</b><div class="muted" style="font-size:13px">Cash back, or UPI sent back manually</div></div></div>
+            <div class="opt on"><span style="width:16px;height:16px;border-radius:999px;border:5px solid #1F6B45;flex:none;margin-top:2px;box-sizing:border-box"></span><div><b>Credit note</b><div class="muted" style="font-size:13px">No expiry. Redeem on any later bill</div></div></div>
+            <div class="opt"><span style="width:16px;height:16px;border-radius:999px;border:2px solid #8A9A90;flex:none;margin-top:2px"></span><div><b>Exchange</b><div class="muted" style="font-size:13px">Issue note, then open a new bill using it</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="width:330px;flex:none;padding:18px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:16px;font-weight:700;margin-bottom:6px">Credit note</div>
+        <div class="row"><span class="muted">Taxable value reversed</span><span>₹742.86</span></div>
+        <div class="row"><span class="muted">CGST 2.5% + SGST 2.5%</span><span>₹37.14</span></div>
+        <div class="row" style="border-top:1px solid #EEF1EC;padding-top:8px;font-size:18px;font-weight:700"><span>Note value</span><span>₹780.00</span></div>
+        <div class="row"><span class="muted">Write-off cost to loss account</span><span>₹412.00</span></div>
+        <label for="ph" style="font-size:13px;font-weight:600;margin-top:10px">Customer phone (to find the note later)</label>
+        <input id="ph" class="in" placeholder="+91" style="width:100%">
+        <label for="rs" style="font-size:13px;font-weight:600;margin-top:6px">Reason</label>
+        <select id="rs" class="in" style="width:100%"><option>Damaged in transit</option><option>Quality complaint</option><option>Wrong item</option></select>
+        <div style="flex:1"></div>
+        <div class="muted" style="font-size:12.5px;line-height:1.4">Returns reverse price, discount and GST from the original bill. Restock goes back into the same batch; a write-off is recorded against it. Next number: CN-000008.</div>
+        <button class="btn p" style="min-height:48px">Issue credit note</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

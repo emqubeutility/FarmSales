@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Settings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#17261E;font-variant-numeric:tabular-nums}
+a{text-decoration:none}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.app{display:flex;width:1280px;height:800px;background:#F3F5F1;overflow:hidden}
+.side{width:208px;background:#12301F;padding:20px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;flex:none}
+.brand{color:#fff;font-weight:700;font-size:16px;padding:4px 10px 12px}
+.nav{display:block;color:#CFE2D6;font-size:14px;font-weight:500;padding:9px 10px;border-radius:8px}
+.nav:hover{background:#1D4531}
+.nav.on{background:#E3F0E7;color:#12301F;font-weight:700}
+.grp{color:#8FB09C;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 10px 4px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{height:60px;flex:none;background:#fff;border-bottom:1px solid #DDE3DB;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top h1{margin:0;font-size:20px;font-weight:700}
+.body{flex:1;min-height:0;padding:20px 24px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:16px}
+.card{background:#fff;border:1px solid #DDE3DB;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.ch{padding:12px 16px;font-size:15px;font-weight:700;border-bottom:1px solid #EEF1EC;display:flex;justify-content:space-between;align-items:center}
+.muted{color:#5B6B61}
+.btn{min-height:34px;padding:0 12px;border-radius:8px;border:1px solid #C9D2C8;background:#fff;color:#17261E;font-size:13px;font-weight:600}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{text-align:left;font-size:11.5px;color:#5B6B61;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:8px 16px;border-bottom:1px solid #DDE3DB;background:#FAFBF9}
+.tbl td{padding:9px 16px;border-bottom:1px solid #EEF1EC}
+.r{text-align:right}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.b{background:#E6EDF8;color:#1D3F78}.a{background:#FBF0D5;color:#6B4600}
+</style>
+<style>.app{width:100%;min-width:1280px;height:100vh;min-height:800px}</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">[YOUR BRAND]</div>
+    <div class="grp">Sell</div>
+    <a class="nav" href="dashboard.html">Dashboard</a>
+    <a class="nav" href="pos.html">POS</a>
+    <a class="nav" href="orders.html">Order desk</a>
+    <a class="nav" href="returns.html">Returns</a>
+    <div class="grp">Stock</div>
+    <a class="nav" href="items.html">Items</a>
+    <a class="nav" href="receive-stock.html">Receive stock</a>
+    <a class="nav" href="packing.html">Packing</a>
+    <a class="nav" href="batches.html">Batches</a>
+    <a class="nav" href="labels.html">Barcode labels</a>
+    <div class="grp">Money</div>
+    <a class="nav" href="b2b.html">B2B and receivables</a>
+    <a class="nav" href="reports.html">Reports</a>
+    <div class="grp">Admin</div>
+    <a class="nav on" href="settings.html">Settings</a>
+  </aside>
+  <div class="main">
+    <div class="top">
+      <h1>Settings</h1>
+      <span class="pill b">Sample values</span>
+      <div style="flex:1"></div>
+      <span class="muted" style="font-size:13px">Admin only · changes are logged</span>
+    </div>
+    <div class="body">
+      <div class="card">
+        <div class="ch">Channels and discounts <button class="btn">Edit</button></div>
+        <table class="tbl">
+          <thead><tr><th>Channel</th><th class="r">Default</th><th class="r">Cashier max</th></tr></thead>
+          <tbody>
+            <tr><td>Walk-in</td><td class="r">0%</td><td class="r">5%</td></tr>
+            <tr><td>Phone order</td><td class="r">5%</td><td class="r">10%</td></tr>
+            <tr><td>Online</td><td class="r">5%</td><td class="r">10%</td></tr>
+          </tbody>
+        </table>
+        <div class="muted" style="padding:10px 16px;font-size:12.5px">Cashiers can set any value from 0 up to the max. The app blocks anything higher.</div>
+      </div>
+      <div class="card">
+        <div class="ch">Delivery zones <button class="btn">Add zone</button></div>
+        <table class="tbl">
+          <thead><tr><th>Zone</th><th>Pincodes</th><th class="r">Fee (incl. GST)</th><th class="r">Free from</th></tr></thead>
+          <tbody>
+            <tr><td>Zone 1</td><td>[PINCODES]</td><td class="r">₹40</td><td class="r">₹500</td></tr>
+            <tr><td>Zone 2</td><td>[PINCODES]</td><td class="r">₹60</td><td class="r">₹800</td></tr>
+            <tr><td>Zone 3</td><td>[PINCODES]</td><td class="r">₹80</td><td class="r">₹1,200</td></tr>
+            <tr><td>Zone 4</td><td>[PINCODES]</td><td class="r">₹120</td><td class="r">₹1,800</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="ch">Tax classes <button class="btn">Add rate</button></div>
+        <table class="tbl">
+          <thead><tr><th>Category</th><th>HSN</th><th class="r">GST</th><th class="r">From</th></tr></thead>
+          <tbody>
+            <tr><td>Ghee</td><td>[HSN]</td><td class="r">[RATE]%</td><td class="r">[DATE]</td></tr>
+            <tr><td>Flours</td><td>[HSN]</td><td class="r">[RATE]%</td><td class="r">[DATE]</td></tr>
+            <tr><td>Millet grains</td><td>[HSN]</td><td class="r">[RATE]%</td><td class="r">[DATE]</td></tr>
+            <tr><td>Oils, jaggery, others</td><td>[HSN]</td><td class="r">[RATE]%</td><td class="r">[DATE]</td></tr>
+          </tbody>
+        </table>
+        <div class="muted" style="padding:10px 16px;font-size:12.5px">Rates are dated, so a change never alters past bills. To be filled in with your CA.</div>
+      </div>
+      <div class="card">
+        <div class="ch">Document series and users</div>
+        <table class="tbl">
+          <thead><tr><th>Series</th><th>Prefix</th><th class="r">Next no.</th></tr></thead>
+          <tbody>
+            <tr><td>Retail bill, Market Stall</td><td>MK-</td><td class="r">000125</td></tr>
+            <tr><td>Retail bill, Warehouse</td><td>WH-</td><td class="r">000412</td></tr>
+            <tr><td>B2B tax invoice</td><td>INV-</td><td class="r">000213</td></tr>
+            <tr><td>Credit note</td><td>CN-</td><td class="r">000008</td></tr>
+          </tbody>
+        </table>
+        <div style="padding:10px 16px;font-size:13.5px;display:flex;gap:8px;flex-wrap:wrap"><span class="pill b">Owner</span><span class="pill b">Cashier</span><span class="pill b">Warehouse</span><span class="pill b">Delivery</span><span class="muted" style="font-size:12.5px">5 users, roles combinable</span></div>
+        <div class="muted" style="padding:0 16px 10px;font-size:12.5px;line-height:1.5">Batch code: item code + YYMMDD + letter (RF500-261006A). Stock goes out first expiry first. Near-expiry alert: 60 days.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

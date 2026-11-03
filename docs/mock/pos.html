@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POS Sale Screen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#17261E;font-variant-numeric:tabular-nums}
+a{text-decoration:none}
+button,input{font-family:inherit}
+button{cursor:pointer}
+.app{position:relative;display:flex;width:100%;min-width:1280px;height:100vh;min-height:800px;background:#F3F5F1;overflow:hidden}
+.side{width:208px;background:#12301F;padding:20px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;flex:none}
+.brand{color:#fff;font-weight:700;font-size:16px;padding:4px 10px 12px}
+.nav{display:block;color:#CFE2D6;font-size:14px;font-weight:500;padding:9px 10px;border-radius:8px}
+.nav:hover{background:#1D4531}
+.nav.on{background:#E3F0E7;color:#12301F;font-weight:700}
+.grp{color:#8FB09C;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 10px 4px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{height:60px;flex:none;background:#fff;border-bottom:1px solid #DDE3DB;display:flex;align-items:center;padding:0 20px;gap:14px}
+.top h1{margin:0;font-size:20px;font-weight:700}
+.chip{background:#E3F0E7;color:#12301F;font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px}
+.muted{color:#5B6B61}
+.btn{min-height:44px;padding:0 16px;border-radius:10px;border:1px solid #C9D2C8;background:#fff;color:#17261E;font-size:15px;font-weight:600}
+.btn:hover{background:#F3F5F1}
+.btn.p{background:#1F6B45;border-color:#1F6B45;color:#fff}
+.btn.p:hover{background:#18583A}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.seg{display:flex;background:#EEF1EC;border-radius:10px;padding:3px;gap:2px}
+.seg button{min-height:38px;padding:0 14px;border:0;border-radius:8px;background:transparent;font-size:14px;font-weight:600;color:#3E4F45}
+.seg button.on{background:#fff;color:#12301F;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.tile{position:relative;text-align:left;background:#fff;border:1px solid #DDE3DB;border-radius:12px;padding:12px;min-height:106px;display:flex;flex-direction:column;gap:2px}
+.tile:hover{border-color:#1F6B45}
+.tile:active{background:#E3F0E7}
+.stp{width:40px;height:40px;border-radius:10px;border:1px solid #C9D2C8;background:#fff;font-size:20px;font-weight:600;color:#17261E}
+.stp:disabled{opacity:.35;cursor:not-allowed}
+.badge{display:inline-block;min-width:20px;text-align:center;background:#1F6B45;color:#fff;border-radius:999px;font-size:12px;font-weight:700;padding:2px 6px}
+.row{display:flex;justify-content:space-between;font-size:14px;color:#3E4F45;padding:3px 0}
+.qrg{display:grid;grid-template-columns:repeat(21,1fr);aspect-ratio:1/1;background:#fff}
+.qrg span{display:block}
+.ovl{position:absolute;left:0;top:0;right:0;bottom:0;background:rgba(18,48,31,.55);display:flex;align-items:center;justify-content:center}
+.hide{display:none}
+@media print{.side,.top,.ovl .act{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">[YOUR BRAND]</div>
+    <div class="grp">Sell</div>
+    <a class="nav" href="dashboard.html">Dashboard</a>
+    <a class="nav on" href="pos.html">POS</a>
+    <a class="nav" href="orders.html">Order desk</a>
+    <a class="nav" href="returns.html">Returns</a>
+    <div class="grp">Stock</div>
+    <a class="nav" href="items.html">Items</a>
+    <a class="nav" href="receive-stock.html">Receive stock</a>
+    <a class="nav" href="packing.html">Packing</a>
+    <a class="nav" href="batches.html">Batches</a>
+    <a class="nav" href="labels.html">Barcode labels</a>
+    <div class="grp">Money</div>
+    <a class="nav" href="b2b.html">B2B and receivables</a>
+    <a class="nav" href="reports.html">Reports</a>
+    <div class="grp">Admin</div>
+    <a class="nav" href="settings.html">Settings</a>
+  </aside>
+
+  <div class="main">
+    <div class="top">
+      <h1>Sale</h1>
+      <span class="chip">Market Stall</span>
+      <div class="seg" id="channels"></div>
+      <div style="flex:1"></div>
+      <span class="muted" style="font-size:14px">Bill <span id="billNo"></span></span>
+      <button class="btn" data-act="resume" style="min-height:40px">Held bills <span class="badge" id="heldCount">0</span></button>
+      <span style="font-size:14px;font-weight:600">Asha <span class="muted" style="font-weight:500">Cashier</span></span>
+    </div>
+
+    <div style="flex:1;min-height:0;display:flex">
+      <div style="flex:1;min-width:0;padding:16px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:10px;align-items:center">
+          <div style="flex:1;position:relative">
+            <label for="scan" style="position:absolute;left:-9999px">Scan label (item and batch) or search item</label>
+            <input id="scan" type="text" placeholder="Scan label (item + batch) or type item name" autocomplete="off" autofocus style="width:100%;box-sizing:border-box;height:52px;border-radius:12px;border:2px solid #1F6B45;background:#fff;padding:0 16px;font-size:17px;color:#17261E">
+          </div>
+          <button class="btn" data-act="sim" style="min-height:52px">Simulate scan</button>
+        </div>
+        <div id="flash" style="font-size:13px;color:#5B6B61;min-height:18px"></div>
+        <div style="flex:1;min-height:0;overflow:auto">
+          <div id="tiles" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding-bottom:8px"></div>
+        </div>
+      </div>
+
+      <div style="width:392px;flex:none;background:#fff;border-left:1px solid #DDE3DB;display:flex;flex-direction:column">
+        <div style="padding:14px 16px 10px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #EEF1EC">
+          <span style="font-size:16px;font-weight:700">Current bill</span>
+          <span class="muted" style="font-size:13px"><span id="itemCount">0</span> items</span>
+        </div>
+        <div id="lines" style="flex:1;min-height:0;overflow:auto;padding:4px 16px"></div>
+
+        <div style="padding:10px 16px;border-top:1px solid #DDE3DB;background:#FAFBF9">
+          <div class="row"><span>Subtotal (MRP, GST incl.)</span><span id="subtotal"></span></div>
+          <div class="row" style="align-items:center">
+            <span>Discount <span class="muted" style="font-size:12px">max <span id="maxPct"></span>% for <span id="chName"></span></span></span>
+            <span style="display:flex;align-items:center;gap:6px">
+              <button class="stp" id="discDown" style="width:36px;height:36px" aria-label="Decrease discount" data-act="discDown">−</button>
+              <span style="min-width:36px;text-align:center;font-weight:700"><span id="discPct"></span>%</span>
+              <button class="stp" id="discUp" style="width:36px;height:36px" aria-label="Increase discount" data-act="discUp">+</button>
+              <span style="min-width:64px;text-align:right">− <span id="discAmt"></span></span>
+            </span>
+          </div>
+          <div class="row"><span>Taxable value</span><span id="taxable"></span></div>
+          <div class="row"><span>CGST 2.5% + SGST 2.5%</span><span id="taxAmt"></span></div>
+          <div class="row"><span>Round-off</span><span id="roundOff"></span></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:6px">
+            <span style="font-size:16px;font-weight:700">Total</span>
+            <span id="total" style="font-size:30px;font-weight:700;color:#12301F"></span>
+          </div>
+        </div>
+
+        <div style="padding:12px 16px 16px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;background:#fff">
+          <button class="btn p payb" style="min-height:56px;font-size:16px" data-act="pay" data-mode="cash">Cash</button>
+          <button class="btn p payb" style="min-height:56px;font-size:16px" data-act="pay" data-mode="upi">UPI</button>
+          <button class="btn payb" style="min-height:56px;font-size:15px" data-act="pay" data-mode="cn">Credit note</button>
+          <button class="btn payb" data-act="hold">Hold bill</button>
+          <button class="btn payb" style="grid-column:span 2" data-act="pay" data-mode="b2b">B2B credit invoice</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ovl hide" id="payOvl"></div>
+  <div class="ovl hide" id="rcpOvl"></div>
+</div>
+
+<script>
+(function () {
+  /* Each batch: b = batch code, exp = best before, qty = on hand. Batches are listed first expiry first. */
+  var items = [
+    {id:1,code:'GH500',name:'A2 Cow Ghee',size:'500 g',mrp:780,col:'#C98A1B',batches:[{b:'260820A',exp:'2027-05-20',qty:6},{b:'261001A',exp:'2027-07-01',qty:18}]},
+    {id:2,code:'GH1K',name:'A2 Cow Ghee',size:'1 kg',mrp:1480,col:'#C98A1B',batches:[{b:'261001A',exp:'2027-07-01',qty:12}]},
+    {id:3,code:'BG500',name:'Buffalo Ghee',size:'500 g',mrp:640,col:'#C98A1B',batches:[{b:'260905A',exp:'2027-06-05',qty:3}]},
+    {id:4,code:'AT1K',name:'Whole Wheat Atta',size:'1 kg',mrp:85,col:'#8B6B43',batches:[{b:'260925A',exp:'2026-12-25',qty:20},{b:'261003A',exp:'2027-01-03',qty:40}]},
+    {id:5,code:'AT5K',name:'Whole Wheat Atta',size:'5 kg',mrp:410,col:'#8B6B43',batches:[{b:'260925A',exp:'2026-12-25',qty:18}]},
+    {id:6,code:'RF500',name:'Ragi Flour',size:'500 g',mrp:90,col:'#8B6B43',batches:[{b:'260920A',exp:'2027-01-18',qty:10},{b:'261001A',exp:'2027-01-29',qty:30}]},
+    {id:7,code:'JF500',name:'Jowar Flour',size:'500 g',mrp:70,col:'#8B6B43',batches:[{b:'260928A',exp:'2026-12-28',qty:35}]},
+    {id:8,code:'BF500',name:'Bajra Flour',size:'500 g',mrp:65,col:'#8B6B43',batches:[{b:'260901A',exp:'2026-12-01',qty:4}]},
+    {id:9,code:'FM500',name:'Foxtail Millet',size:'500 g',mrp:110,col:'#2F7D4F',batches:[{b:'260915A',exp:'2027-06-15',qty:30}]},
+    {id:10,code:'BM500',name:'Barnyard Millet',size:'500 g',mrp:120,col:'#2F7D4F',batches:[{b:'260915A',exp:'2027-06-15',qty:22}]},
+    {id:11,code:'KM500',name:'Kodo Millet',size:'500 g',mrp:105,col:'#2F7D4F',batches:[{b:'260915A',exp:'2027-06-15',qty:2}]},
+    {id:12,code:'GO1L',name:'Cold-pressed Groundnut Oil',size:'1 L',mrp:420,col:'#8A9A1F',batches:[{b:'260910A',exp:'2027-03-10',qty:16}]},
+    {id:13,code:'JG500',name:'Jaggery',size:'500 g',mrp:95,col:'#A0522D',batches:[{b:'260920A',exp:'2027-09-20',qty:28}]},
+    {id:14,code:'MSB',name:'Millet Starter Bundle',size:'3 packs',mrp:299,col:'#6A4FB3',sub:'Foxtail 500 g · Barnyard 500 g · Ragi flour 500 g',batches:[{b:'',exp:'',qty:22}]}
+  ];
+  var channels = [
+    {id:'walk',name:'Walk-in',def:0,max:5},
+    {id:'phone',name:'Phone order',def:5,max:10},
+    {id:'online',name:'Online',def:5,max:10}
+  ];
+  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var S = {q:'',flash:'',channel:'walk',disc:0,screen:'sale',mode:'cash',tendered:0,billNo:124,held:[],phone:'',scanIdx:0,
+           lines:[{id:1,b:'261001A',qty:1},{id:6,b:'260920A',qty:2},{id:14,b:'',qty:1}]};
+
+  function $(id){ return document.getElementById(id); }
+  function money(n){ return '₹' + Number(n).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function money0(n){ return '₹' + Number(n).toLocaleString('en-IN',{maximumFractionDigits:0}); }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function item(id){ return items.filter(function(i){return i.id===id;})[0]; }
+  function chan(){ return channels.filter(function(c){return c.id===S.channel;})[0]; }
+  function used(id,b){ return S.lines.filter(function(l){return l.id===id&&l.b===b;}).reduce(function(a,l){return a+l.qty;},0); }
+  function days(iso){ if(!iso) return 9999; var p=iso.split('-'); return Math.round((Date.UTC(+p[0],+p[1]-1,+p[2])-Date.UTC(2026,9,6))/86400000); }
+  function fmt(iso){ if(!iso) return ''; var p=iso.split('-'); return p[2]+' '+MON[+p[1]-1]+' '+p[0]; }
+  function fmtMY(iso){ if(!iso) return ''; var p=iso.split('-'); return MON[+p[1]-1]+' '+p[0]; }
+  function billNoStr(){ return 'MK-' + String(S.billNo).padStart(6,'0'); }
+
+  function calc(){
+    var ch = chan(), pct = Math.min(S.disc, ch.max), gross = 0, count = 0;
+    S.lines.forEach(function(l){ gross += item(l.id).mrp * l.qty; count += l.qty; });
+    var discAmt = gross * pct / 100, net = gross - discAmt, taxable = net / 1.05, tax = net - taxable;
+    var total = Math.round(net), round = total - net;
+    return {ch:ch,pct:pct,gross:gross,count:count,discAmt:discAmt,taxable:taxable,tax:tax,total:total,round:round};
+  }
+
+  var qrHtml = (function(){
+    var out = '';
+    for (var y = 0; y < 21; y++) for (var x = 0; x < 21; x++) {
+      var on, fx = (x<7&&y<7)||(x>13&&y<7)||(x<7&&y>13);
+      if (fx) {
+        var lx = x<7?x:x-14, ly = y<7?y:y-14;
+        on = (lx===0||lx===6||ly===0||ly===6) || (lx>=2&&lx<=4&&ly>=2&&ly<=4);
+      } else if ((x===7||y===7||x===13||y===13) && ((x<8&&y<8)||(x>12&&y<8)||(x<8&&y>12))) {
+        on = false;
+      } else {
+        on = ((x*31 + y*17 + x*y*7 + (x^y)*3) % 5) < 2;
+      }
+      out += '<span style="background:' + (on?'#111':'#fff') + '"></span>';
+    }
+    return out;
+  })();
+
+  /* b: batch code, or null to pick the first-expiry batch with stock left */
+  function add(id, b, scanCode){
+    var it = item(id), label = it.name + ' ' + it.size, code = b;
+    if (code === null || code === undefined) {
+      var pick = it.batches.filter(function(x){return x.qty - used(id,x.b) > 0;})[0];
+      if (!pick) { S.flash = label + ' is out of stock'; render(); return; }
+      code = pick.b;
+    } else {
+      var bt = it.batches.filter(function(x){return x.b===code;})[0];
+      if (!bt || bt.qty - used(id,code) <= 0) { S.flash = 'No stock left in batch ' + code + ' of ' + label; render(); return; }
+    }
+    var f = S.lines.filter(function(l){return l.id===id&&l.b===code;})[0];
+    if (f) f.qty += 1; else S.lines.push({id:id,b:code,qty:1});
+    S.flash = scanCode ? 'Scanned ' + scanCode + ' · ' + label
+      : 'Added ' + label + (code ? ' · batch ' + code + ' (first expiry first)' : ' · components first expiry first');
+    render();
+  }
+  function inc(id,b){
+    var it = item(id), bt = it.batches.filter(function(x){return x.b===b;})[0];
+    if (bt && bt.qty - used(id,b) > 0) add(id,b); else add(id,null);
+  }
+  function dec(id,b){
+    var f = S.lines.filter(function(l){return l.id===id&&l.b===b;})[0];
+    if (!f) return;
+    f.qty -= 1;
+    S.lines = S.lines.filter(function(l){return l.qty>0;});
+    render();
+  }
+  function scanInput(v){
+    if (!v) return;
+    var up = v.trim().toUpperCase(), i, j;
+    for (i = 0; i < items.length; i++) for (j = 0; j < items[i].batches.length; j++) {
+      var bt = items[i].batches[j];
+      if (bt.b && (items[i].code + '-' + bt.b) === up) { $('scan').value=''; S.q=''; add(items[i].id, bt.b, up); return; }
+    }
+    var dash = up.indexOf('-');
+    if (dash > 0) {
+      var ic = items.filter(function(x){return x.code===up.slice(0,dash);})[0];
+      if (ic) { S.flash = 'Batch ' + up.slice(dash+1) + ' has no stock for ' + ic.name + ' ' + ic.size; render(); return; }
+    }
+    var ql = v.toLowerCase();
+    var m = items.filter(function(x){return (x.name+' '+x.size+' '+x.code).toLowerCase().indexOf(ql)>=0;});
+    if (m.length === 1) { S.q=''; $('scan').value=''; add(m[0].id, null); }
+    else if (m.length === 0) { S.flash = 'No item or batch found for "' + v + '"'; render(); }
+  }
+
+  function renderTiles(){
+    var q = S.q.trim().toLowerCase();
+    $('tiles').innerHTML = items.filter(function(i){
+      return !q || (i.name+' '+i.size+' '+i.code).toLowerCase().indexOf(q)>=0;
+    }).map(function(i){
+      var total = i.batches.reduce(function(a,x){return a+x.qty;},0);
+      var inC = S.lines.filter(function(l){return l.id===i.id;}).reduce(function(a,l){return a+l.qty;},0);
+      var avail = total - inC, low = avail <= 5;
+      var next = i.batches.filter(function(x){return x.qty - used(i.id,x.b) > 0;})[0];
+      var near = !!(next && next.b && days(next.exp) <= 60);
+      var bt = !i.batches[0].b ? 'Components: first expiry first' : (next ? 'Next ' + next.b + ' · BB ' + fmtMY(next.exp) : 'No batch available');
+      return '<button class="tile" data-act="add" data-id="'+i.id+'">'+
+        '<span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:3px;flex:none;background:'+i.col+'"></span>'+
+        '<span style="font-size:14px;font-weight:600;line-height:1.25">'+esc(i.name)+'</span></span>'+
+        '<span class="muted" style="font-size:12.5px">'+esc(i.size)+'</span>'+
+        '<span style="font-size:12px;color:'+(near?'#8A5A00':'#5B6B61')+';font-weight:'+(near?700:500)+'">'+esc(bt)+'</span>'+
+        '<span style="display:flex;justify-content:space-between;align-items:baseline;margin-top:auto;padding-top:6px">'+
+        '<span style="font-size:16px;font-weight:700">'+money0(i.mrp)+'</span>'+
+        '<span style="font-size:12px;font-weight:'+(low?700:500)+';color:'+(low?'#8A5A00':'#5B6B61')+'">'+(avail<=0?'Out of stock':avail+' left')+'</span></span>'+
+        (i.sub?'<span style="position:absolute;top:8px;right:8px;background:#EDE7F6;color:#4A3580;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px">Bundle</span>':'')+
+        (near?'<span style="position:absolute;top:8px;right:8px;background:#FBF0D5;color:#6B4600;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px">Expires soon</span>':'')+
+        (inC>0?'<span class="badge" style="position:absolute;top:-8px;right:-6px;font-size:13px;padding:3px 8px">'+inC+'</span>':'')+
+        '</button>';
+    }).join('');
+  }
+
+  function renderLines(){
+    if (!S.lines.length) { $('lines').innerHTML = '<div class="muted" style="padding:48px 0;text-align:center;font-size:15px">Scan an item to start the bill</div>'; return; }
+    $('lines').innerHTML = S.lines.map(function(l){
+      var it = item(l.id), bt = it.batches.filter(function(x){return x.b===l.b;})[0];
+      var near = !!l.b && days(bt.exp) <= 60;
+      var bl = l.b ? 'Batch ' + l.b + ' · BB ' + fmt(bt.exp) + (near ? ' · expires soon' : '') : 'Components picked first expiry first';
+      return '<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #EEF1EC">'+
+        '<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:600;line-height:1.25">'+esc(it.name)+' <span class="muted" style="font-weight:500">'+esc(it.size)+'</span></div>'+
+        (it.sub?'<div class="muted" style="font-size:12px;line-height:1.3">'+esc(it.sub)+'</div>':'')+
+        '<div style="font-size:12px;line-height:1.3;color:'+(near?'#8A5A00':'#5B6B61')+';font-weight:'+(near?700:500)+'">'+esc(bl)+'</div>'+
+        '<div class="muted" style="font-size:12.5px">'+money(it.mrp)+' each</div></div>'+
+        '<div style="display:flex;align-items:center;gap:6px">'+
+        '<button class="stp" aria-label="Decrease quantity" data-act="dec" data-id="'+l.id+'" data-b="'+esc(l.b)+'">−</button>'+
+        '<span style="min-width:20px;text-align:center;font-size:16px;font-weight:700">'+l.qty+'</span>'+
+        '<button class="stp" aria-label="Increase quantity" data-act="inc" data-id="'+l.id+'" data-b="'+esc(l.b)+'">+</button></div>'+
+        '<div style="width:78px;text-align:right;font-size:15px;font-weight:700">'+money(it.mrp*l.qty)+'</div></div>';
+    }).join('');
+  }
+
+  function payLabel(c){
+    var m = S.mode;
+    if (m==='cash') return 'Cash';
+    if (m==='upi') return 'UPI';
+    if (m==='cn') return 'Credit note CN-000007 + ' + money(Math.max(0,c.total-250)) + ' balance';
+    return 'Credit (B2B invoice)';
+  }
+  function roundStr(c){ return (c.round>=0?'+':'−') + money(Math.abs(c.round)); }
+
+  function renderPay(c){
+    var o = $('payOvl');
+    if (S.screen !== 'pay') { o.classList.add('hide'); o.innerHTML=''; return; }
+    o.classList.remove('hide');
+    var m = S.mode;
+    function tab(k,label){ return '<button class="'+(m===k?'on':'')+'" data-act="pay" data-mode="'+k+'">'+label+'</button>'; }
+    var body = '';
+    if (m==='cash') {
+      var chg = Math.max(0, S.tendered - c.total);
+      var quick = '<button class="btn" style="min-width:92px" data-act="tender" data-val="exact">Exact</button>' +
+        [500,1000,2000].filter(function(v){return v>=c.total||v===500;}).map(function(v){
+          return '<button class="btn" style="min-width:92px" data-act="tender" data-val="'+v+'">'+money0(v)+'</button>';
+        }).join('');
+      body = '<div style="flex:1;display:flex;flex-direction:column;gap:14px"><div class="muted" style="font-size:14px">Cash received</div>'+
+        '<div style="font-size:44px;font-weight:700;line-height:1">'+money0(S.tendered)+'</div>'+
+        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+quick+'</div>'+
+        '<div style="margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #EEF1EC;padding-top:12px">'+
+        '<span style="font-size:15px;font-weight:600">Change to return</span><span style="font-size:28px;font-weight:700;color:#1F6B45">'+money(chg)+'</span></div></div>';
+    } else if (m==='upi') {
+      body = '<div style="flex:1;display:flex;gap:20px;align-items:center"><div style="width:196px;padding:8px;border:1px solid #DDE3DB;border-radius:12px;flex:none"><div class="qrg">'+qrHtml+'</div></div>'+
+        '<div style="display:flex;flex-direction:column;gap:8px"><div style="font-size:18px;font-weight:700">Customer scans to pay '+money0(c.total)+'</div>'+
+        '<div class="muted" style="font-size:14px;line-height:1.4">Sample QR for the mock. The real code carries the UPI ID, bill amount and bill number, so the amount is pre-filled.</div>'+
+        '<div style="font-size:14px"><span class="muted">UPI ID</span> [YOUR UPI ID]</div>'+
+        '<div style="font-size:13px;background:#FBF0D5;color:#6B4600;padding:8px 10px;border-radius:8px;line-height:1.4">Confirm only after the soundbox or UPI app shows the payment.</div></div></div>';
+    } else if (m==='cn') {
+      var applied = Math.min(250, c.total);
+      body = '<div style="flex:1;display:flex;flex-direction:column;gap:12px"><label for="cn" class="muted" style="font-size:14px">Scan or enter credit note number</label>'+
+        '<input id="cn" type="text" value="CN-000007" style="height:48px;border-radius:10px;border:1px solid #C9D2C8;padding:0 14px;font-size:17px">'+
+        '<div style="border:1px solid #BFD9C8;background:#E3F0E7;border-radius:12px;padding:14px;display:flex;justify-content:space-between">'+
+        '<div><div style="font-weight:700">CN-000007</div><div class="muted" style="font-size:13px">Issued 28 Sep 2026 · +91 98XXXXXX21</div></div>'+
+        '<div style="text-align:right"><div class="muted" style="font-size:12px">Balance</div><div style="font-size:22px;font-weight:700">₹250.00</div></div></div>'+
+        '<div class="row"><span>Applied from credit note</span><span>'+money(applied)+'</span></div>'+
+        '<div class="row"><span>Remaining to pay by cash or UPI</span><span style="font-weight:700">'+money(Math.max(0,c.total-applied))+'</span></div></div>';
+    } else {
+      body = '<div style="flex:1;display:flex;flex-direction:column;gap:12px"><div class="muted" style="font-size:14px">B2B customer (credit sale)</div>'+
+        '<div style="border:1px solid #DDE3DB;border-radius:12px;padding:14px"><div style="font-weight:700;font-size:16px">Sai Organics Store</div>'+
+        '<div class="muted" style="font-size:13px;margin-top:2px">GSTIN [CUSTOMER GSTIN] · Maharashtra</div>'+
+        '<div style="display:flex;gap:24px;margin-top:10px;font-size:14px"><div><div class="muted" style="font-size:12px">Credit limit</div>₹50,000</div><div><div class="muted" style="font-size:12px">Outstanding</div>₹12,400</div><div><div class="muted" style="font-size:12px">Terms</div>15 days</div></div></div>'+
+        '<div style="font-size:13px;background:#E3F0E7;padding:10px 12px;border-radius:8px;line-height:1.4">This creates a B2B tax invoice from the INV series instead of a retail bill, with batch number and best-before on each line, and adds '+money0(c.total)+' to the customer\'s outstanding.</div></div>';
+    }
+    var labels = {cash:'Complete bill',upi:'UPI received, complete bill',cn:'Apply and complete',b2b:'Create B2B invoice'};
+    var cant = (m==='cash' && S.tendered < c.total);
+    o.innerHTML = '<div style="width:820px;height:560px;background:#fff;border-radius:16px;display:flex;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)">'+
+      '<div style="width:250px;background:#12301F;color:#fff;padding:24px;box-sizing:border-box;display:flex;flex-direction:column;gap:6px">'+
+      '<div style="font-size:13px;color:#8FB09C;font-weight:600;letter-spacing:.06em;text-transform:uppercase">Amount due</div>'+
+      '<div style="font-size:38px;font-weight:700">'+money0(c.total)+'</div>'+
+      '<div style="font-size:13px;color:#CFE2D6">Bill '+billNoStr()+'</div>'+
+      '<div style="font-size:13px;color:#CFE2D6">'+c.count+' items · '+esc(c.ch.name)+'</div>'+
+      '<div style="font-size:13px;color:#CFE2D6">Discount '+c.pct+'% (− '+money(c.discAmt)+')</div>'+
+      '<div style="margin-top:auto;font-size:12px;color:#8FB09C">GST included. Round-off '+roundStr(c)+'.</div></div>'+
+      '<div style="flex:1;min-width:0;padding:24px;display:flex;flex-direction:column;gap:16px">'+
+      '<div class="seg" style="align-self:flex-start">'+tab('cash','Cash')+tab('upi','UPI')+tab('cn','Credit note')+tab('b2b','B2B credit')+'</div>'+
+      body+
+      '<div style="display:flex;justify-content:flex-end;gap:10px"><button class="btn" data-act="cancelPay">Back to bill</button>'+
+      '<button class="btn p" style="min-width:200px" data-act="complete"'+(cant?' disabled':'')+'>'+labels[m]+'</button></div></div></div>';
+  }
+
+  function renderReceipt(c){
+    var o = $('rcpOvl');
+    if (S.screen !== 'receipt') { o.classList.add('hide'); o.innerHTML=''; return; }
+    o.classList.remove('hide');
+    var lines = S.lines.map(function(l){
+      var it = item(l.id), bt = it.batches.filter(function(x){return x.b===l.b;})[0];
+      return '<div><div style="display:flex;justify-content:space-between;gap:8px"><span>'+l.qty+' x '+esc(it.name)+' '+esc(it.size)+'</span><span>'+money(it.mrp*l.qty)+'</span></div>'+
+        (l.b?'<div style="font-size:11px;color:#444">&nbsp;&nbsp;Batch '+esc(l.b)+' · BB '+fmt(bt.exp)+'</div>':'')+'</div>';
+    }).join('');
+    function r(a,b){ return '<div style="display:flex;justify-content:space-between"><span>'+a+'</span><span>'+b+'</span></div>'; }
+    var dash = '<div style="border-top:1px dashed #333;margin:8px 0"></div>';
+    o.innerHTML = '<div style="width:820px;height:700px;background:#fff;border-radius:16px;display:flex;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)">'+
+      '<div style="width:390px;background:#E9EDE7;padding:20px;box-sizing:border-box;overflow:auto">'+
+      '<div style="background:#fff;padding:18px 16px;font-family:\'Courier New\',monospace;font-size:12px;line-height:1.45;box-shadow:0 1px 4px rgba(0,0,0,.2)">'+
+      '<div style="text-align:center;font-weight:700;font-size:15px">[YOUR BRAND NAME]</div>'+
+      '<div style="text-align:center">[ADDRESS], Mumbai</div><div style="text-align:center">GSTIN [NUMBER] · FSSAI [NUMBER]</div>'+dash+
+      r('Bill '+billNoStr(),'06 Oct 2026 15:42')+'<div>'+esc(c.ch.name)+' · Market Stall · Asha</div>'+dash+lines+dash+
+      r('Subtotal',money(c.gross))+r('Discount '+c.pct+'%','− '+money(c.discAmt))+r('Taxable value',money(c.taxable))+
+      r('CGST 2.5% / SGST 2.5%',money(c.tax))+r('Round-off',roundStr(c))+
+      '<div style="display:flex;justify-content:space-between;font-weight:700;font-size:15px;margin-top:4px"><span>TOTAL</span><span>'+money0(c.total)+'</span></div>'+
+      '<div style="margin-top:4px">Paid by: '+esc(payLabel(c))+'</div>'+dash+
+      '<div style="text-align:center">Scan to pay by UPI</div>'+
+      '<div style="width:96px;margin:6px auto;border:1px solid #333;padding:3px"><div class="qrg">'+qrHtml+'</div></div>'+
+      '<div style="text-align:center">Thank you. Visit again.</div></div></div>'+
+      '<div class="act" style="flex:1;padding:28px;display:flex;flex-direction:column;gap:14px">'+
+      '<div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:34px;border-radius:999px;background:#1F6B45;display:inline-flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>'+
+      '<div><div style="font-size:20px;font-weight:700">Bill '+billNoStr()+' saved</div><div class="muted" style="font-size:14px">'+money0(c.total)+' · '+esc(payLabel(c))+'</div></div></div>'+
+      '<button class="btn p" style="min-height:52px;font-size:16px" data-act="print">Print receipt</button>'+
+      '<button class="btn" style="min-height:52px" data-act="print">Save as PDF</button>'+
+      '<div style="border-top:1px solid #EEF1EC;padding-top:14px;display:flex;flex-direction:column;gap:8px">'+
+      '<label for="ph" style="font-size:14px;font-weight:600">Customer phone (optional)</label>'+
+      '<input id="ph" type="tel" placeholder="+91" value="'+esc(S.phone)+'" style="height:48px;border-radius:10px;border:1px solid #C9D2C8;padding:0 14px;font-size:17px">'+
+      '<button class="btn" style="min-height:52px" data-act="wa">Share on WhatsApp</button>'+
+      '<div class="muted" style="font-size:12.5px;line-height:1.4">Opens WhatsApp with a receipt message. Sent manually for now; the Business API can replace this later.</div></div>'+
+      '<div style="flex:1"></div><button class="btn p" style="min-height:60px;font-size:17px" data-act="newBill">New bill</button></div></div>';
+    var ph = $('ph');
+    if (ph) ph.addEventListener('input', function(){ S.phone = ph.value; });
+  }
+
+  function render(){
+    var c = calc();
+    $('channels').innerHTML = channels.map(function(ch){
+      return '<button class="'+(ch.id===S.channel?'on':'')+'" data-act="chan" data-id="'+ch.id+'">'+ch.name+'</button>';
+    }).join('');
+    $('billNo').textContent = billNoStr();
+    $('heldCount').textContent = S.held.length;
+    $('flash').textContent = S.flash;
+    renderTiles(); renderLines();
+    $('itemCount').textContent = c.count;
+    $('subtotal').textContent = money(c.gross);
+    $('maxPct').textContent = c.ch.max; $('chName').textContent = c.ch.name;
+    $('discPct').textContent = c.pct; $('discAmt').textContent = money(c.discAmt);
+    $('discDown').disabled = c.pct <= 0; $('discUp').disabled = c.pct >= c.ch.max;
+    $('taxable').textContent = money(c.taxable); $('taxAmt').textContent = money(c.tax);
+    $('roundOff').textContent = roundStr(c); $('total').textContent = money0(c.total);
+    var none = S.lines.length === 0;
+    Array.prototype.forEach.call(document.querySelectorAll('.payb'), function(b){ b.disabled = none; });
+    renderPay(c); renderReceipt(c);
+  }
+
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-act]');
+    if (!t || t.disabled) return;
+    var a = t.dataset.act, c = calc(), id = t.dataset.id ? parseInt(t.dataset.id,10) : null;
+    if (a==='add') add(id, null);
+    else if (a==='inc') inc(id, t.dataset.b);
+    else if (a==='dec') dec(id, t.dataset.b);
+    else if (a==='chan') { var ch = channels.filter(function(x){return x.id===t.dataset.id;})[0]; S.channel = ch.id; S.disc = ch.def; render(); }
+    else if (a==='discUp') { S.disc = Math.min(c.ch.max, c.pct+1); render(); }
+    else if (a==='discDown') { S.disc = Math.max(0, c.pct-1); render(); }
+    else if (a==='sim') {
+      var list = [];
+      items.forEach(function(it){ it.batches.forEach(function(bt){ if (bt.b) list.push({it:it,bt:bt,code:it.code+'-'+bt.b}); }); });
+      var e2 = list[S.scanIdx % list.length]; S.scanIdx++;
+      add(e2.it.id, e2.bt.b, e2.code);
+    }
+    else if (a==='hold') { S.held.push({lines:S.lines,channel:S.channel,disc:S.disc}); S.lines=[]; S.flash='Bill held. Resume it from Held bills.'; render(); }
+    else if (a==='resume') {
+      if (!S.held.length || S.lines.length) { S.flash = S.held.length ? 'Finish or hold the current bill first' : 'No held bills'; }
+      else { var h = S.held.pop(); S.lines=h.lines; S.channel=h.channel; S.disc=h.disc; S.flash='Held bill resumed'; }
+      render();
+    }
+    else if (a==='pay') { S.screen='pay'; S.mode=t.dataset.mode; render(); }
+    else if (a==='tender') { S.tendered = t.dataset.val==='exact' ? c.total : parseInt(t.dataset.val,10); render(); }
+    else if (a==='cancelPay') { S.screen='sale'; render(); }
+    else if (a==='complete') { S.screen='receipt'; render(); }
+    else if (a==='newBill') { S.screen='sale'; S.lines=[]; S.billNo++; S.tendered=0; S.phone=''; S.disc=c.ch.def; S.flash='New bill started'; render(); $('scan').focus(); }
+    else if (a==='print') { window.print(); }
+    else if (a==='wa') {
+      var digits = (S.phone||'').replace(/\D/g,'');
+      var msg = encodeURIComponent('Thank you for shopping with us. Bill ' + billNoStr() + ' total ' + money0(c.total) + '.');
+      window.open('https://wa.me/' + (digits ? digits : '') + '?text=' + msg, '_blank');
+    }
+  });
+
+  var scan = $('scan');
+  scan.addEventListener('input', function(){ S.q = scan.value; renderTiles(); });
+  scan.addEventListener('keydown', function(e){ if (e.key === 'Enter') scanInput(scan.value.trim()); });
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "farm-sales",
+  "private": true,
+  "description": "Single Vercel project: Vite app (frontend/) + NestJS API function (backend/ via api/index.mjs)",
+  "scripts": {
+    "install:all": "npm ci --prefix backend && npm ci --prefix frontend",
+    "build": "node scripts/vercel-build.mjs",
+    "dev:api": "npm run start:dev --prefix backend",
+    "dev:web": "npm run dev --prefix frontend"
+  },
+  "engines": { "node": "22.x" }
+}

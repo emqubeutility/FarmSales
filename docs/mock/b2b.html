@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B2B and Receivables</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#17261E;font-variant-numeric:tabular-nums}
+a{text-decoration:none}
+button,input,select{font-family:inherit}
+button{cursor:pointer}
+.app{display:flex;width:1280px;height:800px;background:#F3F5F1;overflow:hidden}
+.side{width:208px;background:#12301F;padding:20px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:2px;flex:none}
+.brand{color:#fff;font-weight:700;font-size:16px;padding:4px 10px 12px}
+.nav{display:block;color:#CFE2D6;font-size:14px;font-weight:500;padding:9px 10px;border-radius:8px}
+.nav:hover{background:#1D4531}
+.nav.on{background:#E3F0E7;color:#12301F;font-weight:700}
+.grp{color:#8FB09C;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:12px 10px 4px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{height:60px;flex:none;background:#fff;border-bottom:1px solid #DDE3DB;display:flex;align-items:center;padding:0 24px;gap:14px}
+.top h1{margin:0;font-size:20px;font-weight:700}
+.body{flex:1;min-height:0;padding:20px 24px;overflow:hidden;display:flex;flex-direction:column;gap:16px}
+.card{background:#fff;border:1px solid #DDE3DB;border-radius:12px}
+.muted{color:#5B6B61}
+.btn{min-height:40px;padding:0 16px;border-radius:10px;border:1px solid #C9D2C8;background:#fff;color:#17261E;font-size:14px;font-weight:600}
+.btn.p{background:#1F6B45;border-color:#1F6B45;color:#fff}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:12px;color:#5B6B61;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:9px 14px;border-bottom:1px solid #DDE3DB;background:#FAFBF9}
+.tbl td{padding:10px 14px;border-bottom:1px solid #EEF1EC}
+.r{text-align:right}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.g{background:#E3F0E7;color:#14502F}.a{background:#FBF0D5;color:#6B4600}.rd{background:#FBE4E1;color:#8A1F1F}.b{background:#E6EDF8;color:#1D3F78}
+.age{padding:14px 16px}
+.age .l{font-size:13px;font-weight:600;color:#5B6B61}
+.age .v{font-size:24px;font-weight:700;margin-top:2px}
+</style>
+<style>.app{width:100%;min-width:1280px;height:100vh;min-height:800px}</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">[YOUR BRAND]</div>
+    <div class="grp">Sell</div>
+    <a class="nav" href="dashboard.html">Dashboard</a>
+    <a class="nav" href="pos.html">POS</a>
+    <a class="nav" href="orders.html">Order desk</a>
+    <a class="nav" href="returns.html">Returns</a>
+    <div class="grp">Stock</div>
+    <a class="nav" href="items.html">Items</a>
+    <a class="nav" href="receive-stock.html">Receive stock</a>
+    <a class="nav" href="packing.html">Packing</a>
+    <a class="nav" href="batches.html">Batches</a>
+    <a class="nav" href="labels.html">Barcode labels</a>
+    <div class="grp">Money</div>
+    <a class="nav on" href="b2b.html">B2B and receivables</a>
+    <a class="nav" href="reports.html">Reports</a>
+    <div class="grp">Admin</div>
+    <a class="nav" href="settings.html">Settings</a>
+  </aside>
+  <div class="main">
+    <div class="top">
+      <h1>B2B and receivables</h1>
+      <span class="pill b">Sample data</span>
+      <div style="flex:1"></div>
+      <button class="btn">Add customer</button>
+      <button class="btn">Record receipt</button>
+      <button class="btn p">New tax invoice</button>
+    </div>
+    <div class="body">
+      <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px">
+        <div class="card age"><div class="l">Total outstanding</div><div class="v">₹1,24,600</div></div>
+        <div class="card age"><div class="l">Not yet due</div><div class="v">₹58,400</div></div>
+        <div class="card age"><div class="l">1 to 15 days late</div><div class="v">₹27,900</div></div>
+        <div class="card age"><div class="l">16 to 30 days late</div><div class="v">₹21,500</div></div>
+        <div class="card age"><div class="l">Over 30 days late</div><div class="v" style="color:#8A1F1F">₹16,800</div></div>
+      </div>
+      <div class="card" style="overflow:hidden;flex:1">
+        <div style="padding:12px 16px;border-bottom:1px solid #EEF1EC;display:flex;gap:8px"><span class="pill g">Customers</span><span class="pill" style="background:#EEF1EC;color:#3E4F45">Invoices</span><span class="pill" style="background:#EEF1EC;color:#3E4F45">Receipts</span></div>
+        <table class="tbl">
+          <thead><tr><th>Customer</th><th>GSTIN</th><th>Terms</th><th class="r">Credit limit</th><th class="r">Outstanding</th><th>Oldest invoice</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>Sai Organics Store</b></td><td>[GSTIN]</td><td>15 days</td><td class="r">₹50,000</td><td class="r">₹12,400</td><td>INV-000212 · 3 days</td><td><span class="pill g">Current</span></td></tr>
+            <tr><td><b>Green Bowl Café</b></td><td>[GSTIN]</td><td>30 days</td><td class="r">₹75,000</td><td class="r">₹46,200</td><td>INV-000198 · 12 days late</td><td><span class="pill a">Late</span></td></tr>
+            <tr><td><b>Nature's Basket Mumbai</b></td><td>[GSTIN]</td><td>30 days</td><td class="r">₹60,000</td><td class="r">₹29,200</td><td>INV-000187 · 34 days late</td><td><span class="pill rd">Overdue</span></td></tr>
+            <tr><td><b>Kumar Hostel Mess</b></td><td>[GSTIN]</td><td>15 days</td><td class="r">₹30,000</td><td class="r">₹36,800</td><td>INV-000203 · 9 days late</td><td><span class="pill rd">Over limit</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="muted" style="font-size:13px">B2B invoices use their own series (INV-) and are posted to Zoho Books individually, with GSTIN detail. Receipts are matched to one or more invoices. Each invoice line shows its batch number and best-before date.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
