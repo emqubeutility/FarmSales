@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { finalizeSaleSchema, holdSaleSchema, resumeFinalizeSaleSchema, updateHeldSaleSchema } from '@farm-sales/shared';
 import type { FinalizeSaleDto, HoldSaleDto, ResumeFinalizeSaleDto, UpdateHeldSaleDto } from '@farm-sales/shared';
 import { AuthenticatedGuard } from '../auth/guards/authenticated.guard.js';
@@ -16,8 +16,9 @@ export class SalesController {
   constructor(private readonly sales: SalesService) {}
 
   @Get()
-  list() {
-    return this.sales.list();
+  list(@Query('limit') limit?: string) {
+    const n = Number.parseInt(limit ?? '', 10);
+    return this.sales.list(Number.isFinite(n) ? n : undefined);
   }
 
   @Get('held')

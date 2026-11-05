@@ -22,6 +22,21 @@ export class UsersService {
     return this.prisma.user.findUnique({ where: { id } });
   }
 
+  private readonly userCache = new Map<string, { user: Awaited<ReturnType<UsersService['findById']>>; expires: number }>();
+
+  /**
+   * findById for the per-request session check. Without this every API call pays a database round trip
+   * just to re-load the logged-in user. Cached for 30 s; update() drops the entry, so deactivating or
+   * changing a user takes effect at once on this instance and within 30 s on any other.
+   */
+  async findByIdCached(id: string) {
+    const hit = this.userCache.get(id);
+    if (hit && hit.expires > Date.now()) return hit.user;
+    const user = await this.findById(id);
+    this.userCache.set(id, { user, expires: Date.now() + 30_000 });
+    return user;
+  }
+
   list() {
     return this.prisma.user.findMany({ select: safeSelect, orderBy: { name: 'asc' } });
   }
@@ -58,6 +73,6 @@ export class UsersService {
       });
       await this.auditLog.record(tx, { userId: actingUserId, entity: 'User', entityId: id, action: 'update', before, after });
       return after;
-    });
+    }).finally(() => this.userCache.delete(id));
   }
 }

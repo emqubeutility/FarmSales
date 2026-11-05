@@ -49,16 +49,23 @@ export class SalesService {
     private readonly packUnits: PackUnitsService,
   ) {}
 
-  list() {
-    return this.prisma.sale.findMany({ orderBy: { createdAt: 'desc' }, include });
+  list(limit = 200) {
+    // Newest first, capped: the list used to load every bill ever made. ?limit= overrides (max 1000).
+    return this.prisma.sale.findMany({ relationLoadStrategy: 'join', orderBy: { createdAt: 'desc' }, take: Math.min(Math.max(limit, 1), 1000), include });
   }
 
   listHeld() {
-    return this.prisma.sale.findMany({ where: { status: 'HELD' }, orderBy: { createdAt: 'asc' }, include });
+    return this.prisma.sale.findMany({ relationLoadStrategy: 'join', where: { status: 'HELD' }, orderBy: { createdAt: 'asc' }, include });
+  }
+
+  /** One query for all the items on a bill instead of one per line (each round trip is ~270 ms to Neon us-east-2). */
+  private async loadItems(tx: PrismaTx, ids: string[]) {
+    const items = await tx.item.findMany({ where: { id: { in: [...new Set(ids)] } } });
+    return new Map(items.map((i) => [i.id, i]));
   }
 
   async findOne(id: string) {
-    const sale = await this.prisma.sale.findUnique({ where: { id }, include });
+    const sale = await this.prisma.sale.findUnique({ where: { id }, relationLoadStrategy: 'join', include });
     if (!sale) throw new NotFoundException(`Sale ${id} not found`);
     return sale;
   }
@@ -72,8 +79,9 @@ export class SalesService {
       const sale = await tx.sale.create({
         data: { salesPoint: dto.salesPoint, channel: dto.channel, status: 'HELD', discountPct: dto.discountPct },
       });
+      const itemsById = await this.loadItems(tx, dto.lines.map((l) => l.itemId));
       for (const line of dto.lines) {
-        const item = await tx.item.findUnique({ where: { id: line.itemId } });
+        const item = itemsById.get(line.itemId);
         if (!item) throw new NotFoundException(`Item ${line.itemId} not found`);
         const taxRatePct = await this.taxClasses.effectiveRatePct(tx, item.taxClassId);
         await tx.saleLine.create({
@@ -95,8 +103,9 @@ export class SalesService {
         data: { salesPoint: dto.salesPoint, channel: dto.channel, status: 'HELD', discountPct: dto.discountPct },
       });
       const lines: PendingSaleLine[] = [];
+      const itemsById = await this.loadItems(tx, dto.lines.map((l) => l.itemId));
       for (const line of dto.lines) {
-        const item = await tx.item.findUnique({ where: { id: line.itemId } });
+        const item = itemsById.get(line.itemId);
         if (!item) throw new NotFoundException(`Item ${line.itemId} not found`);
         const taxRatePct = await this.taxClasses.effectiveRatePct(tx, item.taxClassId);
         const saleLine = await tx.saleLine.create({
@@ -141,8 +150,9 @@ export class SalesService {
       if (dto.lines) {
         await this.packUnits.release(tx, `Hold:${id}`);
         await tx.saleLine.deleteMany({ where: { saleId: id } });
+        const itemsById = await this.loadItems(tx, dto.lines.map((l) => l.itemId));
         for (const line of dto.lines) {
-          const item = await tx.item.findUnique({ where: { id: line.itemId } });
+          const item = itemsById.get(line.itemId);
           if (!item) throw new NotFoundException(`Item ${line.itemId} not found`);
           const taxRatePct = await this.taxClasses.effectiveRatePct(tx, item.taxClassId);
           await tx.saleLine.create({ data: { saleId: id, itemId: item.id, qty: line.qty, mrpPaise: item.mrpPaise ?? 0, taxRatePct, batchId: line.batchId ?? null } });
@@ -342,7 +352,7 @@ export class SalesService {
   }
 
   private getFullSale(tx: PrismaTx, id: string) {
-    return tx.sale.findUnique({ where: { id }, include });
+    return tx.sale.findUnique({ where: { id }, relationLoadStrategy: 'join', include });
   }
 
   /**

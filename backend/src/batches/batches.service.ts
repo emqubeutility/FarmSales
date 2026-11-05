@@ -68,6 +68,7 @@ export class BatchesService {
       }),
     };
     return this.prisma.batch.findMany({
+      relationLoadStrategy: 'join',
       where,
       orderBy: { code: 'asc' },
       include: { item: true, supplier: true, stockBalances: true },
@@ -77,6 +78,7 @@ export class BatchesService {
   async findOne(id: string) {
     const batch = await this.prisma.batch.findUnique({
       where: { id },
+      relationLoadStrategy: 'join',
       include: {
         item: true,
         supplier: true,

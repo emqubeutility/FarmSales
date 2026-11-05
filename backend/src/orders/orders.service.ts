@@ -29,13 +29,14 @@ export class OrdersService {
   list(status?: string) {
     return this.prisma.order.findMany({
       where: status ? { status: status as never } : undefined,
+      relationLoadStrategy: 'join',
       orderBy: { createdAt: 'desc' },
       include,
     });
   }
 
   async findOne(id: string) {
-    const order = await this.prisma.order.findUnique({ where: { id }, include });
+    const order = await this.prisma.order.findUnique({ where: { id }, relationLoadStrategy: 'join', include });
     if (!order) throw new NotFoundException(`Order ${id} not found`);
     return order;
   }

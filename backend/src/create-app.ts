@@ -21,10 +21,24 @@ export async function createApp(): Promise<NestExpressApplication> {
   });
   const PgSessionStore = pgSession(session);
 
+  // express-session calls store.touch() on EVERY request to extend the cookie, and holds the response
+  // until that UPDATE finishes — one extra database round trip per call. Only touch a given session
+  // once every 10 minutes; the cookie lifetime is 12 h so this loses nothing.
+  class ThrottledTouchStore extends PgSessionStore {
+    private readonly lastTouch = new Map<string, number>();
+    touch(sid: string, sess: session.SessionData, cb?: (err?: unknown) => void) {
+      const now = Date.now();
+      if ((this.lastTouch.get(sid) ?? 0) > now - 10 * 60_000) return cb?.();
+      this.lastTouch.set(sid, now);
+      if (this.lastTouch.size > 5000) this.lastTouch.clear();
+      return super.touch(sid, sess, cb as never);
+    }
+  }
+
   app.use(
     session({
       // The "session" table is created by a Prisma migration.
-      store: new PgSessionStore({ pool: pgPool }),
+      store: new ThrottledTouchStore({ pool: pgPool }),
       secret: process.env.SESSION_SECRET ?? 'dev-only-secret-change-me',
       resave: false,
       saveUninitialized: false,

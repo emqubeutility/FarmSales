@@ -23,7 +23,7 @@ export class ItemsService {
         ],
       }),
     };
-    return this.prisma.item.findMany({ where, orderBy: { name: 'asc' }, include: { taxClass: true, category: true } });
+    return this.prisma.item.findMany({ relationLoadStrategy: 'join', where, orderBy: { name: 'asc' }, include: { taxClass: true, category: true } });
   }
 
   /**
@@ -32,6 +32,7 @@ export class ItemsService {
    */
   async inventory() {
     const items = await this.prisma.item.findMany({
+      relationLoadStrategy: 'join',
       where: { active: true },
       orderBy: { name: 'asc' },
       include: {
@@ -72,7 +73,7 @@ export class ItemsService {
   }
 
   async findOne(id: string) {
-    const item = await this.prisma.item.findUnique({ where: { id }, include: { taxClass: true, category: true } });
+    const item = await this.prisma.item.findUnique({ where: { id }, relationLoadStrategy: 'join', include: { taxClass: true, category: true } });
     if (!item) throw new NotFoundException(`Item ${id} not found`);
     return item;
   }

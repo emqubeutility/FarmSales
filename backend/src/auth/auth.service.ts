@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   async findSafeUserById(id: string): Promise<SafeUser | null> {
-    const user = await this.usersService.findById(id);
+    const user = await this.usersService.findByIdCached(id);
     if (!user || !user.active) return null;
     return toSafeUser(user);
   }

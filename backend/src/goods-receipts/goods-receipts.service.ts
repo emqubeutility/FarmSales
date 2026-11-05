@@ -20,11 +20,11 @@ export class GoodsReceiptsService {
   ) {}
 
   list() {
-    return this.prisma.goodsReceipt.findMany({ orderBy: { billDate: 'desc' }, include });
+    return this.prisma.goodsReceipt.findMany({ relationLoadStrategy: 'join', orderBy: { billDate: 'desc' }, include });
   }
 
   async findOne(id: string) {
-    const receipt = await this.prisma.goodsReceipt.findUnique({ where: { id }, include });
+    const receipt = await this.prisma.goodsReceipt.findUnique({ where: { id }, relationLoadStrategy: 'join', include });
     if (!receipt) throw new NotFoundException(`Goods receipt ${id} not found`);
     return receipt;
   }

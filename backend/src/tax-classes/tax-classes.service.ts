@@ -7,6 +7,8 @@ import type { PrismaTx } from '../common/prisma-tx.type.js';
 
 @Injectable()
 export class TaxClassesService {
+  private readonly rateCache = new Map<string, { rates: { ratePct: Prisma.Decimal; effectiveFrom: Date }[]; expires: number }>();
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly auditLog: AuditLogService,
@@ -14,6 +16,7 @@ export class TaxClassesService {
 
   list() {
     return this.prisma.taxClass.findMany({
+      relationLoadStrategy: 'join',
       orderBy: { name: 'asc' },
       include: { rates: { orderBy: { effectiveFrom: 'desc' } } },
     });
@@ -56,6 +59,7 @@ export class TaxClassesService {
     await this.findOne(taxClassId); // 404s if missing
     return this.prisma.$transaction(async (tx) => {
       const rate = await tx.taxRate.create({ data: { taxClassId, ratePct: dto.ratePct, effectiveFrom: dto.effectiveFrom } });
+      this.rateCache.delete(taxClassId);
       await this.auditLog.record(tx, { userId, entity: 'TaxRate', entityId: rate.id, action: 'create', after: rate });
       return rate;
     });
@@ -68,10 +72,17 @@ export class TaxClassesService {
    */
   async effectiveRatePct(tx: PrismaTx, taxClassId: string | null): Promise<Prisma.Decimal> {
     if (!taxClassId) throw new BadRequestException('Item has no tax class and cannot be sold');
-    const rate = await tx.taxRate.findFirst({
-      where: { taxClassId, effectiveFrom: { lte: new Date() } },
-      orderBy: { effectiveFrom: 'desc' },
-    });
+    // Rates change rarely, so keep each class's rate list in memory for a minute instead of paying a
+    // database round trip per bill line. addRate() clears the cache; other server instances catch up
+    // within the TTL. The effective-date check is still done against "now" on every call.
+    const now = new Date();
+    let cached = this.rateCache.get(taxClassId);
+    if (!cached || cached.expires < Date.now()) {
+      const rates = await tx.taxRate.findMany({ where: { taxClassId }, orderBy: { effectiveFrom: 'desc' } });
+      cached = { rates, expires: Date.now() + 60_000 };
+      this.rateCache.set(taxClassId, cached);
+    }
+    const rate = cached.rates.find((r) => r.effectiveFrom <= now);
     if (!rate) throw new BadRequestException(`No effective tax rate configured for tax class ${taxClassId}`);
     return rate.ratePct;
   }
