@@ -14,7 +14,11 @@ export class BusinessProfileService {
 
   // Self-healing getOrCreate — no seed step required. Starts as a placeholder; CLAUDE.md forbids
   // inventing GSTIN/FSSAI/UPI details, so everything but the name-placeholder starts null.
-  get() {
+  // Read first: the row almost always exists, so a plain read is one round trip. The upsert only
+  // runs on the very first call, when the row has to be created.
+  async get() {
+    const existing = await this.prisma.businessProfile.findUnique({ where: { id: SINGLETON_ID } });
+    if (existing) return existing;
     return this.prisma.businessProfile.upsert({
       where: { id: SINGLETON_ID },
       create: { id: SINGLETON_ID, name: '[YOUR BRAND]' },
