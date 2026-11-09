@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
 import { api, ApiError } from '../lib/api.js';
 import { formatPaise, formatDate } from '../lib/format.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
+import { DEFAULT_SALE_FILTERS, filterSales, type SaleFilters } from '../lib/sale-filters.js';
+import { SalesFilterBar } from '../components/SalesFilterBar.js';
+import { BillSheet } from './BillPage.js';
 
 interface SaleLine { id: string; itemId: string; qty: string; mrpPaise: number; item: { name: string } }
 interface Sale {
@@ -26,18 +28,35 @@ const saleSortValues = {
   status: (s: Sale) => s.status,
 };
 
+// The API returns the newest bills first, capped at this many. Search and filters run on these.
+const LOAD_LIMIT = 1000;
+
 export function SalesPage() {
   const [sales, setSales] = useState<Sale[]>([]);
-  const sortable = useTableSort(sales, saleSortValues);
+  const [filters, setFilters] = useState<SaleFilters>(DEFAULT_SALE_FILTERS);
+  const visibleSales = useMemo(() => filterSales(sales, filters), [sales, filters]);
+  const sortable = useTableSort(visibleSales, saleSortValues);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editQtys, setEditQtys] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+  // The bill open in the modal, if any.
+  const [viewingId, setViewingId] = useState<string | null>(null);
 
   function load() {
-    api.get<Sale[]>('/sales').then(setSales);
+    api.get<Sale[]>(`/sales?limit=${LOAD_LIMIT}`).then(setSales);
   }
   useEffect(load, []);
+
+  // Escape closes the bill modal.
+  useEffect(() => {
+    if (!viewingId) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setViewingId(null);
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [viewingId]);
 
   function startEdit(sale: Sale) {
     setEditingId(sale.id);
@@ -97,6 +116,7 @@ export function SalesPage() {
       <div className="body" style={{ flexDirection: 'column' }}>
         {error && <div className="error-banner">{error}</div>}
         <div className="card" style={{ overflow: 'hidden' }}>
+          <SalesFilterBar filters={filters} onChange={setFilters} sales={sales} shown={visibleSales.length} total={sales.length} />
           <table className="tbl">
             <thead>
               <tr>
@@ -154,13 +174,13 @@ export function SalesPage() {
                     )}
                     {s.status === 'FINALIZED' && (
                       <div style={{ display: 'flex', gap: 6 }}>
-                        <Link to={`/bills/${s.id}`} className="btn">View bill</Link>
+                        <button type="button" className="btn" onClick={() => setViewingId(s.id)}>View bill</button>
                         <button type="button" className="btn" disabled={busyId === s.id} onClick={() => voidSale(s)}>Void</button>
                       </div>
                     )}
                     {s.status === 'VOID' && (
                       <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                        <Link to={`/bills/${s.id}`} className="btn">View bill</Link>
+                        <button type="button" className="btn" onClick={() => setViewingId(s.id)}>View bill</button>
                         <span className="muted" style={{ fontSize: 12.5 }}>Voided</span>
                       </div>
                     )}
@@ -170,10 +190,34 @@ export function SalesPage() {
               {sales.length === 0 && (
                 <tr><td colSpan={7} className="muted" style={{ padding: 20, textAlign: 'center' }}>No sales yet</td></tr>
               )}
+              {sales.length > 0 && visibleSales.length === 0 && (
+                <tr>
+                  <td colSpan={7} style={{ textAlign: 'center', padding: 40 }}>
+                    <div style={{ fontWeight: 600 }}>No bills match these filters</div>
+                    <div className="muted" style={{ marginTop: 5 }}>Try a different search or date range.</div>
+                    <button type="button" className="btn" style={{ marginTop: 14 }} onClick={() => setFilters(DEFAULT_SALE_FILTERS)}>
+                      Reset filters
+                    </button>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
       </div>
+      {viewingId && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Bill"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) setViewingId(null);
+          }}
+          style={{ position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(13, 29, 20, .45)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '24px 16px', overflowY: 'auto' }}
+        >
+          <BillSheet saleId={viewingId} onClose={() => setViewingId(null)} />
+        </div>
+      )}
     </>
   );
 }

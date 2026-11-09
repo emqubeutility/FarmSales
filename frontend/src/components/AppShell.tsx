@@ -40,9 +40,9 @@ const navGroups: { label: string; items: NavItem[] }[] = [
   {
     label: 'Administration',
     items: [
-      { to: '/customers', label: 'Customers', icon: '♙', planned: true },
+      { to: '/customers', label: 'Customers', icon: '♙' },
       { to: '/reports', label: 'Reports', icon: '▥', planned: true },
-      { to: '/users', label: 'User Management', icon: '♧', planned: true },
+      { to: '/users', label: 'User Management', icon: '♧' },
       { to: '/settings', label: 'Settings', icon: '⚙' },
     ],
   },

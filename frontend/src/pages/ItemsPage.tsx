@@ -1,7 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { api, ApiError } from '../lib/api.js';
 import { formatPaise } from '../lib/format.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
+import { ItemFilterDrawer } from '../components/ItemFilterDrawer.js';
+import {
+  DEFAULT_ITEM_FILTERS,
+  NONE_VALUE,
+  countActiveItemFilters,
+  filterItems,
+  type ItemFilters,
+} from '../lib/item-filters.js';
 
 interface TaxClass {
   id: string;
@@ -67,7 +75,15 @@ const itemSortValues = {
 
 export function ItemsPage() {
   const [items, setItems] = useState<Item[]>([]);
-  const sortableItems = useTableSort(items, itemSortValues);
+  // What the table shows. The tracking tabs and the Filters drawer both set the tracking filter.
+  const [filters, setFilters] = useState<ItemFilters>(DEFAULT_ITEM_FILTERS);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const filterButtonRef = useRef<HTMLButtonElement>(null);
+  const activeFilterCount = countActiveItemFilters(filters);
+  const trackedCount = items.filter((i) => i.trackBatches).length;
+  const untrackedCount = items.length - trackedCount;
+  const shownItems = useMemo(() => filterItems(items, filters), [items, filters]);
+  const sortableItems = useTableSort(shownItems, itemSortValues);
   const [taxClasses, setTaxClasses] = useState<TaxClass[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [search, setSearch] = useState('');
@@ -157,16 +173,91 @@ export function ItemsPage() {
     }
   }
 
+  const categoryOptions = useMemo(() => {
+    // Active categories plus any an item still uses, so every item can be found.
+    const byId = new Map<string, string>();
+    for (const c of categories) byId.set(c.id, c.name);
+    for (const i of items) if (i.category) byId.set(i.category.id, i.category.name);
+    return [
+      { value: '', label: 'All categories' },
+      { value: NONE_VALUE, label: 'No category' },
+      ...[...byId].sort((a, b) => a[1].localeCompare(b[1])).map(([value, label]) => ({ value, label })),
+    ];
+  }, [categories, items]);
+
+  const taxClassOptions = useMemo(
+    () => [
+      { value: '', label: 'All tax classes' },
+      { value: NONE_VALUE, label: 'No tax class' },
+      ...taxClasses.map((t) => ({ value: t.id, label: t.name })),
+    ],
+    [taxClasses],
+  );
+
+  // Returns focus to the Filters button when the drawer closes.
+  const closeFilters = useCallback(() => {
+    setFiltersOpen(false);
+    filterButtonRef.current?.focus();
+  }, []);
+
   return (
     <>
       <div className="top">
         <h1>Items</h1>
         <div style={{ flex: 1 }} />
         <input className="in" style={{ width: 240 }} placeholder="Search name or code" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <div role="group" aria-label="Show items" style={{ display: 'flex', background: '#EEF1EC', borderRadius: 10, padding: 3, gap: 2 }}>
+          {(
+            [
+              { value: 'all', label: `All (${items.length})` },
+              { value: 'tracked', label: `Batch tracked (${trackedCount})` },
+              { value: 'untracked', label: `No batch (${untrackedCount})` },
+            ] as const
+          ).map((f) => (
+            <button
+              key={f.value}
+              type="button"
+              aria-pressed={filters.tracking === f.value}
+              onClick={() => setFilters({ ...filters, tracking: f.value })}
+              style={{ minHeight: 36, padding: '0 12px', border: 0, borderRadius: 8, fontSize: 13, fontWeight: 600, background: filters.tracking === f.value ? '#fff' : 'transparent', color: filters.tracking === f.value ? '#12301F' : '#3E4F45' }}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+        <button
+          ref={filterButtonRef}
+          type="button"
+          className={`btn ft-filter-btn${activeFilterCount > 0 ? ' is-active' : ''}`}
+          aria-haspopup="dialog"
+          aria-expanded={filtersOpen}
+          onClick={() => setFiltersOpen(true)}
+        >
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="7" y1="12" x2="17" y2="12" />
+            <line x1="10" y1="18" x2="14" y2="18" />
+          </svg>
+          Filters
+          {activeFilterCount > 0 && <span className="ft-badge">{activeFilterCount}</span>}
+        </button>
         <button className="btn p" onClick={() => (showForm ? setShowForm(false) : openNew())}>
           {showForm ? 'Cancel' : 'Add item'}
         </button>
       </div>
+      {filtersOpen && (
+        <ItemFilterDrawer
+          initial={filters}
+          items={items}
+          categoryOptions={categoryOptions}
+          taxClassOptions={taxClassOptions}
+          onClose={closeFilters}
+          onApply={(next) => {
+            setFilters(next);
+            closeFilters();
+          }}
+        />
+      )}
       <div className="body">
         <div className="card" style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
           <table className="tbl">
@@ -175,7 +266,7 @@ export function ItemsPage() {
                 <SortTh label="Item" sortKey="item" sort={sortableItems.sort} onSort={sortableItems.toggle} />
                 <SortTh label="Category" sortKey="category" sort={sortableItems.sort} onSort={sortableItems.toggle} />
                 <SortTh label="MRP" sortKey="mrp" align="r" sort={sortableItems.sort} onSort={sortableItems.toggle} />
-                <SortTh label="Batches" sortKey="tracking" align="r" sort={sortableItems.sort} onSort={sortableItems.toggle} />
+                <SortTh label="Stock tracking" sortKey="tracking" sort={sortableItems.sort} onSort={sortableItems.toggle} />
                 <th></th>
               </tr>
             </thead>
@@ -190,12 +281,34 @@ export function ItemsPage() {
                   </td>
                   <td>{item.category ? <span className="pill n">{item.category.name}</span> : <span className="muted">—</span>}</td>
                   <td className="r">{formatPaise(item.mrpPaise)}</td>
-                  <td className="r muted">{item.trackBatches ? 'Tracked' : 'Not tracked'}</td>
+                  <td>
+                    {item.trackBatches ? (
+                      <>
+                        <span className="pill g">Batch tracked</span>
+                        <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>Batch picked at billing</div>
+                      </>
+                    ) : (
+                      <>
+                        <span className="pill n">No batch</span>
+                        <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>Sold automatically</div>
+                      </>
+                    )}
+                  </td>
                   <td><button type="button" className="btn" onClick={() => openEdit(item)}>Edit</button></td>
                 </tr>
               ))}
               {items.length === 0 && (
                 <tr><td colSpan={5} className="muted" style={{ padding: 20, textAlign: 'center' }}>No items yet</td></tr>
+              )}
+              {items.length > 0 && shownItems.length === 0 && (
+                <tr>
+                  <td colSpan={5} style={{ textAlign: 'center', padding: 40 }}>
+                    <div style={{ fontWeight: 600 }}>No items match these filters</div>
+                    <button type="button" className="btn" style={{ marginTop: 14 }} onClick={() => setFilters(DEFAULT_ITEM_FILTERS)}>
+                      Reset filters
+                    </button>
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
@@ -253,10 +366,45 @@ export function ItemsPage() {
                 <input id="reorder" className="in" type="number" value={form.reorderLevel} onChange={(e) => setForm({ ...form, reorderLevel: e.target.value })} />
               </div>
             </div>
-            <label style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, fontWeight: 600, minHeight: 36 }}>
-              <input type="checkbox" checked={form.trackBatches} onChange={(e) => setForm({ ...form, trackBatches: e.target.checked })} style={{ width: 18, height: 18 }} />
-              Track batches (supplier lot and best-before)
-            </label>
+            <div>
+              <div className="lbl">Stock tracking</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {(
+                  [
+                    {
+                      value: true,
+                      title: 'Batch tracked',
+                      help: 'Each sale asks for the batch: scan its label or enter the batch code. Use for items with a supplier lot and best-before date.',
+                    },
+                    {
+                      value: false,
+                      title: 'No batch',
+                      help: 'Sold automatically from the oldest stock. Nothing to scan or enter at billing.',
+                    },
+                  ] as const
+                ).map((choice) => (
+                  <label
+                    key={choice.title}
+                    style={{
+                      display: 'flex', gap: 10, alignItems: 'flex-start', padding: 10, borderRadius: 10, cursor: 'pointer',
+                      border: form.trackBatches === choice.value ? '2px solid #12301F' : '1px solid var(--border-light)',
+                    }}
+                  >
+                    <input
+                      type="radio"
+                      name="stockTracking"
+                      checked={form.trackBatches === choice.value}
+                      onChange={() => setForm({ ...form, trackBatches: choice.value })}
+                      style={{ width: 18, height: 18, marginTop: 2 }}
+                    />
+                    <span>
+                      <span style={{ fontWeight: 700, fontSize: 14 }}>{choice.title}</span>
+                      <span className="muted" style={{ display: 'block', fontSize: 12.5, marginTop: 2 }}>{choice.help}</span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
 
             <div style={{ display: 'flex', gap: 8, justifyContent: 'space-between' }}>
               {editingItem && (

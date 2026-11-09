@@ -1,0 +1,31 @@
+id,code,name,size,unit,ean13,taxClassId,categoryId,mrpPaise,shelfLifeDays,reorderLevel,trackBatches,active
+627d1bbd-f02e-4514-a460-615f9abbcaab,SMP-GH250,[Sample] Cow ghee,250 g,jar,,,79766c96-7bf4-485a-95eb-495f618dba88,49900,365,20,true,true
+94dbd917-7437-496f-90a9-c8816c2f32e6,SMP-GH500,[Sample] Cow ghee,500 g,jar,,,79766c96-7bf4-485a-95eb-495f618dba88,89900,365,20,true,true
+0ddb221a-3f4c-4abf-a022-b8d422f42699,SMP-GH1K,[Sample] Cow ghee,1 kg,jar,,,79766c96-7bf4-485a-95eb-495f618dba88,169900,365,10,true,true
+289faa50-f3c7-4ff1-a483-f2ec8cdedcf3,SMP-GHBF500,[Sample] Buffalo ghee,500 g,jar,,,79766c96-7bf4-485a-95eb-495f618dba88,74900,365,15,true,true
+bc8557b5-7f55-4424-8074-619fd2f0bc38,SMP-GHBL500,[Sample] Bilona ghee,500 ml,bottle,,,79766c96-7bf4-485a-95eb-495f618dba88,94900,365,15,true,true
+d4d9b866-154b-4f8b-83be-501cf7a26432,SMP-RF500,[Sample] Ragi flour,500 g,pack,,,37d1f406-3d49-4d60-abb6-819f38f94855,14900,180,30,true,true
+82e21d39-2c98-4de4-b2b5-50fc9794f069,SMP-RF1K,[Sample] Ragi flour,1 kg,pack,,,37d1f406-3d49-4d60-abb6-819f38f94855,27900,180,20,true,true
+d0322977-86e5-45c3-8ee5-a4fc29f328ab,SMP-AT1K,[Sample] Whole wheat atta,1 kg,pack,,,37d1f406-3d49-4d60-abb6-819f38f94855,6900,180,40,true,true
+ec63b7fb-9628-400e-a165-e99005bb3509,SMP-JW500,[Sample] Jowar flour,500 g,pack,,,37d1f406-3d49-4d60-abb6-819f38f94855,12900,180,30,true,true
+747c6320-a5ad-40fd-9f8d-3b0a29817264,SMP-BJ500,[Sample] Bajra flour,500 g,pack,,,37d1f406-3d49-4d60-abb6-819f38f94855,11900,180,30,true,true
+bb0131e7-6419-4906-9a47-438ae776fa91,SMP-FX500,[Sample] Foxtail millet,500 g,pack,,,ed1800e9-986c-414e-a0b8-aab9d286fd26,16900,270,25,true,true
+63415394-3b8d-4e5f-a729-f78ae545e737,SMP-LM500,[Sample] Little millet,500 g,pack,,,ed1800e9-986c-414e-a0b8-aab9d286fd26,15900,270,25,true,true
+53785091-921e-49cf-9dc9-eb9bc6491567,SMP-KD500,[Sample] Kodo millet,500 g,pack,,,ed1800e9-986c-414e-a0b8-aab9d286fd26,15900,270,25,true,true
+9f5cc488-e3ce-4c88-9baa-f36b9186e930,SMP-BR1K,[Sample] Barnyard millet,1 kg,pack,,,ed1800e9-986c-414e-a0b8-aab9d286fd26,29900,270,15,true,true
+d11a2d7f-0f1d-469b-9216-836fed50e242,SMP-PM500,[Sample] Pearl millet,500 g,pack,,,ed1800e9-986c-414e-a0b8-aab9d286fd26,9900,270,30,true,true
+f9f30476-adb5-459d-a70a-fbe74a3f2ded,SMP-TD1K,[Sample] Toor dal,1 kg,pack,,,e8765329-70f8-4352-aa01-5cdda9b055a5,19900,365,20,true,true
+c58451d2-0eac-41f7-a8ef-c8a365d1ad6c,SMP-MD1K,[Sample] Moong dal,1 kg,pack,,,e8765329-70f8-4352-aa01-5cdda9b055a5,17900,365,20,true,true
+a2e96421-9cc3-43de-b585-489e8fd61e76,SMP-CP500,[Sample] Chana dal,500 g,pack,,,e8765329-70f8-4352-aa01-5cdda9b055a5,9900,365,30,true,true
+33cbb5f7-fb13-40fe-a1de-d68f77f65535,SMP-UD1K,[Sample] Urad dal,1 kg,pack,,,e8765329-70f8-4352-aa01-5cdda9b055a5,18900,365,20,true,true
+af4bc4ad-c9b9-4223-8475-87b7cdd7fce0,SMP-RM500,[Sample] Rajma,500 g,pack,,,e8765329-70f8-4352-aa01-5cdda9b055a5,16900,365,20,true,true
+4a0a400b-e2d0-40f9-b949-4f38f606f58d,SMP-TM100,[Sample] Turmeric powder,100 g,pack,,,0cb24d88-7b13-45d5-b27a-b42e2ba9369d,3900,365,40,true,true
+30a8187c-7ed0-446f-93d9-8753b9bc9eec,SMP-CM100,[Sample] Cumin seeds,100 g,pack,,,0cb24d88-7b13-45d5-b27a-b42e2ba9369d,5900,365,30,true,true
+758543c9-927c-468e-9d23-619f1a91c336,SMP-GM100,[Sample] Garam masala,100 g,pack,,,0cb24d88-7b13-45d5-b27a-b42e2ba9369d,6900,365,30,true,true
+8da7397d-b20e-4db1-83be-2672b94f20aa,SMP-CH100,[Sample] Red chilli powder,100 g,pack,,,0cb24d88-7b13-45d5-b27a-b42e2ba9369d,4900,365,40,true,true
+4b74bfab-a9bb-44e6-a2d1-3ae457906d16,SMP-DH100,[Sample] Dhania powder,100 g,pack,,,0cb24d88-7b13-45d5-b27a-b42e2ba9369d,3900,365,40,true,true
+6b3b0a20-e4f2-4e64-887f-72b2eef5083f,SMP-JG500,[Sample] Jaggery powder,500 g,pack,,,479843f5-cd8d-46a4-bf5d-7ccc6cb065f4,6900,180,30,true,true
+57e06d03-ad54-4f53-82bb-65cc27388294,SMP-HN250,[Sample] Organic honey,250 g,jar,,,479843f5-cd8d-46a4-bf5d-7ccc6cb065f4,26900,365,15,true,true
+cf655507-bb03-4985-9e16-62a322193850,SMP-DT250,[Sample] Dates,250 g,pack,,,479843f5-cd8d-46a4-bf5d-7ccc6cb065f4,22900,180,15,true,true
+76e3c3cc-266e-446a-bdbf-9a4db7d8e14b,SMP-BS500,[Sample] Brown sugar,500 g,pack,,,479843f5-cd8d-46a4-bf5d-7ccc6cb065f4,5900,365,30,true,true
+27e1a386-f2ef-4d04-89bd-eab4b29a1313,SMP-PJ250,[Sample] Palm jaggery,250 g,pack,,,479843f5-cd8d-46a4-bf5d-7ccc6cb065f4,9900,180,25,true,true

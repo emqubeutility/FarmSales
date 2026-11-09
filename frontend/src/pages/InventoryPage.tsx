@@ -1,7 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { api, ApiError } from '../lib/api.js';
 import { formatDate } from '../lib/format.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
+import { FilterControls, FilterSummary } from '../components/FilterToolbar.js';
+import { InventoryFilterDrawer } from '../components/InventoryFilterDrawer.js';
+import {
+  DEFAULT_INVENTORY_FILTERS,
+  NO_CATEGORY,
+  countActiveInventoryFilters,
+  describeInventoryFilters,
+  filterInventory,
+  type InventoryFilters,
+} from '../lib/inventory-filters.js';
 
 interface InventoryBatch {
   id: string;
@@ -52,8 +62,20 @@ export function InventoryPage() {
 
   useEffect(load, []);
 
-  const visible = items;
+  const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState<InventoryFilters>(DEFAULT_INVENTORY_FILTERS);
+  const visible = useMemo(() => filterInventory(items, filters, search), [items, filters, search]);
   const sortable = useTableSort(visible, inventorySortValues);
+
+  // Category names come from the stock itself, since each row carries its category name.
+  const categoryOptions = useMemo(() => {
+    const names = [...new Set(items.map((i) => i.category?.name).filter((n): n is string => !!n))].sort((a, b) => a.localeCompare(b));
+    return [
+      { value: '', label: 'All categories' },
+      { value: NO_CATEGORY, label: 'No category' },
+      ...names.map((name) => ({ value: name, label: name })),
+    ];
+  }, [items]);
 
   function select(item: InventoryItem) {
     setSelected(item);
@@ -89,9 +111,43 @@ export function InventoryPage() {
     <>
       <div className="top">
         <h1>Inventory</h1>
+        <div style={{ flex: 1 }} />
+        <FilterControls
+          search={search}
+          onSearch={setSearch}
+          searchLabel="Search stock"
+          searchPlaceholder="Search item, code, batch or supplier"
+          compactSearch
+          activeCount={countActiveInventoryFilters(filters)}
+          renderDrawer={(close) => (
+            <InventoryFilterDrawer
+              initial={filters}
+              search={search}
+              items={items}
+              categoryOptions={categoryOptions}
+              onClose={close}
+              onApply={(next) => {
+                setFilters(next);
+                close();
+              }}
+            />
+          )}
+        />
       </div>
       <div className="body">
         <div className="card" style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
+          <FilterSummary
+            activeCount={countActiveInventoryFilters(filters)}
+            chips={describeInventoryFilters(filters).map((chip) => ({
+              key: chip.key,
+              label: chip.label,
+              onRemove: () => setFilters({ ...filters, ...chip.patch }),
+            }))}
+            onClearAll={() => setFilters(DEFAULT_INVENTORY_FILTERS)}
+            shown={visible.length}
+            total={items.length}
+            noun="items"
+          />
           <table className="tbl">
             <thead>
               <tr>
@@ -124,7 +180,28 @@ export function InventoryPage() {
                 );
               })}
               {visible.length === 0 && (
-                <tr><td colSpan={5} className="muted" style={{ padding: 20, textAlign: 'center' }}>No stock for this filter</td></tr>
+                <tr>
+                  <td colSpan={5} style={{ textAlign: 'center', padding: 40 }}>
+                    {items.length === 0 ? (
+                      <span className="muted">No stock yet</span>
+                    ) : (
+                      <>
+                        <div style={{ fontWeight: 600 }}>No items match these filters</div>
+                        <button
+                          type="button"
+                          className="btn"
+                          style={{ marginTop: 14 }}
+                          onClick={() => {
+                            setFilters(DEFAULT_INVENTORY_FILTERS);
+                            setSearch('');
+                          }}
+                        >
+                          Reset filters
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>

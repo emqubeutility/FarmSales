@@ -10,14 +10,49 @@ export class CustomersService {
     private readonly auditLog: AuditLogService,
   ) {}
 
-  list() {
-    return this.prisma.customer.findMany({ orderBy: { name: 'asc' } });
+  // Every customer, with how many orders they placed and what they spent. Cancelled orders are left out.
+  async list() {
+    const [customers, totals] = await Promise.all([
+      this.prisma.customer.findMany({ orderBy: { name: 'asc' } }),
+      this.prisma.order.groupBy({
+        by: ['customerId'],
+        where: { customerId: { not: null }, status: { not: 'CANCELLED' } },
+        _count: { _all: true },
+        _sum: { totalPaise: true },
+        _max: { createdAt: true },
+      }),
+    ]);
+    const byCustomer = new Map(totals.map((t) => [t.customerId, t]));
+    return customers.map((c) => {
+      const t = byCustomer.get(c.id);
+      return {
+        ...c,
+        orderCount: t?._count._all ?? 0,
+        totalSpentPaise: t?._sum.totalPaise ?? 0,
+        lastOrderAt: t?._max.createdAt ?? null,
+      };
+    });
   }
 
+  // One customer with their orders, newest first.
   async findOne(id: string) {
     const customer = await this.prisma.customer.findUnique({ where: { id } });
     if (!customer) throw new NotFoundException(`Customer ${id} not found`);
-    return customer;
+    const orders = await this.prisma.order.findMany({
+      where: { customerId: id },
+      orderBy: { createdAt: 'desc' },
+      take: 200,
+      select: {
+        id: true,
+        code: true,
+        status: true,
+        channel: true,
+        totalPaise: true,
+        createdAt: true,
+        sale: { select: { number: true } },
+      },
+    });
+    return { ...customer, orders };
   }
 
   async create(dto: CreateCustomerDto, userId: string) {

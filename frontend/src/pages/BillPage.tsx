@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { splitCgstSgstFromTotal } from '@farm-sales/shared';
 import { api, ApiError } from '../lib/api.js';
 import { formatDate, formatPaise } from '../lib/format.js';
+import { formatAddress } from '../lib/address.js';
 
 interface BillLine {
   id: string;
@@ -20,6 +21,10 @@ interface BillOrder {
   customerName: string;
   customerPhone: string | null;
   deliveryAddress: string | null;
+  deliveryLandmark: string | null;
+  deliveryCity: string | null;
+  deliveryState: string | null;
+  deliveryPincode: string | null;
   zone: { name: string } | null;
 }
 interface BusinessProfile {
@@ -51,8 +56,9 @@ interface Bill {
   order: BillOrder | null;
 }
 
-export function BillPage() {
-  const { id } = useParams<{ id: string }>();
+// The bill itself. Shown on its own page (/bills/:id) and inside a modal on the Sales page.
+// With `onClose` (the modal), a Close button is shown in place of Back.
+export function BillSheet({ saleId, onClose }: { saleId: string; onClose?: () => void }) {
   const [bill, setBill] = useState<Bill | null>(null);
   const [business, setBusiness] = useState<BusinessProfile | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -62,40 +68,52 @@ export function BillPage() {
   }, []);
 
   useEffect(() => {
-    if (!id) return;
+    if (!saleId) return;
     setError(null);
     setBill(null);
     api
-      .get<Bill>(`/sales/${id}`)
+      .get<Bill>(`/sales/${saleId}`)
       .then(setBill)
       .catch((err) => setError(err instanceof ApiError ? err.message : 'Could not load this bill'));
-  }, [id]);
+  }, [saleId]);
 
   if (error) {
     return (
-      <div style={{ padding: 20 }}>
+      <div className="card" style={{ width: 640, maxWidth: '100%', margin: '0 auto', padding: 20 }}>
         <div className="error-banner">{error}</div>
-        <Link to="/sales" className="btn" style={{ marginTop: 10, display: 'inline-flex' }}>&larr; Back to sales</Link>
+        {onClose ? (
+          <button type="button" className="btn" onClick={onClose} style={{ marginTop: 10 }}>Close</button>
+        ) : (
+          <Link to="/sales" className="btn" style={{ marginTop: 10, display: 'inline-flex' }}>&larr; Back to sales</Link>
+        )}
       </div>
     );
   }
-  if (!bill) return <div style={{ padding: 20 }}>Loading…</div>;
+  if (!bill) return <div className="card" style={{ width: 640, maxWidth: '100%', margin: '0 auto', padding: 20 }}>Loading…</div>;
 
   const { cgstPaise, sgstPaise } = splitCgstSgstFromTotal(bill.taxPaise ?? 0);
   const paidPaise = bill.payments.reduce((sum, p) => sum + p.amountPaise, 0);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#DDE3DB', padding: '24px 0' }}>
+    <>
       <style>{`
         @media print {
           body { background: #fff !important; }
           .no-print { display: none !important; }
           .bill-sheet { box-shadow: none !important; margin: 0 !important; }
+          /* Print only the bill, even when it is shown in the Sales modal. */
+          body * { visibility: hidden !important; }
+          .bill-sheet, .bill-sheet * { visibility: visible !important; }
+          .bill-sheet { position: absolute !important; left: 0 !important; top: 0 !important; width: 100% !important; }
         }
       `}</style>
-      <div className="bill-sheet card" style={{ width: 640, margin: '0 auto', padding: 32, background: '#fff' }}>
+      <div className="bill-sheet card" style={{ width: 640, maxWidth: '100%', margin: '0 auto', padding: 32, background: '#fff' }}>
         <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 18 }}>
-          <Link to="/sales" className="btn">&larr; Back</Link>
+          {onClose ? (
+            <button type="button" className="btn" onClick={onClose}>Close</button>
+          ) : (
+            <Link to="/sales" className="btn">&larr; Back</Link>
+          )}
           <button type="button" className="btn p" onClick={() => window.print()}>Print</button>
         </div>
 
@@ -126,7 +144,7 @@ export function BillPage() {
           {bill.order ? (
             <>
               <div style={{ fontWeight: 600 }}>{bill.order.customerName}{bill.order.customerPhone && ` · ${bill.order.customerPhone}`}</div>
-              {bill.order.deliveryAddress && <div className="muted" style={{ fontSize: 13.5 }}>{bill.order.deliveryAddress}</div>}
+              {formatAddress(bill.order) && <div className="muted" style={{ fontSize: 13.5 }}>{formatAddress(bill.order)}</div>}
               {bill.order.zone && <div className="muted" style={{ fontSize: 13.5 }}>Delivery zone: {bill.order.zone.name}</div>}
             </>
           ) : (
@@ -194,6 +212,16 @@ export function BillPage() {
 
         <div className="muted" style={{ textAlign: 'center', fontSize: 12.5, marginTop: 24 }}>Thank you for your order.</div>
       </div>
+    </>
+  );
+}
+
+export function BillPage() {
+  const { id } = useParams<{ id: string }>();
+  if (!id) return null;
+  return (
+    <div style={{ minHeight: '100vh', background: '#DDE3DB', padding: '24px 0' }}>
+      <BillSheet saleId={id} />
     </div>
   );
 }

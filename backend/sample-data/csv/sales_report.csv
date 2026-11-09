@@ -1,0 +1,1173 @@
+bill_number,bill_date,bill_time,month,sales_point,channel,bill_status,customer_phone,item_code,item_name,category,supplier,qty,mrp_rupees,line_amount_rupees
+SMP-WH-000001,2026-02-07,10:33,2026-02,Warehouse counter,Email,Finalized,9000000119,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000002,2026-02-23,14:50,2026-02,Warehouse counter,Phone,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,3,299.00,897.00
+SMP-WH-000002,2026-02-23,14:50,2026-02,Warehouse counter,Phone,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-MK-000001,2026-02-25,14:04,2026-02,Market stall,Walk-in,Finalized,9000000109,SMP-LM500,Little millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-MK-000001,2026-02-25,14:04,2026-02,Market stall,Walk-in,Finalized,9000000109,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000003,2026-02-27,09:19,2026-02,Warehouse counter,Walk-in,Finalized,9000000018,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-WH-000003,2026-02-27,09:19,2026-02,Warehouse counter,Walk-in,Finalized,9000000018,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-WH-000004,2026-03-02,17:36,2026-03,Warehouse counter,Phone,Finalized,9000000058,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000004,2026-03-02,17:36,2026-03,Warehouse counter,Phone,Finalized,9000000058,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-WH-000005,2026-03-05,12:36,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-MK-000002,2026-03-07,15:35,2026-03,Market stall,Phone,Finalized,9000000101,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,3,119.00,357.00
+SMP-MK-000002,2026-03-07,15:35,2026-03,Market stall,Phone,Finalized,9000000101,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-WH-000006,2026-03-09,14:07,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000006,2026-03-09,14:07,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-WH-000006,2026-03-09,14:07,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000007,2026-03-10,19:42,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000007,2026-03-10,19:42,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000003,2026-03-10,20:33,2026-03,Market stall,Walk-in,Finalized,9000000091,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-MK-000003,2026-03-10,20:33,2026-03,Market stall,Walk-in,Finalized,9000000091,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,3,499.00,1497.00
+SMP-WH-000008,2026-03-11,16:00,2026-03,Warehouse counter,Walk-in,Finalized,9000000076,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-WH-000008,2026-03-11,16:00,2026-03,Warehouse counter,Walk-in,Finalized,9000000076,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000008,2026-03-11,16:00,2026-03,Warehouse counter,Walk-in,Finalized,9000000076,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000009,2026-03-17,11:06,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000010,2026-03-17,20:59,2026-03,Warehouse counter,Social,Finalized,9000000100,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,3,229.00,687.00
+SMP-WH-000010,2026-03-17,20:59,2026-03,Warehouse counter,Social,Finalized,9000000100,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000011,2026-03-19,13:25,2026-03,Warehouse counter,Walk-in,Finalized,9000000088,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-WH-000011,2026-03-19,13:25,2026-03,Warehouse counter,Walk-in,Finalized,9000000088,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000011,2026-03-19,13:25,2026-03,Warehouse counter,Walk-in,Finalized,9000000088,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000004,2026-03-19,19:13,2026-03,Market stall,Phone,Finalized,9000000120,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000012,2026-03-20,13:33,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000013,2026-03-20,18:59,2026-03,Warehouse counter,Phone,Finalized,9000000067,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-WH-000013,2026-03-20,18:59,2026-03,Warehouse counter,Phone,Finalized,9000000067,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000005,2026-03-20,19:21,2026-03,Market stall,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000005,2026-03-20,19:21,2026-03,Market stall,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000014,2026-03-21,16:53,2026-03,Warehouse counter,Online,Finalized,9000000032,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-MK-000006,2026-03-22,16:13,2026-03,Market stall,Walk-in,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-MK-000006,2026-03-22,16:13,2026-03,Market stall,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000006,2026-03-22,16:13,2026-03,Market stall,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,3,269.00,807.00
+SMP-WH-000015,2026-03-23,11:13,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000016,2026-03-23,19:21,2026-03,Warehouse counter,Phone,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000016,2026-03-23,19:21,2026-03,Warehouse counter,Phone,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000007,2026-03-25,15:56,2026-03,Market stall,Phone,Void,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000008,2026-03-25,20:40,2026-03,Market stall,Social,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-MK-000008,2026-03-25,20:40,2026-03,Market stall,Social,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-MK-000009,2026-03-28,15:45,2026-03,Market stall,Phone,Finalized,9000000024,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-MK-000010,2026-03-28,18:40,2026-03,Market stall,Online,Finalized,9000000002,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000010,2026-03-28,18:40,2026-03,Market stall,Online,Finalized,9000000002,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-WH-000017,2026-03-29,18:49,2026-03,Warehouse counter,Walk-in,Finalized,9000000102,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-WH-000017,2026-03-29,18:49,2026-03,Warehouse counter,Walk-in,Finalized,9000000102,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000017,2026-03-29,18:49,2026-03,Warehouse counter,Walk-in,Finalized,9000000102,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000018,2026-03-30,11:33,2026-03,Warehouse counter,Online,Void,9000000099,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000018,2026-03-30,11:33,2026-03,Warehouse counter,Online,Void,9000000099,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000011,2026-03-30,13:02,2026-03,Market stall,Walk-in,Void,9000000026,SMP-DH100,Dhania powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000011,2026-03-30,13:02,2026-03,Market stall,Walk-in,Void,9000000026,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-WH-000019,2026-03-30,14:13,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-WH-000020,2026-03-31,10:20,2026-03,Warehouse counter,Walk-in,Finalized,9000000006,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000021,2026-03-31,11:31,2026-03,Warehouse counter,Email,Finalized,9000000106,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000021,2026-03-31,11:31,2026-03,Warehouse counter,Email,Finalized,9000000106,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000021,2026-03-31,11:31,2026-03,Warehouse counter,Email,Finalized,9000000106,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-MK-000012,2026-03-31,13:01,2026-03,Market stall,Phone,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-WH-000022,2026-03-31,16:47,2026-03,Warehouse counter,Phone,Finalized,9000000109,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-MK-000013,2026-03-31,19:33,2026-03,Market stall,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000013,2026-03-31,19:33,2026-03,Market stall,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-WH-000023,2026-03-31,19:51,2026-03,Warehouse counter,Walk-in,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,3,69.00,207.00
+SMP-WH-000024,2026-04-02,09:13,2026-04,Warehouse counter,Social,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000014,2026-04-03,14:04,2026-04,Market stall,Walk-in,Finalized,9000000071,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-MK-000014,2026-04-03,14:04,2026-04,Market stall,Walk-in,Finalized,9000000071,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000025,2026-04-04,15:21,2026-04,Warehouse counter,Online,Void,9000000015,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000025,2026-04-04,15:21,2026-04,Warehouse counter,Online,Void,9000000015,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000025,2026-04-04,15:21,2026-04,Warehouse counter,Online,Void,9000000015,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-MK-000015,2026-04-07,20:48,2026-04,Market stall,Online,Void,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-MK-000015,2026-04-07,20:48,2026-04,Market stall,Online,Void,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000015,2026-04-07,20:48,2026-04,Market stall,Online,Void,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000026,2026-04-08,13:59,2026-04,Warehouse counter,Phone,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,3,99.00,297.00
+SMP-WH-000026,2026-04-08,13:59,2026-04,Warehouse counter,Phone,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000026,2026-04-08,13:59,2026-04,Warehouse counter,Phone,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-WH-000027,2026-04-11,09:56,2026-04,Warehouse counter,Walk-in,Finalized,9000000082,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000027,2026-04-11,09:56,2026-04,Warehouse counter,Walk-in,Finalized,9000000082,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,3,179.00,537.00
+SMP-WH-000028,2026-04-11,12:36,2026-04,Warehouse counter,Phone,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,3,199.00,597.00
+SMP-MK-000016,2026-04-12,20:48,2026-04,Market stall,Online,Finalized,9000000014,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000016,2026-04-12,20:48,2026-04,Market stall,Online,Finalized,9000000014,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-WH-000029,2026-04-14,14:55,2026-04,Warehouse counter,Walk-in,Finalized,9000000020,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000029,2026-04-14,14:55,2026-04,Warehouse counter,Walk-in,Finalized,9000000020,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000017,2026-04-14,16:11,2026-04,Market stall,Walk-in,Finalized,9000000108,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-MK-000017,2026-04-14,16:11,2026-04,Market stall,Walk-in,Finalized,9000000108,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000030,2026-04-15,17:48,2026-04,Warehouse counter,Walk-in,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000018,2026-04-18,11:00,2026-04,Market stall,Phone,Finalized,9000000096,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-MK-000018,2026-04-18,11:00,2026-04,Market stall,Phone,Finalized,9000000096,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-MK-000019,2026-04-18,17:48,2026-04,Market stall,Walk-in,Finalized,9000000023,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-MK-000019,2026-04-18,17:48,2026-04,Market stall,Walk-in,Finalized,9000000023,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000020,2026-04-19,18:10,2026-04,Market stall,Phone,Finalized,9000000114,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-MK-000020,2026-04-19,18:10,2026-04,Market stall,Phone,Finalized,9000000114,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,2,189.00,378.00
+SMP-MK-000021,2026-04-19,18:37,2026-04,Market stall,Online,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-MK-000021,2026-04-19,18:37,2026-04,Market stall,Online,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-WH-000031,2026-04-20,19:32,2026-04,Warehouse counter,Walk-in,Finalized,9000000010,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,3,69.00,207.00
+SMP-MK-000022,2026-04-22,12:02,2026-04,Market stall,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000022,2026-04-22,12:02,2026-04,Market stall,Walk-in,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-WH-000032,2026-04-23,20:10,2026-04,Warehouse counter,Phone,Finalized,9000000037,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000032,2026-04-23,20:10,2026-04,Warehouse counter,Phone,Finalized,9000000037,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000033,2026-04-24,13:25,2026-04,Warehouse counter,Phone,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,3,169.00,507.00
+SMP-WH-000033,2026-04-24,13:25,2026-04,Warehouse counter,Phone,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000023,2026-04-24,17:07,2026-04,Market stall,Walk-in,Finalized,9000000110,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,2,189.00,378.00
+SMP-MK-000023,2026-04-24,17:07,2026-04,Market stall,Walk-in,Finalized,9000000110,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000024,2026-04-27,13:52,2026-04,Market stall,Social,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000024,2026-04-27,13:52,2026-04,Market stall,Social,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000034,2026-04-28,13:27,2026-04,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000034,2026-04-28,13:27,2026-04,Warehouse counter,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-MK-000025,2026-04-28,16:16,2026-04,Market stall,Walk-in,Finalized,9000000099,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-MK-000025,2026-04-28,16:16,2026-04,Market stall,Walk-in,Finalized,9000000099,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-MK-000026,2026-04-28,17:55,2026-04,Market stall,Phone,Finalized,9000000045,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000026,2026-04-28,17:55,2026-04,Market stall,Phone,Finalized,9000000045,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000026,2026-04-28,17:55,2026-04,Market stall,Phone,Finalized,9000000045,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-MK-000027,2026-04-29,19:08,2026-04,Market stall,Phone,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000028,2026-04-30,12:14,2026-04,Market stall,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000028,2026-04-30,12:14,2026-04,Market stall,Walk-in,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-MK-000028,2026-04-30,12:14,2026-04,Market stall,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-MK-000029,2026-05-01,11:31,2026-05,Market stall,Phone,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,3,299.00,897.00
+SMP-MK-000029,2026-05-01,11:31,2026-05,Market stall,Phone,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,3,169.00,507.00
+SMP-MK-000030,2026-05-01,20:00,2026-05,Market stall,Phone,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-MK-000030,2026-05-01,20:00,2026-05,Market stall,Phone,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000031,2026-05-02,14:42,2026-05,Market stall,Social,Finalized,9000000113,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000031,2026-05-02,14:42,2026-05,Market stall,Social,Finalized,9000000113,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,2,179.00,358.00
+SMP-MK-000032,2026-05-02,19:12,2026-05,Market stall,Walk-in,Finalized,9000000013,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-MK-000033,2026-05-04,16:11,2026-05,Market stall,Phone,Finalized,9000000113,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,3,99.00,297.00
+SMP-WH-000035,2026-05-05,15:29,2026-05,Warehouse counter,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000036,2026-05-06,11:04,2026-05,Warehouse counter,Phone,Finalized,9000000106,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-WH-000036,2026-05-06,11:04,2026-05,Warehouse counter,Phone,Finalized,9000000106,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000036,2026-05-06,11:04,2026-05,Warehouse counter,Phone,Finalized,9000000106,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-WH-000036,2026-05-06,11:04,2026-05,Warehouse counter,Phone,Finalized,9000000106,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000036,2026-05-06,11:04,2026-05,Warehouse counter,Phone,Finalized,9000000106,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-MK-000034,2026-05-06,11:25,2026-05,Market stall,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,3,69.00,207.00
+SMP-MK-000034,2026-05-06,11:25,2026-05,Market stall,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000037,2026-05-06,17:20,2026-05,Warehouse counter,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000038,2026-05-07,15:02,2026-05,Warehouse counter,Online,Finalized,9000000039,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000038,2026-05-07,15:02,2026-05,Warehouse counter,Online,Finalized,9000000039,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-WH-000038,2026-05-07,15:02,2026-05,Warehouse counter,Online,Finalized,9000000039,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,3,69.00,207.00
+SMP-MK-000035,2026-05-08,10:30,2026-05,Market stall,Phone,Finalized,9000000017,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-MK-000035,2026-05-08,10:30,2026-05,Market stall,Phone,Finalized,9000000017,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000039,2026-05-08,10:46,2026-05,Warehouse counter,Social,Finalized,9000000036,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-MK-000036,2026-05-08,14:38,2026-05,Market stall,Email,Finalized,9000000095,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-MK-000036,2026-05-08,14:38,2026-05,Market stall,Email,Finalized,9000000095,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000040,2026-05-09,14:13,2026-05,Warehouse counter,Phone,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-WH-000040,2026-05-09,14:13,2026-05,Warehouse counter,Phone,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,3,949.00,2847.00
+SMP-WH-000041,2026-05-10,11:12,2026-05,Warehouse counter,Walk-in,Finalized,9000000056,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000041,2026-05-10,11:12,2026-05,Warehouse counter,Walk-in,Finalized,9000000056,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-WH-000042,2026-05-10,19:48,2026-05,Warehouse counter,Walk-in,Finalized,9000000038,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-WH-000042,2026-05-10,19:48,2026-05,Warehouse counter,Walk-in,Finalized,9000000038,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000037,2026-05-11,10:05,2026-05,Market stall,Walk-in,Finalized,9000000021,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-MK-000037,2026-05-11,10:05,2026-05,Market stall,Walk-in,Finalized,9000000021,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,2,179.00,358.00
+SMP-MK-000038,2026-05-11,19:22,2026-05,Market stall,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-WH-000043,2026-05-13,11:51,2026-05,Warehouse counter,Email,Finalized,9000000082,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000043,2026-05-13,11:51,2026-05,Warehouse counter,Email,Finalized,9000000082,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,3,69.00,207.00
+SMP-WH-000043,2026-05-13,11:51,2026-05,Warehouse counter,Email,Finalized,9000000082,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,2,189.00,378.00
+SMP-WH-000044,2026-05-13,18:10,2026-05,Warehouse counter,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-MK-000039,2026-05-14,13:06,2026-05,Market stall,Walk-in,Finalized,9000000082,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-MK-000039,2026-05-14,13:06,2026-05,Market stall,Walk-in,Finalized,9000000082,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000039,2026-05-14,13:06,2026-05,Market stall,Walk-in,Finalized,9000000082,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,3,299.00,897.00
+SMP-WH-000045,2026-05-14,15:13,2026-05,Warehouse counter,Phone,Finalized,9000000009,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000045,2026-05-14,15:13,2026-05,Warehouse counter,Phone,Finalized,9000000009,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,2,179.00,358.00
+SMP-WH-000045,2026-05-14,15:13,2026-05,Warehouse counter,Phone,Finalized,9000000009,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-MK-000040,2026-05-14,19:29,2026-05,Market stall,Phone,Finalized,9000000056,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-MK-000040,2026-05-14,19:29,2026-05,Market stall,Phone,Finalized,9000000056,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000046,2026-05-15,09:11,2026-05,Warehouse counter,Social,Finalized,9000000087,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,3,69.00,207.00
+SMP-WH-000046,2026-05-15,09:11,2026-05,Warehouse counter,Social,Finalized,9000000087,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,3,99.00,297.00
+SMP-MK-000041,2026-05-15,18:50,2026-05,Market stall,Online,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,3,949.00,2847.00
+SMP-MK-000041,2026-05-15,18:50,2026-05,Market stall,Online,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-MK-000042,2026-05-16,15:32,2026-05,Market stall,Social,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-MK-000042,2026-05-16,15:32,2026-05,Market stall,Social,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000042,2026-05-16,15:32,2026-05,Market stall,Social,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,3,69.00,207.00
+SMP-MK-000043,2026-05-18,11:14,2026-05,Market stall,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-MK-000043,2026-05-18,11:14,2026-05,Market stall,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000043,2026-05-18,11:14,2026-05,Market stall,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000047,2026-05-18,17:06,2026-05,Warehouse counter,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-WH-000047,2026-05-18,17:06,2026-05,Warehouse counter,Walk-in,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-MK-000044,2026-05-19,12:46,2026-05,Market stall,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000045,2026-05-20,15:05,2026-05,Market stall,Social,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000046,2026-05-20,17:48,2026-05,Market stall,Walk-in,Finalized,9000000019,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-MK-000046,2026-05-20,17:48,2026-05,Market stall,Walk-in,Finalized,9000000019,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000047,2026-05-21,15:11,2026-05,Market stall,Phone,Finalized,9000000043,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000047,2026-05-21,15:11,2026-05,Market stall,Phone,Finalized,9000000043,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000048,2026-05-24,10:51,2026-05,Warehouse counter,Social,Finalized,9000000031,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,3,49.00,147.00
+SMP-WH-000048,2026-05-24,10:51,2026-05,Warehouse counter,Social,Finalized,9000000031,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000048,2026-05-24,10:51,2026-05,Warehouse counter,Social,Finalized,9000000031,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-MK-000048,2026-05-26,17:15,2026-05,Market stall,Social,Finalized,9000000035,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000048,2026-05-26,17:15,2026-05,Market stall,Social,Finalized,9000000035,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000048,2026-05-26,17:15,2026-05,Market stall,Social,Finalized,9000000035,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000049,2026-05-26,20:57,2026-05,Market stall,Online,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000049,2026-05-26,20:57,2026-05,Market stall,Online,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000049,2026-05-27,18:13,2026-05,Warehouse counter,Online,Finalized,9000000043,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-WH-000049,2026-05-27,18:13,2026-05,Warehouse counter,Online,Finalized,9000000043,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-WH-000050,2026-05-27,20:42,2026-05,Warehouse counter,Social,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000050,2026-05-28,09:57,2026-05,Market stall,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,3,99.00,297.00
+SMP-MK-000050,2026-05-28,09:57,2026-05,Market stall,Walk-in,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000051,2026-05-28,16:00,2026-05,Warehouse counter,Phone,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,3,69.00,207.00
+SMP-WH-000051,2026-05-28,16:00,2026-05,Warehouse counter,Phone,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000052,2026-05-28,17:04,2026-05,Warehouse counter,Online,Finalized,9000000020,SMP-DH100,Dhania powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000052,2026-05-28,17:04,2026-05,Warehouse counter,Online,Finalized,9000000020,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,2,59.00,118.00
+SMP-MK-000051,2026-05-29,09:16,2026-05,Market stall,Walk-in,Finalized,9000000031,SMP-LM500,Little millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-MK-000052,2026-05-29,09:28,2026-05,Market stall,Email,Finalized,9000000087,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-MK-000052,2026-05-29,09:28,2026-05,Market stall,Email,Finalized,9000000087,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,2,299.00,598.00
+SMP-MK-000052,2026-05-29,09:28,2026-05,Market stall,Email,Finalized,9000000087,SMP-GM100,Garam masala,Spices,Coorg Spice House,3,69.00,207.00
+SMP-WH-000053,2026-05-29,10:15,2026-05,Warehouse counter,Email,Finalized,9000000060,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-WH-000053,2026-05-29,10:15,2026-05,Warehouse counter,Email,Finalized,9000000060,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000053,2026-05-29,10:15,2026-05,Warehouse counter,Email,Finalized,9000000060,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-WH-000054,2026-05-30,09:33,2026-05,Warehouse counter,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000054,2026-05-30,09:33,2026-05,Warehouse counter,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000055,2026-05-30,15:26,2026-05,Warehouse counter,Social,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-WH-000055,2026-05-30,15:26,2026-05,Warehouse counter,Social,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-WH-000056,2026-05-30,16:58,2026-05,Warehouse counter,Walk-in,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-WH-000057,2026-05-30,19:41,2026-05,Warehouse counter,Email,Finalized,9000000028,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-MK-000053,2026-05-30,19:49,2026-05,Market stall,Social,Finalized,9000000094,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-MK-000053,2026-05-30,19:49,2026-05,Market stall,Social,Finalized,9000000094,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-WH-000058,2026-06-01,10:53,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,2,99.00,198.00
+SMP-MK-000054,2026-06-01,16:06,2026-06,Market stall,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000054,2026-06-01,16:06,2026-06,Market stall,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000059,2026-06-02,14:58,2026-06,Warehouse counter,Phone,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,3,899.00,2697.00
+SMP-MK-000055,2026-06-03,12:22,2026-06,Market stall,Walk-in,Finalized,9000000092,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,3,299.00,897.00
+SMP-WH-000060,2026-06-03,13:50,2026-06,Warehouse counter,Phone,Finalized,9000000048,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000060,2026-06-03,13:50,2026-06,Warehouse counter,Phone,Finalized,9000000048,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-WH-000061,2026-06-03,16:07,2026-06,Warehouse counter,Social,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000061,2026-06-03,16:07,2026-06,Warehouse counter,Social,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000062,2026-06-03,16:27,2026-06,Warehouse counter,Walk-in,Finalized,9000000079,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,3,199.00,597.00
+SMP-WH-000062,2026-06-03,16:27,2026-06,Warehouse counter,Walk-in,Finalized,9000000079,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000056,2026-06-03,19:25,2026-06,Market stall,Online,Finalized,9000000093,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000056,2026-06-03,19:25,2026-06,Market stall,Online,Finalized,9000000093,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000063,2026-06-04,17:30,2026-06,Warehouse counter,Walk-in,Finalized,9000000001,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-WH-000063,2026-06-04,17:30,2026-06,Warehouse counter,Walk-in,Finalized,9000000001,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000063,2026-06-04,17:30,2026-06,Warehouse counter,Walk-in,Finalized,9000000001,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000064,2026-06-05,10:07,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-WH-000064,2026-06-05,10:07,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000057,2026-06-05,11:42,2026-06,Market stall,Email,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-MK-000057,2026-06-05,11:42,2026-06,Market stall,Email,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000058,2026-06-05,20:23,2026-06,Market stall,Social,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-MK-000058,2026-06-05,20:23,2026-06,Market stall,Social,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-MK-000058,2026-06-05,20:23,2026-06,Market stall,Social,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000059,2026-06-06,12:04,2026-06,Market stall,Walk-in,Finalized,9000000102,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,2,179.00,358.00
+SMP-MK-000059,2026-06-06,12:04,2026-06,Market stall,Walk-in,Finalized,9000000102,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-MK-000060,2026-06-06,17:16,2026-06,Market stall,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-MK-000060,2026-06-06,17:16,2026-06,Market stall,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,2,299.00,598.00
+SMP-MK-000060,2026-06-06,17:16,2026-06,Market stall,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000065,2026-06-07,17:02,2026-06,Warehouse counter,Walk-in,Finalized,9000000073,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000065,2026-06-07,17:02,2026-06,Warehouse counter,Walk-in,Finalized,9000000073,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000066,2026-06-09,12:10,2026-06,Warehouse counter,Phone,Finalized,9000000005,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-WH-000066,2026-06-09,12:10,2026-06,Warehouse counter,Phone,Finalized,9000000005,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-MK-000061,2026-06-09,13:06,2026-06,Market stall,Social,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000067,2026-06-10,16:45,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-WH-000067,2026-06-10,16:45,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000068,2026-06-11,09:37,2026-06,Warehouse counter,Walk-in,Finalized,9000000074,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000068,2026-06-11,09:37,2026-06,Warehouse counter,Walk-in,Finalized,9000000074,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000068,2026-06-11,09:37,2026-06,Warehouse counter,Walk-in,Finalized,9000000074,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-MK-000062,2026-06-13,11:34,2026-06,Market stall,Walk-in,Finalized,9000000108,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000062,2026-06-13,11:34,2026-06,Market stall,Walk-in,Finalized,9000000108,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000069,2026-06-13,19:08,2026-06,Warehouse counter,Phone,Finalized,9000000065,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000070,2026-06-13,20:25,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-WH-000070,2026-06-13,20:25,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-MK-000063,2026-06-16,17:14,2026-06,Market stall,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000064,2026-06-16,20:07,2026-06,Market stall,Social,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,2,99.00,198.00
+SMP-MK-000064,2026-06-16,20:07,2026-06,Market stall,Social,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,3,69.00,207.00
+SMP-MK-000064,2026-06-16,20:07,2026-06,Market stall,Social,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-WH-000071,2026-06-17,14:04,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000071,2026-06-17,14:04,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000072,2026-06-17,15:16,2026-06,Warehouse counter,Walk-in,Finalized,9000000104,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000073,2026-06-17,19:05,2026-06,Warehouse counter,Walk-in,Finalized,9000000117,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-WH-000073,2026-06-17,19:05,2026-06,Warehouse counter,Walk-in,Finalized,9000000117,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000073,2026-06-17,19:05,2026-06,Warehouse counter,Walk-in,Finalized,9000000117,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000065,2026-06-18,12:11,2026-06,Market stall,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000065,2026-06-18,12:11,2026-06,Market stall,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000066,2026-06-18,15:50,2026-06,Market stall,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000074,2026-06-19,09:01,2026-06,Warehouse counter,Walk-in,Finalized,9000000094,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-WH-000074,2026-06-19,09:01,2026-06,Warehouse counter,Walk-in,Finalized,9000000094,SMP-GM100,Garam masala,Spices,Coorg Spice House,3,69.00,207.00
+SMP-MK-000067,2026-06-19,18:50,2026-06,Market stall,Walk-in,Finalized,9000000074,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-MK-000067,2026-06-19,18:50,2026-06,Market stall,Walk-in,Finalized,9000000074,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000068,2026-06-20,16:15,2026-06,Market stall,Walk-in,Finalized,9000000032,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000069,2026-06-20,18:11,2026-06,Market stall,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000070,2026-06-21,12:04,2026-06,Market stall,Social,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,2,59.00,118.00
+SMP-MK-000071,2026-06-21,20:36,2026-06,Market stall,Walk-in,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-MK-000071,2026-06-21,20:36,2026-06,Market stall,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000071,2026-06-21,20:36,2026-06,Market stall,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,2,59.00,118.00
+SMP-WH-000075,2026-06-22,12:06,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-WH-000075,2026-06-22,12:06,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-WH-000075,2026-06-22,12:06,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000075,2026-06-22,12:06,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000072,2026-06-22,12:07,2026-06,Market stall,Online,Finalized,9000000023,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,2,189.00,378.00
+SMP-MK-000072,2026-06-22,12:07,2026-06,Market stall,Online,Finalized,9000000023,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-MK-000072,2026-06-22,12:07,2026-06,Market stall,Online,Finalized,9000000023,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000073,2026-06-22,15:17,2026-06,Market stall,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-MK-000073,2026-06-22,15:17,2026-06,Market stall,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,2,179.00,358.00
+SMP-MK-000073,2026-06-22,15:17,2026-06,Market stall,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000073,2026-06-22,15:17,2026-06,Market stall,Walk-in,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000074,2026-06-22,15:55,2026-06,Market stall,Email,Finalized,9000000099,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000076,2026-06-22,16:43,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000077,2026-06-22,16:53,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,3,499.00,1497.00
+SMP-WH-000077,2026-06-22,16:53,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000077,2026-06-22,16:53,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000078,2026-06-23,18:44,2026-06,Warehouse counter,Phone,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-WH-000078,2026-06-23,18:44,2026-06,Warehouse counter,Phone,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000078,2026-06-23,18:44,2026-06,Warehouse counter,Phone,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-MK-000075,2026-06-24,09:44,2026-06,Market stall,Walk-in,Finalized,9000000043,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000075,2026-06-24,09:44,2026-06,Market stall,Walk-in,Finalized,9000000043,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000075,2026-06-24,09:44,2026-06,Market stall,Walk-in,Finalized,9000000043,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-WH-000079,2026-06-24,15:01,2026-06,Warehouse counter,Walk-in,Finalized,9000000075,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,3,899.00,2697.00
+SMP-WH-000079,2026-06-24,15:01,2026-06,Warehouse counter,Walk-in,Finalized,9000000075,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000076,2026-06-25,17:42,2026-06,Market stall,Walk-in,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000076,2026-06-25,17:42,2026-06,Market stall,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000077,2026-06-25,20:39,2026-06,Market stall,Social,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000077,2026-06-25,20:39,2026-06,Market stall,Social,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000080,2026-06-26,14:39,2026-06,Warehouse counter,Phone,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000080,2026-06-26,14:39,2026-06,Warehouse counter,Phone,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-WH-000080,2026-06-26,14:39,2026-06,Warehouse counter,Phone,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-WH-000081,2026-06-26,18:54,2026-06,Warehouse counter,Walk-in,Void,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000081,2026-06-26,18:54,2026-06,Warehouse counter,Walk-in,Void,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-MK-000078,2026-06-26,20:23,2026-06,Market stall,Walk-in,Finalized,9000000090,SMP-DH100,Dhania powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000078,2026-06-26,20:23,2026-06,Market stall,Walk-in,Finalized,9000000090,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000082,2026-06-28,11:25,2026-06,Warehouse counter,Email,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-MK-000079,2026-06-28,17:39,2026-06,Market stall,Walk-in,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-MK-000079,2026-06-28,17:39,2026-06,Market stall,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000080,2026-06-29,09:52,2026-06,Market stall,Phone,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-MK-000081,2026-06-29,13:02,2026-06,Market stall,Email,Finalized,9000000116,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000081,2026-06-29,13:02,2026-06,Market stall,Email,Finalized,9000000116,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000082,2026-06-29,15:30,2026-06,Market stall,Email,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-MK-000083,2026-06-29,18:05,2026-06,Market stall,Phone,Finalized,9000000112,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000083,2026-06-29,18:05,2026-06,Market stall,Phone,Finalized,9000000112,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000083,2026-06-29,18:43,2026-06,Warehouse counter,Walk-in,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-WH-000084,2026-06-29,19:32,2026-06,Warehouse counter,Email,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000084,2026-06-29,19:32,2026-06,Warehouse counter,Email,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000085,2026-07-01,11:02,2026-07,Warehouse counter,Social,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000085,2026-07-01,11:02,2026-07,Warehouse counter,Social,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-WH-000085,2026-07-01,11:02,2026-07,Warehouse counter,Social,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-WH-000086,2026-07-01,11:21,2026-07,Warehouse counter,Phone,Finalized,9000000120,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-WH-000086,2026-07-01,11:21,2026-07,Warehouse counter,Phone,Finalized,9000000120,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000086,2026-07-01,11:21,2026-07,Warehouse counter,Phone,Finalized,9000000120,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000087,2026-07-01,11:35,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000087,2026-07-01,11:35,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000084,2026-07-01,18:25,2026-07,Market stall,Online,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-MK-000084,2026-07-01,18:25,2026-07,Market stall,Online,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,3,149.00,447.00
+SMP-MK-000084,2026-07-01,18:25,2026-07,Market stall,Online,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000088,2026-07-03,11:19,2026-07,Warehouse counter,Social,Finalized,9000000014,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000085,2026-07-03,12:33,2026-07,Market stall,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000085,2026-07-03,12:33,2026-07,Market stall,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-MK-000086,2026-07-03,18:04,2026-07,Market stall,Email,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000087,2026-07-04,15:00,2026-07,Market stall,Phone,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000089,2026-07-04,15:57,2026-07,Warehouse counter,Social,Finalized,9000000120,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000090,2026-07-04,16:59,2026-07,Warehouse counter,Online,Finalized,9000000099,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000090,2026-07-04,16:59,2026-07,Warehouse counter,Online,Finalized,9000000099,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,3,499.00,1497.00
+SMP-MK-000088,2026-07-04,17:18,2026-07,Market stall,Walk-in,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-MK-000089,2026-07-05,10:02,2026-07,Market stall,Phone,Finalized,9000000093,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000089,2026-07-05,10:02,2026-07,Market stall,Phone,Finalized,9000000093,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-MK-000089,2026-07-05,10:02,2026-07,Market stall,Phone,Finalized,9000000093,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-MK-000090,2026-07-05,11:26,2026-07,Market stall,Online,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000090,2026-07-05,11:26,2026-07,Market stall,Online,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-MK-000091,2026-07-05,13:01,2026-07,Market stall,Phone,Finalized,9000000057,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000091,2026-07-05,13:01,2026-07,Market stall,Phone,Finalized,9000000057,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000091,2026-07-05,13:50,2026-07,Warehouse counter,Walk-in,Finalized,9000000002,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000092,2026-07-05,15:43,2026-07,Market stall,Email,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-MK-000092,2026-07-05,15:43,2026-07,Market stall,Email,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000093,2026-07-05,19:56,2026-07,Market stall,Walk-in,Finalized,9000000013,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-MK-000094,2026-07-05,20:20,2026-07,Market stall,Walk-in,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-MK-000094,2026-07-05,20:20,2026-07,Market stall,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000095,2026-07-06,14:29,2026-07,Market stall,Phone,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000095,2026-07-06,14:29,2026-07,Market stall,Phone,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,3,119.00,357.00
+SMP-WH-000092,2026-07-06,14:43,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-WH-000092,2026-07-06,14:43,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-WH-000092,2026-07-06,14:43,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000096,2026-07-06,18:59,2026-07,Market stall,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000096,2026-07-06,18:59,2026-07,Market stall,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000093,2026-07-06,20:24,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000093,2026-07-06,20:24,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000093,2026-07-06,20:24,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,2,59.00,118.00
+SMP-MK-000097,2026-07-08,10:43,2026-07,Market stall,Walk-in,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-MK-000097,2026-07-08,10:43,2026-07,Market stall,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000094,2026-07-08,17:20,2026-07,Warehouse counter,Walk-in,Finalized,9000000097,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000094,2026-07-08,17:20,2026-07,Warehouse counter,Walk-in,Finalized,9000000097,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-WH-000095,2026-07-08,20:07,2026-07,Warehouse counter,Online,Finalized,9000000109,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-WH-000096,2026-07-09,10:37,2026-07,Warehouse counter,Social,Void,9000000093,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000096,2026-07-09,10:37,2026-07,Warehouse counter,Social,Void,9000000093,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-MK-000098,2026-07-09,15:13,2026-07,Market stall,Online,Void,9000000107,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000099,2026-07-09,17:17,2026-07,Market stall,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000099,2026-07-09,17:17,2026-07,Market stall,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-MK-000099,2026-07-09,17:17,2026-07,Market stall,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,3,1699.00,5097.00
+SMP-MK-000100,2026-07-10,14:00,2026-07,Market stall,Phone,Finalized,9000000039,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-MK-000101,2026-07-10,20:28,2026-07,Market stall,Walk-in,Finalized,9000000053,SMP-GM100,Garam masala,Spices,Coorg Spice House,3,69.00,207.00
+SMP-MK-000102,2026-07-11,10:19,2026-07,Market stall,Social,Finalized,9000000030,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000102,2026-07-11,10:19,2026-07,Market stall,Social,Finalized,9000000030,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000102,2026-07-11,10:19,2026-07,Market stall,Social,Finalized,9000000030,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000097,2026-07-11,19:43,2026-07,Warehouse counter,Social,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000097,2026-07-11,19:43,2026-07,Warehouse counter,Social,Finalized,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000103,2026-07-12,11:13,2026-07,Market stall,Walk-in,Finalized,9000000012,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-MK-000103,2026-07-12,11:13,2026-07,Market stall,Walk-in,Finalized,9000000012,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-MK-000103,2026-07-12,11:13,2026-07,Market stall,Walk-in,Finalized,9000000012,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-WH-000098,2026-07-13,12:31,2026-07,Warehouse counter,Online,Finalized,9000000105,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000098,2026-07-13,12:31,2026-07,Warehouse counter,Online,Finalized,9000000105,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000099,2026-07-13,20:30,2026-07,Warehouse counter,Phone,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-WH-000100,2026-07-13,20:59,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,3,69.00,207.00
+SMP-WH-000100,2026-07-13,20:59,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000104,2026-07-14,19:11,2026-07,Market stall,Phone,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000101,2026-07-14,19:23,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000105,2026-07-15,09:15,2026-07,Market stall,Phone,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-MK-000105,2026-07-15,09:15,2026-07,Market stall,Phone,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000105,2026-07-15,09:15,2026-07,Market stall,Phone,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000102,2026-07-15,10:06,2026-07,Warehouse counter,Walk-in,Finalized,9000000117,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000102,2026-07-15,10:06,2026-07,Warehouse counter,Walk-in,Finalized,9000000117,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-WH-000103,2026-07-15,10:52,2026-07,Warehouse counter,Phone,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-WH-000103,2026-07-15,10:52,2026-07,Warehouse counter,Phone,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000104,2026-07-15,11:18,2026-07,Warehouse counter,Social,Finalized,9000000041,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000104,2026-07-15,11:18,2026-07,Warehouse counter,Social,Finalized,9000000041,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000104,2026-07-15,11:18,2026-07,Warehouse counter,Social,Finalized,9000000041,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,3,169.00,507.00
+SMP-MK-000106,2026-07-15,11:23,2026-07,Market stall,Walk-in,Finalized,9000000111,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000106,2026-07-15,11:23,2026-07,Market stall,Walk-in,Finalized,9000000111,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000106,2026-07-15,11:23,2026-07,Market stall,Walk-in,Finalized,9000000111,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000105,2026-07-15,12:15,2026-07,Warehouse counter,Walk-in,Finalized,9000000025,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000105,2026-07-15,12:15,2026-07,Warehouse counter,Walk-in,Finalized,9000000025,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-WH-000106,2026-07-16,09:04,2026-07,Warehouse counter,Walk-in,Void,9000000120,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,3,49.00,147.00
+SMP-MK-000107,2026-07-16,10:26,2026-07,Market stall,Social,Void,9000000012,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,3,169.00,507.00
+SMP-MK-000107,2026-07-16,10:26,2026-07,Market stall,Social,Void,9000000012,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000108,2026-07-16,11:47,2026-07,Market stall,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000109,2026-07-17,15:22,2026-07,Market stall,Online,Finalized,9000000021,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,3,269.00,807.00
+SMP-MK-000109,2026-07-17,15:22,2026-07,Market stall,Online,Finalized,9000000021,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000109,2026-07-17,15:22,2026-07,Market stall,Online,Finalized,9000000021,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000109,2026-07-17,15:22,2026-07,Market stall,Online,Finalized,9000000021,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000107,2026-07-17,15:36,2026-07,Warehouse counter,Walk-in,Finalized,9000000066,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000107,2026-07-17,15:36,2026-07,Warehouse counter,Walk-in,Finalized,9000000066,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,3,269.00,807.00
+SMP-MK-000110,2026-07-17,20:02,2026-07,Market stall,Walk-in,Finalized,9000000070,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000111,2026-07-18,11:03,2026-07,Market stall,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-MK-000111,2026-07-18,11:03,2026-07,Market stall,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-MK-000112,2026-07-18,11:37,2026-07,Market stall,Online,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,3,99.00,297.00
+SMP-MK-000112,2026-07-18,11:37,2026-07,Market stall,Online,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000108,2026-07-18,12:59,2026-07,Warehouse counter,Walk-in,Finalized,9000000069,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,3,69.00,207.00
+SMP-WH-000108,2026-07-18,12:59,2026-07,Warehouse counter,Walk-in,Finalized,9000000069,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-MK-000113,2026-07-19,13:39,2026-07,Market stall,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000113,2026-07-19,13:39,2026-07,Market stall,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-MK-000113,2026-07-19,13:39,2026-07,Market stall,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-MK-000113,2026-07-19,13:39,2026-07,Market stall,Walk-in,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-WH-000109,2026-07-19,16:22,2026-07,Warehouse counter,Social,Finalized,9000000108,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-WH-000110,2026-07-19,17:16,2026-07,Warehouse counter,Walk-in,Finalized,9000000093,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000110,2026-07-19,17:16,2026-07,Warehouse counter,Walk-in,Finalized,9000000093,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000114,2026-07-19,19:15,2026-07,Market stall,Walk-in,Void,9000000011,SMP-LM500,Little millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000111,2026-07-20,10:32,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000112,2026-07-20,12:56,2026-07,Warehouse counter,Walk-in,Finalized,9000000002,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000113,2026-07-20,16:51,2026-07,Warehouse counter,Phone,Finalized,9000000043,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-WH-000113,2026-07-20,16:51,2026-07,Warehouse counter,Phone,Finalized,9000000043,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,3,129.00,387.00
+SMP-WH-000113,2026-07-20,16:51,2026-07,Warehouse counter,Phone,Finalized,9000000043,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-WH-000114,2026-07-21,11:08,2026-07,Warehouse counter,Phone,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-WH-000114,2026-07-21,11:08,2026-07,Warehouse counter,Phone,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000115,2026-07-21,17:54,2026-07,Market stall,Online,Finalized,9000000001,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-MK-000115,2026-07-21,17:54,2026-07,Market stall,Online,Finalized,9000000001,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000115,2026-07-22,11:57,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-WH-000115,2026-07-22,11:57,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-WH-000116,2026-07-22,17:01,2026-07,Warehouse counter,Social,Void,9000000010,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-WH-000116,2026-07-22,17:01,2026-07,Warehouse counter,Social,Void,9000000010,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,3,49.00,147.00
+SMP-WH-000117,2026-07-23,15:21,2026-07,Warehouse counter,Walk-in,Finalized,9000000048,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000117,2026-07-23,15:21,2026-07,Warehouse counter,Walk-in,Finalized,9000000048,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-WH-000117,2026-07-23,15:21,2026-07,Warehouse counter,Walk-in,Finalized,9000000048,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,3,119.00,357.00
+SMP-WH-000118,2026-07-23,16:22,2026-07,Warehouse counter,Phone,Finalized,9000000108,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000118,2026-07-23,16:22,2026-07,Warehouse counter,Phone,Finalized,9000000108,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-WH-000118,2026-07-23,16:22,2026-07,Warehouse counter,Phone,Finalized,9000000108,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-WH-000119,2026-07-23,17:52,2026-07,Warehouse counter,Social,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,3,1699.00,5097.00
+SMP-WH-000120,2026-07-24,09:03,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,2,99.00,198.00
+SMP-WH-000120,2026-07-24,09:03,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000121,2026-07-24,13:54,2026-07,Warehouse counter,Walk-in,Finalized,9000000022,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-WH-000121,2026-07-24,13:54,2026-07,Warehouse counter,Walk-in,Finalized,9000000022,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000121,2026-07-24,13:54,2026-07,Warehouse counter,Walk-in,Finalized,9000000022,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000116,2026-07-24,20:01,2026-07,Market stall,Phone,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000122,2026-07-25,13:00,2026-07,Warehouse counter,Social,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-MK-000117,2026-07-25,14:17,2026-07,Market stall,Walk-in,Finalized,9000000112,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-MK-000117,2026-07-25,14:17,2026-07,Market stall,Walk-in,Finalized,9000000112,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,2,99.00,198.00
+SMP-WH-000123,2026-07-25,14:46,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000118,2026-07-25,15:53,2026-07,Market stall,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000118,2026-07-25,15:53,2026-07,Market stall,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-WH-000124,2026-07-25,17:22,2026-07,Warehouse counter,Social,Finalized,9000000043,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-WH-000124,2026-07-25,17:22,2026-07,Warehouse counter,Social,Finalized,9000000043,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-WH-000124,2026-07-25,17:22,2026-07,Warehouse counter,Social,Finalized,9000000043,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000125,2026-07-25,18:27,2026-07,Warehouse counter,Walk-in,Finalized,9000000080,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000125,2026-07-25,18:27,2026-07,Warehouse counter,Walk-in,Finalized,9000000080,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-WH-000126,2026-07-25,18:58,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000126,2026-07-25,18:58,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000126,2026-07-25,18:58,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,3,1699.00,5097.00
+SMP-WH-000127,2026-07-26,17:21,2026-07,Warehouse counter,Social,Finalized,9000000009,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-WH-000127,2026-07-26,17:21,2026-07,Warehouse counter,Social,Finalized,9000000009,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000128,2026-07-26,20:09,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-WH-000128,2026-07-26,20:09,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-MK-000119,2026-07-27,09:54,2026-07,Market stall,Online,Finalized,9000000058,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-MK-000119,2026-07-27,09:54,2026-07,Market stall,Online,Finalized,9000000058,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,3,169.00,507.00
+SMP-MK-000120,2026-07-29,15:51,2026-07,Market stall,Walk-in,Finalized,9000000093,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,3,279.00,837.00
+SMP-WH-000129,2026-07-29,16:35,2026-07,Warehouse counter,Walk-in,Finalized,9000000119,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000121,2026-07-29,19:50,2026-07,Market stall,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-MK-000121,2026-07-29,19:50,2026-07,Market stall,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-WH-000130,2026-07-30,18:20,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-WH-000130,2026-07-30,18:20,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000131,2026-07-30,20:50,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000131,2026-07-30,20:50,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-WH-000132,2026-07-31,19:18,2026-07,Warehouse counter,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000133,2026-08-02,10:59,2026-08,Warehouse counter,Online,Void,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-WH-000134,2026-08-03,11:09,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-WH-000134,2026-08-03,11:09,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000135,2026-08-04,09:19,2026-08,Warehouse counter,Walk-in,Finalized,9000000006,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-WH-000135,2026-08-04,09:19,2026-08,Warehouse counter,Walk-in,Finalized,9000000006,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000136,2026-08-04,09:47,2026-08,Warehouse counter,Email,Finalized,9000000033,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,3,899.00,2697.00
+SMP-WH-000136,2026-08-04,09:47,2026-08,Warehouse counter,Email,Finalized,9000000033,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-WH-000137,2026-08-04,12:01,2026-08,Warehouse counter,Online,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-WH-000137,2026-08-04,12:01,2026-08,Warehouse counter,Online,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000138,2026-08-04,17:47,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-WH-000138,2026-08-04,17:47,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-WH-000139,2026-08-04,17:48,2026-08,Warehouse counter,Walk-in,Finalized,9000000070,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-WH-000139,2026-08-04,17:48,2026-08,Warehouse counter,Walk-in,Finalized,9000000070,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000140,2026-08-05,16:20,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000141,2026-08-05,16:31,2026-08,Warehouse counter,Phone,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-WH-000141,2026-08-05,16:31,2026-08,Warehouse counter,Phone,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000142,2026-08-05,18:36,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000142,2026-08-05,18:36,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000143,2026-08-05,20:51,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-WH-000144,2026-08-07,14:24,2026-08,Warehouse counter,Social,Finalized,9000000075,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000144,2026-08-07,14:24,2026-08,Warehouse counter,Social,Finalized,9000000075,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-MK-000122,2026-08-07,17:14,2026-08,Market stall,Walk-in,Finalized,9000000071,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-MK-000122,2026-08-07,17:14,2026-08,Market stall,Walk-in,Finalized,9000000071,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,3,229.00,687.00
+SMP-MK-000123,2026-08-07,17:51,2026-08,Market stall,Phone,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-MK-000123,2026-08-07,17:51,2026-08,Market stall,Phone,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,2,99.00,198.00
+SMP-MK-000124,2026-08-07,19:24,2026-08,Market stall,Email,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000124,2026-08-07,19:24,2026-08,Market stall,Email,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000125,2026-08-08,14:11,2026-08,Market stall,Walk-in,Finalized,9000000077,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-MK-000125,2026-08-08,14:11,2026-08,Market stall,Walk-in,Finalized,9000000077,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000145,2026-08-08,16:28,2026-08,Warehouse counter,Walk-in,Finalized,9000000022,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-WH-000145,2026-08-08,16:28,2026-08,Warehouse counter,Walk-in,Finalized,9000000022,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000126,2026-08-09,12:36,2026-08,Market stall,Online,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-MK-000126,2026-08-09,12:36,2026-08,Market stall,Online,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-MK-000127,2026-08-09,14:10,2026-08,Market stall,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000127,2026-08-09,14:10,2026-08,Market stall,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,2,99.00,198.00
+SMP-MK-000127,2026-08-09,14:10,2026-08,Market stall,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-MK-000128,2026-08-10,13:38,2026-08,Market stall,Phone,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-MK-000128,2026-08-10,13:38,2026-08,Market stall,Phone,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-MK-000129,2026-08-10,18:23,2026-08,Market stall,Social,Finalized,9000000038,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-MK-000129,2026-08-10,18:23,2026-08,Market stall,Social,Finalized,9000000038,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,3,499.00,1497.00
+SMP-MK-000129,2026-08-10,18:23,2026-08,Market stall,Social,Finalized,9000000038,SMP-LM500,Little millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000146,2026-08-11,16:01,2026-08,Warehouse counter,Phone,Void,9000000033,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-WH-000147,2026-08-11,19:22,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000147,2026-08-11,19:22,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,3,299.00,897.00
+SMP-WH-000148,2026-08-12,17:00,2026-08,Warehouse counter,Email,Finalized,9000000001,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000148,2026-08-12,17:00,2026-08,Warehouse counter,Email,Finalized,9000000001,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-WH-000149,2026-08-13,13:35,2026-08,Warehouse counter,Walk-in,Finalized,9000000062,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000149,2026-08-13,13:35,2026-08,Warehouse counter,Walk-in,Finalized,9000000062,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-WH-000149,2026-08-13,13:35,2026-08,Warehouse counter,Walk-in,Finalized,9000000062,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000150,2026-08-13,13:56,2026-08,Warehouse counter,Walk-in,Finalized,9000000018,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-MK-000130,2026-08-14,16:43,2026-08,Market stall,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-MK-000130,2026-08-14,16:43,2026-08,Market stall,Walk-in,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000151,2026-08-14,16:53,2026-08,Warehouse counter,Phone,Finalized,9000000086,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000152,2026-08-14,20:31,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000152,2026-08-14,20:31,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-WH-000152,2026-08-14,20:31,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-WH-000152,2026-08-14,20:31,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000131,2026-08-15,09:42,2026-08,Market stall,Phone,Finalized,9000000015,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000131,2026-08-15,09:42,2026-08,Market stall,Phone,Finalized,9000000015,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-WH-000153,2026-08-15,16:11,2026-08,Warehouse counter,Phone,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,3,299.00,897.00
+SMP-WH-000153,2026-08-15,16:11,2026-08,Warehouse counter,Phone,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,3,199.00,597.00
+SMP-WH-000154,2026-08-16,10:53,2026-08,Warehouse counter,Social,Void,9000000029,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000154,2026-08-16,10:53,2026-08,Warehouse counter,Social,Void,9000000029,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000155,2026-08-16,14:58,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000155,2026-08-16,14:58,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-WH-000155,2026-08-16,14:58,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-WH-000156,2026-08-17,10:44,2026-08,Warehouse counter,Social,Void,9000000049,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000156,2026-08-17,10:44,2026-08,Warehouse counter,Social,Void,9000000049,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-WH-000156,2026-08-17,10:44,2026-08,Warehouse counter,Social,Void,9000000049,SMP-DH100,Dhania powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000132,2026-08-17,10:48,2026-08,Market stall,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,3,229.00,687.00
+SMP-MK-000132,2026-08-17,10:48,2026-08,Market stall,Walk-in,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-MK-000132,2026-08-17,10:48,2026-08,Market stall,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000157,2026-08-17,11:24,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000157,2026-08-17,11:24,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,3,149.00,447.00
+SMP-WH-000158,2026-08-17,14:28,2026-08,Warehouse counter,Phone,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000158,2026-08-17,14:28,2026-08,Warehouse counter,Phone,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-MK-000133,2026-08-17,16:36,2026-08,Market stall,Walk-in,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,3,499.00,1497.00
+SMP-WH-000159,2026-08-17,19:41,2026-08,Warehouse counter,Walk-in,Finalized,9000000048,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000160,2026-08-17,20:23,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000160,2026-08-17,20:23,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000160,2026-08-17,20:23,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000134,2026-08-18,09:08,2026-08,Market stall,Phone,Finalized,9000000018,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-MK-000134,2026-08-18,09:08,2026-08,Market stall,Phone,Finalized,9000000018,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-WH-000161,2026-08-18,12:19,2026-08,Warehouse counter,Walk-in,Void,9000000019,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-WH-000162,2026-08-18,13:40,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000162,2026-08-18,13:40,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000162,2026-08-18,13:40,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000163,2026-08-18,14:24,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000164,2026-08-18,14:47,2026-08,Warehouse counter,Online,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000164,2026-08-18,14:47,2026-08,Warehouse counter,Online,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-WH-000165,2026-08-19,19:38,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-WH-000165,2026-08-19,19:38,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-MK-000135,2026-08-20,15:08,2026-08,Market stall,Walk-in,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-MK-000135,2026-08-20,15:08,2026-08,Market stall,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-WH-000166,2026-08-21,14:58,2026-08,Warehouse counter,Phone,Finalized,9000000096,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000167,2026-08-21,19:42,2026-08,Warehouse counter,Phone,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-WH-000167,2026-08-21,19:42,2026-08,Warehouse counter,Phone,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,3,99.00,297.00
+SMP-MK-000136,2026-08-22,09:40,2026-08,Market stall,Social,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,3,749.00,2247.00
+SMP-MK-000136,2026-08-22,09:40,2026-08,Market stall,Social,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-MK-000136,2026-08-22,09:40,2026-08,Market stall,Social,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-MK-000137,2026-08-22,11:35,2026-08,Market stall,Walk-in,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-MK-000137,2026-08-22,11:35,2026-08,Market stall,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000168,2026-08-22,12:52,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000168,2026-08-22,12:52,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,3,279.00,837.00
+SMP-MK-000138,2026-08-22,13:45,2026-08,Market stall,Phone,Finalized,9000000120,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000138,2026-08-22,13:45,2026-08,Market stall,Phone,Finalized,9000000120,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000139,2026-08-23,17:39,2026-08,Market stall,Walk-in,Finalized,9000000023,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000139,2026-08-23,17:39,2026-08,Market stall,Walk-in,Finalized,9000000023,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-MK-000139,2026-08-23,17:39,2026-08,Market stall,Walk-in,Finalized,9000000023,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000169,2026-08-23,19:06,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,3,279.00,837.00
+SMP-WH-000170,2026-08-23,20:55,2026-08,Warehouse counter,Walk-in,Finalized,9000000010,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,3,169.00,507.00
+SMP-WH-000170,2026-08-23,20:55,2026-08,Warehouse counter,Walk-in,Finalized,9000000010,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000140,2026-08-24,13:56,2026-08,Market stall,Phone,Finalized,9000000007,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000140,2026-08-24,13:56,2026-08,Market stall,Phone,Finalized,9000000007,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,3,269.00,807.00
+SMP-MK-000140,2026-08-24,13:56,2026-08,Market stall,Phone,Finalized,9000000007,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-WH-000171,2026-08-24,15:14,2026-08,Warehouse counter,Walk-in,Finalized,9000000081,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000172,2026-08-24,18:44,2026-08,Warehouse counter,Social,Finalized,9000000034,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-MK-000141,2026-08-25,18:01,2026-08,Market stall,Phone,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000173,2026-08-25,19:06,2026-08,Warehouse counter,Phone,Finalized,9000000107,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,2,299.00,598.00
+SMP-WH-000173,2026-08-25,19:06,2026-08,Warehouse counter,Phone,Finalized,9000000107,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,2,189.00,378.00
+SMP-WH-000174,2026-08-26,09:43,2026-08,Warehouse counter,Walk-in,Finalized,9000000080,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,2,59.00,118.00
+SMP-WH-000174,2026-08-26,09:43,2026-08,Warehouse counter,Walk-in,Finalized,9000000080,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000175,2026-08-26,10:38,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000175,2026-08-26,10:38,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000176,2026-08-26,16:46,2026-08,Warehouse counter,Online,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000177,2026-08-26,19:56,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000178,2026-08-27,13:16,2026-08,Warehouse counter,Online,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000178,2026-08-27,13:16,2026-08,Warehouse counter,Online,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-WH-000179,2026-08-28,12:47,2026-08,Warehouse counter,Phone,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000180,2026-08-29,11:20,2026-08,Warehouse counter,Walk-in,Finalized,9000000058,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-WH-000180,2026-08-29,11:20,2026-08,Warehouse counter,Walk-in,Finalized,9000000058,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000180,2026-08-29,11:20,2026-08,Warehouse counter,Walk-in,Finalized,9000000058,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-MK-000142,2026-08-29,15:51,2026-08,Market stall,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,3,49.00,147.00
+SMP-MK-000142,2026-08-29,15:51,2026-08,Market stall,Walk-in,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,3,169.00,507.00
+SMP-MK-000142,2026-08-29,15:51,2026-08,Market stall,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000181,2026-08-29,17:29,2026-08,Warehouse counter,Phone,Finalized,9000000102,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-MK-000143,2026-08-29,20:15,2026-08,Market stall,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-MK-000143,2026-08-29,20:15,2026-08,Market stall,Walk-in,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-MK-000143,2026-08-29,20:15,2026-08,Market stall,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000182,2026-08-30,09:52,2026-08,Warehouse counter,Phone,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,3,899.00,2697.00
+SMP-WH-000182,2026-08-30,09:52,2026-08,Warehouse counter,Phone,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000144,2026-08-30,13:00,2026-08,Market stall,Walk-in,Finalized,9000000119,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000183,2026-08-30,13:48,2026-08,Warehouse counter,Phone,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-WH-000183,2026-08-30,13:48,2026-08,Warehouse counter,Phone,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-MK-000145,2026-08-30,16:14,2026-08,Market stall,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000145,2026-08-30,16:14,2026-08,Market stall,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-MK-000146,2026-08-30,20:59,2026-08,Market stall,Social,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000146,2026-08-30,20:59,2026-08,Market stall,Social,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000146,2026-08-30,20:59,2026-08,Market stall,Social,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000146,2026-08-30,20:59,2026-08,Market stall,Social,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000147,2026-08-31,10:49,2026-08,Market stall,Phone,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-WH-000184,2026-08-31,13:07,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,3,59.00,177.00
+SMP-WH-000184,2026-08-31,13:07,2026-08,Warehouse counter,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-WH-000185,2026-08-31,18:17,2026-08,Warehouse counter,Walk-in,Finalized,9000000042,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,2,59.00,118.00
+SMP-WH-000185,2026-08-31,18:17,2026-08,Warehouse counter,Walk-in,Finalized,9000000042,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-MK-000148,2026-08-31,19:45,2026-08,Market stall,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000186,2026-08-31,20:49,2026-08,Warehouse counter,Walk-in,Finalized,9000000049,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000187,2026-09-01,09:00,2026-09,Warehouse counter,Email,Finalized,9000000048,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000187,2026-09-01,09:00,2026-09,Warehouse counter,Email,Finalized,9000000048,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-WH-000187,2026-09-01,09:00,2026-09,Warehouse counter,Email,Finalized,9000000048,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000149,2026-09-01,12:17,2026-09,Market stall,Social,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-MK-000149,2026-09-01,12:17,2026-09,Market stall,Social,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-MK-000150,2026-09-01,13:00,2026-09,Market stall,Walk-in,Finalized,9000000069,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-MK-000150,2026-09-01,13:00,2026-09,Market stall,Walk-in,Finalized,9000000069,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-WH-000188,2026-09-02,12:17,2026-09,Warehouse counter,Walk-in,Finalized,9000000018,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-WH-000188,2026-09-02,12:17,2026-09,Warehouse counter,Walk-in,Finalized,9000000018,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000188,2026-09-02,12:17,2026-09,Warehouse counter,Walk-in,Finalized,9000000018,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-WH-000189,2026-09-02,16:00,2026-09,Warehouse counter,Walk-in,Finalized,9000000019,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-WH-000189,2026-09-02,16:00,2026-09,Warehouse counter,Walk-in,Finalized,9000000019,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,3,199.00,597.00
+SMP-WH-000189,2026-09-02,16:00,2026-09,Warehouse counter,Walk-in,Finalized,9000000019,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000189,2026-09-02,16:00,2026-09,Warehouse counter,Walk-in,Finalized,9000000019,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000190,2026-09-02,17:23,2026-09,Warehouse counter,Walk-in,Finalized,9000000113,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-WH-000190,2026-09-02,17:23,2026-09,Warehouse counter,Walk-in,Finalized,9000000113,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-WH-000190,2026-09-02,17:23,2026-09,Warehouse counter,Walk-in,Finalized,9000000113,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-MK-000151,2026-09-02,18:32,2026-09,Market stall,Walk-in,Finalized,9000000001,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-MK-000151,2026-09-02,18:32,2026-09,Market stall,Walk-in,Finalized,9000000001,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,3,229.00,687.00
+SMP-WH-000191,2026-09-03,09:53,2026-09,Warehouse counter,Social,Finalized,9000000004,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,3,99.00,297.00
+SMP-MK-000152,2026-09-03,10:22,2026-09,Market stall,Walk-in,Finalized,9000000046,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-MK-000153,2026-09-03,11:56,2026-09,Market stall,Walk-in,Finalized,9000000042,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-MK-000153,2026-09-03,11:56,2026-09,Market stall,Walk-in,Finalized,9000000042,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-MK-000153,2026-09-03,11:56,2026-09,Market stall,Walk-in,Finalized,9000000042,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-MK-000154,2026-09-03,17:14,2026-09,Market stall,Social,Finalized,9000000085,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000154,2026-09-03,17:14,2026-09,Market stall,Social,Finalized,9000000085,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000192,2026-09-04,16:46,2026-09,Warehouse counter,Online,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000193,2026-09-05,11:33,2026-09,Warehouse counter,Social,Finalized,9000000032,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000193,2026-09-05,11:33,2026-09,Warehouse counter,Social,Finalized,9000000032,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000155,2026-09-05,13:08,2026-09,Market stall,Walk-in,Finalized,9000000100,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,2,299.00,598.00
+SMP-MK-000155,2026-09-05,13:08,2026-09,Market stall,Walk-in,Finalized,9000000100,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-WH-000194,2026-09-05,17:16,2026-09,Warehouse counter,Walk-in,Finalized,9000000026,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000194,2026-09-05,17:16,2026-09,Warehouse counter,Walk-in,Finalized,9000000026,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-WH-000194,2026-09-05,17:16,2026-09,Warehouse counter,Walk-in,Finalized,9000000026,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000195,2026-09-06,11:24,2026-09,Warehouse counter,Email,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000195,2026-09-06,11:24,2026-09,Warehouse counter,Email,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-WH-000196,2026-09-06,14:50,2026-09,Warehouse counter,Walk-in,Finalized,9000000066,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,2,189.00,378.00
+SMP-WH-000196,2026-09-06,14:50,2026-09,Warehouse counter,Walk-in,Finalized,9000000066,SMP-LM500,Little millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-WH-000196,2026-09-06,14:50,2026-09,Warehouse counter,Walk-in,Finalized,9000000066,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,3,749.00,2247.00
+SMP-WH-000197,2026-09-06,17:37,2026-09,Warehouse counter,Walk-in,Finalized,9000000060,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,3,119.00,357.00
+SMP-MK-000156,2026-09-06,20:08,2026-09,Market stall,Walk-in,Finalized,9000000054,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-WH-000198,2026-09-07,15:46,2026-09,Warehouse counter,Online,Finalized,9000000027,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000199,2026-09-08,09:07,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000199,2026-09-08,09:07,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,3,279.00,837.00
+SMP-WH-000200,2026-09-08,10:51,2026-09,Warehouse counter,Phone,Finalized,9000000019,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-WH-000200,2026-09-08,10:51,2026-09,Warehouse counter,Phone,Finalized,9000000019,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-WH-000201,2026-09-09,12:19,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000202,2026-09-09,13:06,2026-09,Warehouse counter,Social,Void,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,2,179.00,358.00
+SMP-MK-000157,2026-09-09,14:56,2026-09,Market stall,Email,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-MK-000157,2026-09-09,14:56,2026-09,Market stall,Email,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000203,2026-09-09,17:44,2026-09,Warehouse counter,Walk-in,Finalized,9000000120,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-WH-000203,2026-09-09,17:44,2026-09,Warehouse counter,Walk-in,Finalized,9000000120,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-WH-000203,2026-09-09,17:44,2026-09,Warehouse counter,Walk-in,Finalized,9000000120,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-MK-000158,2026-09-10,10:10,2026-09,Market stall,Phone,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,3,169.00,507.00
+SMP-MK-000158,2026-09-10,10:10,2026-09,Market stall,Phone,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-MK-000159,2026-09-10,11:23,2026-09,Market stall,Online,Finalized,9000000017,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000159,2026-09-10,11:23,2026-09,Market stall,Online,Finalized,9000000017,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-WH-000204,2026-09-10,14:42,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000204,2026-09-10,14:42,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-MK-000160,2026-09-11,13:56,2026-09,Market stall,Phone,Finalized,9000000077,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-MK-000160,2026-09-11,13:56,2026-09,Market stall,Phone,Finalized,9000000077,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,3,279.00,837.00
+SMP-MK-000160,2026-09-11,13:56,2026-09,Market stall,Phone,Finalized,9000000077,SMP-DH100,Dhania powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000205,2026-09-11,15:16,2026-09,Warehouse counter,Phone,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000161,2026-09-11,17:19,2026-09,Market stall,Walk-in,Finalized,9000000003,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,3,749.00,2247.00
+SMP-MK-000161,2026-09-11,17:19,2026-09,Market stall,Walk-in,Finalized,9000000003,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000162,2026-09-11,18:42,2026-09,Market stall,Walk-in,Finalized,9000000020,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000162,2026-09-11,18:42,2026-09,Market stall,Walk-in,Finalized,9000000020,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-MK-000162,2026-09-11,18:42,2026-09,Market stall,Walk-in,Finalized,9000000020,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000163,2026-09-11,19:00,2026-09,Market stall,Walk-in,Finalized,9000000101,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-MK-000163,2026-09-11,19:00,2026-09,Market stall,Walk-in,Finalized,9000000101,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000163,2026-09-11,19:00,2026-09,Market stall,Walk-in,Finalized,9000000101,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-WH-000206,2026-09-13,09:48,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000207,2026-09-13,15:47,2026-09,Warehouse counter,Walk-in,Finalized,9000000066,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,2,99.00,198.00
+SMP-WH-000207,2026-09-13,15:47,2026-09,Warehouse counter,Walk-in,Finalized,9000000066,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,3,49.00,147.00
+SMP-WH-000208,2026-09-13,16:04,2026-09,Warehouse counter,Social,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000208,2026-09-13,16:04,2026-09,Warehouse counter,Social,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000208,2026-09-13,16:04,2026-09,Warehouse counter,Social,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-MK-000164,2026-09-13,18:43,2026-09,Market stall,Social,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,3,749.00,2247.00
+SMP-MK-000165,2026-09-14,11:04,2026-09,Market stall,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-WH-000209,2026-09-14,13:29,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000209,2026-09-14,13:29,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-WH-000209,2026-09-14,13:29,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000210,2026-09-14,19:33,2026-09,Warehouse counter,Social,Finalized,9000000014,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-WH-000210,2026-09-14,19:33,2026-09,Warehouse counter,Social,Finalized,9000000014,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000210,2026-09-14,19:33,2026-09,Warehouse counter,Social,Finalized,9000000014,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000211,2026-09-15,11:45,2026-09,Warehouse counter,Social,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,3,169.00,507.00
+SMP-WH-000211,2026-09-15,11:45,2026-09,Warehouse counter,Social,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000212,2026-09-15,12:10,2026-09,Warehouse counter,Walk-in,Finalized,9000000104,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000166,2026-09-15,13:53,2026-09,Market stall,Social,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000167,2026-09-15,16:54,2026-09,Market stall,Social,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000167,2026-09-15,16:54,2026-09,Market stall,Social,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000167,2026-09-15,16:54,2026-09,Market stall,Social,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-WH-000213,2026-09-15,19:10,2026-09,Warehouse counter,Walk-in,Finalized,9000000068,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000213,2026-09-15,19:10,2026-09,Warehouse counter,Walk-in,Finalized,9000000068,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,3,749.00,2247.00
+SMP-MK-000168,2026-09-16,11:17,2026-09,Market stall,Walk-in,Finalized,9000000063,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000168,2026-09-16,11:17,2026-09,Market stall,Walk-in,Finalized,9000000063,SMP-LM500,Little millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-MK-000169,2026-09-16,13:43,2026-09,Market stall,Online,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000169,2026-09-16,13:43,2026-09,Market stall,Online,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-WH-000214,2026-09-16,14:35,2026-09,Warehouse counter,Walk-in,Finalized,9000000113,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,2,189.00,378.00
+SMP-WH-000214,2026-09-16,14:35,2026-09,Warehouse counter,Walk-in,Finalized,9000000113,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000215,2026-09-16,15:20,2026-09,Warehouse counter,Email,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000216,2026-09-16,16:14,2026-09,Warehouse counter,Phone,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000216,2026-09-16,16:14,2026-09,Warehouse counter,Phone,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-WH-000217,2026-09-16,17:39,2026-09,Warehouse counter,Online,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000217,2026-09-16,17:39,2026-09,Warehouse counter,Online,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000170,2026-09-16,18:59,2026-09,Market stall,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000170,2026-09-16,18:59,2026-09,Market stall,Walk-in,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,3,99.00,297.00
+SMP-MK-000170,2026-09-16,18:59,2026-09,Market stall,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000171,2026-09-17,09:10,2026-09,Market stall,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000171,2026-09-17,09:10,2026-09,Market stall,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000218,2026-09-17,16:31,2026-09,Warehouse counter,Walk-in,Finalized,9000000039,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,2,99.00,198.00
+SMP-WH-000218,2026-09-17,16:31,2026-09,Warehouse counter,Walk-in,Finalized,9000000039,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000219,2026-09-17,19:38,2026-09,Warehouse counter,Social,Finalized,9000000075,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-WH-000220,2026-09-18,12:56,2026-09,Warehouse counter,Social,Finalized,9000000011,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000220,2026-09-18,12:56,2026-09,Warehouse counter,Social,Finalized,9000000011,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-MK-000172,2026-09-18,19:45,2026-09,Market stall,Walk-in,Void,9000000015,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000221,2026-09-19,15:25,2026-09,Warehouse counter,Email,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000221,2026-09-19,15:25,2026-09,Warehouse counter,Email,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-WH-000222,2026-09-19,16:16,2026-09,Warehouse counter,Online,Void,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,2,59.00,118.00
+SMP-WH-000222,2026-09-19,16:16,2026-09,Warehouse counter,Online,Void,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,3,199.00,597.00
+SMP-WH-000222,2026-09-19,16:16,2026-09,Warehouse counter,Online,Void,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000173,2026-09-19,18:08,2026-09,Market stall,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,2,179.00,358.00
+SMP-MK-000173,2026-09-19,18:08,2026-09,Market stall,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-MK-000173,2026-09-19,18:08,2026-09,Market stall,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000223,2026-09-19,18:52,2026-09,Warehouse counter,Walk-in,Void,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-WH-000223,2026-09-19,18:52,2026-09,Warehouse counter,Walk-in,Void,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-WH-000223,2026-09-19,18:52,2026-09,Warehouse counter,Walk-in,Void,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-MK-000174,2026-09-20,14:14,2026-09,Market stall,Walk-in,Finalized,9000000086,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,3,119.00,357.00
+SMP-MK-000174,2026-09-20,14:14,2026-09,Market stall,Walk-in,Finalized,9000000086,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000224,2026-09-20,18:50,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000224,2026-09-20,18:50,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-WH-000224,2026-09-20,18:50,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000225,2026-09-21,12:26,2026-09,Warehouse counter,Phone,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000225,2026-09-21,12:26,2026-09,Warehouse counter,Phone,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,3,49.00,147.00
+SMP-MK-000175,2026-09-21,17:21,2026-09,Market stall,Walk-in,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000175,2026-09-21,17:21,2026-09,Market stall,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000226,2026-09-22,09:03,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-WH-000226,2026-09-22,09:03,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,3,99.00,297.00
+SMP-MK-000176,2026-09-22,10:07,2026-09,Market stall,Phone,Finalized,9000000052,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000176,2026-09-22,10:07,2026-09,Market stall,Phone,Finalized,9000000052,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000227,2026-09-22,10:12,2026-09,Warehouse counter,Online,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,3,129.00,387.00
+SMP-WH-000227,2026-09-22,10:12,2026-09,Warehouse counter,Online,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,3,189.00,567.00
+SMP-WH-000228,2026-09-22,14:57,2026-09,Warehouse counter,Walk-in,Finalized,9000000073,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000177,2026-09-22,16:37,2026-09,Market stall,Walk-in,Finalized,9000000109,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-MK-000177,2026-09-22,16:37,2026-09,Market stall,Walk-in,Finalized,9000000109,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-WH-000229,2026-09-23,09:48,2026-09,Warehouse counter,Phone,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000229,2026-09-23,09:48,2026-09,Warehouse counter,Phone,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,2,299.00,598.00
+SMP-WH-000229,2026-09-23,09:48,2026-09,Warehouse counter,Phone,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000229,2026-09-23,09:48,2026-09,Warehouse counter,Phone,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000178,2026-09-23,10:07,2026-09,Market stall,Walk-in,Finalized,9000000073,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,2,59.00,118.00
+SMP-WH-000230,2026-09-23,12:40,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-WH-000231,2026-09-23,20:03,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000231,2026-09-23,20:03,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000231,2026-09-23,20:03,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-MK-000179,2026-09-24,10:48,2026-09,Market stall,Walk-in,Finalized,9000000016,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-MK-000179,2026-09-24,10:48,2026-09,Market stall,Walk-in,Finalized,9000000016,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000179,2026-09-24,10:48,2026-09,Market stall,Walk-in,Finalized,9000000016,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-MK-000179,2026-09-24,10:48,2026-09,Market stall,Walk-in,Finalized,9000000016,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000232,2026-09-24,11:54,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-WH-000232,2026-09-24,11:54,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000180,2026-09-24,12:37,2026-09,Market stall,Social,Finalized,9000000110,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000180,2026-09-24,12:37,2026-09,Market stall,Social,Finalized,9000000110,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-MK-000180,2026-09-24,12:37,2026-09,Market stall,Social,Finalized,9000000110,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000233,2026-09-24,15:59,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-WH-000233,2026-09-24,15:59,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,3,99.00,297.00
+SMP-WH-000234,2026-09-24,16:18,2026-09,Warehouse counter,Social,Void,9000000060,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000234,2026-09-24,16:18,2026-09,Warehouse counter,Social,Void,9000000060,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-WH-000235,2026-09-24,20:06,2026-09,Warehouse counter,Walk-in,Finalized,9000000042,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,3,99.00,297.00
+SMP-WH-000235,2026-09-24,20:06,2026-09,Warehouse counter,Walk-in,Finalized,9000000042,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-MK-000181,2026-09-25,10:38,2026-09,Market stall,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,3,59.00,177.00
+SMP-MK-000181,2026-09-25,10:38,2026-09,Market stall,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000236,2026-09-25,13:03,2026-09,Warehouse counter,Walk-in,Finalized,9000000063,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000236,2026-09-25,13:03,2026-09,Warehouse counter,Walk-in,Finalized,9000000063,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-MK-000182,2026-09-25,14:29,2026-09,Market stall,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000182,2026-09-25,14:29,2026-09,Market stall,Walk-in,Finalized,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-MK-000183,2026-09-25,14:52,2026-09,Market stall,Walk-in,Finalized,9000000034,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000183,2026-09-25,14:52,2026-09,Market stall,Walk-in,Finalized,9000000034,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000237,2026-09-25,15:18,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000237,2026-09-25,15:18,2026-09,Warehouse counter,Walk-in,Finalized,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000238,2026-09-25,16:29,2026-09,Warehouse counter,Walk-in,Finalized,9000000090,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-WH-000238,2026-09-25,16:29,2026-09,Warehouse counter,Walk-in,Finalized,9000000090,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000239,2026-09-25,19:43,2026-09,Warehouse counter,Phone,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-MK-000184,2026-09-26,15:21,2026-09,Market stall,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-MK-000184,2026-09-26,15:21,2026-09,Market stall,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-WH-000240,2026-09-27,17:09,2026-09,Warehouse counter,Phone,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000241,2026-09-27,19:43,2026-09,Warehouse counter,Walk-in,Finalized,9000000107,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-WH-000241,2026-09-27,19:43,2026-09,Warehouse counter,Walk-in,Finalized,9000000107,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-MK-000185,2026-09-28,09:53,2026-09,Market stall,Walk-in,Finalized,9000000119,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000186,2026-09-28,14:22,2026-09,Market stall,Social,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000186,2026-09-28,14:22,2026-09,Market stall,Social,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,2,179.00,358.00
+SMP-WH-000242,2026-09-28,17:34,2026-09,Warehouse counter,Walk-in,Finalized,9000000086,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000242,2026-09-28,17:34,2026-09,Warehouse counter,Walk-in,Finalized,9000000086,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,2,299.00,598.00
+SMP-WH-000243,2026-09-29,09:05,2026-09,Warehouse counter,Walk-in,Finalized,9000000088,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-WH-000243,2026-09-29,09:05,2026-09,Warehouse counter,Walk-in,Finalized,9000000088,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-WH-000244,2026-09-29,10:34,2026-09,Warehouse counter,Walk-in,Finalized,9000000078,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000245,2026-09-30,09:44,2026-09,Warehouse counter,Walk-in,Finalized,9000000062,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-WH-000246,2026-09-30,15:36,2026-09,Warehouse counter,Walk-in,Finalized,9000000045,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000187,2026-09-30,17:21,2026-09,Market stall,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,2,299.00,598.00
+SMP-WH-000247,2026-09-30,20:21,2026-09,Warehouse counter,Phone,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000247,2026-09-30,20:21,2026-09,Warehouse counter,Phone,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000247,2026-09-30,20:21,2026-09,Warehouse counter,Phone,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000247,2026-09-30,20:21,2026-09,Warehouse counter,Phone,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-MK-000188,2026-10-01,12:01,2026-10,Market stall,Walk-in,Void,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000188,2026-10-01,12:01,2026-10,Market stall,Walk-in,Void,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-MK-000189,2026-10-01,14:19,2026-10,Market stall,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-MK-000189,2026-10-01,14:19,2026-10,Market stall,Walk-in,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-MK-000190,2026-10-01,17:42,2026-10,Market stall,Online,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-MK-000190,2026-10-01,17:42,2026-10,Market stall,Online,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000248,2026-10-01,18:47,2026-10,Warehouse counter,Phone,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000248,2026-10-01,18:47,2026-10,Warehouse counter,Phone,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000191,2026-10-02,12:35,2026-10,Market stall,Walk-in,Finalized,9000000067,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-MK-000191,2026-10-02,12:35,2026-10,Market stall,Walk-in,Finalized,9000000067,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000191,2026-10-02,12:35,2026-10,Market stall,Walk-in,Finalized,9000000067,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000192,2026-10-02,14:03,2026-10,Market stall,Walk-in,Finalized,9000000047,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,3,1699.00,5097.00
+SMP-MK-000192,2026-10-02,14:03,2026-10,Market stall,Walk-in,Finalized,9000000047,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-MK-000192,2026-10-02,14:03,2026-10,Market stall,Walk-in,Finalized,9000000047,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-MK-000193,2026-10-02,15:24,2026-10,Market stall,Walk-in,Finalized,9000000068,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-MK-000193,2026-10-02,15:24,2026-10,Market stall,Walk-in,Finalized,9000000068,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,3,129.00,387.00
+SMP-WH-000249,2026-10-02,17:09,2026-10,Warehouse counter,Walk-in,Finalized,9000000100,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,3,99.00,297.00
+SMP-WH-000249,2026-10-02,17:09,2026-10,Warehouse counter,Walk-in,Finalized,9000000100,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-WH-000250,2026-10-02,18:55,2026-10,Warehouse counter,Social,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-WH-000250,2026-10-02,18:55,2026-10,Warehouse counter,Social,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,2,189.00,378.00
+SMP-WH-000251,2026-10-02,19:01,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-MK-000194,2026-10-03,09:47,2026-10,Market stall,Online,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-MK-000194,2026-10-03,09:47,2026-10,Market stall,Online,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000252,2026-10-03,10:25,2026-10,Warehouse counter,Email,Finalized,9000000095,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000253,2026-10-03,17:03,2026-10,Warehouse counter,Phone,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000253,2026-10-03,17:03,2026-10,Warehouse counter,Phone,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000195,2026-10-03,18:21,2026-10,Market stall,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000254,2026-10-04,12:33,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000196,2026-10-04,14:17,2026-10,Market stall,Social,Finalized,9000000047,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000196,2026-10-04,14:17,2026-10,Market stall,Social,Finalized,9000000047,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-MK-000197,2026-10-04,14:37,2026-10,Market stall,Walk-in,Finalized,9000000086,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000197,2026-10-04,14:37,2026-10,Market stall,Walk-in,Finalized,9000000086,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000197,2026-10-04,14:37,2026-10,Market stall,Walk-in,Finalized,9000000086,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-MK-000197,2026-10-04,14:37,2026-10,Market stall,Walk-in,Finalized,9000000086,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000255,2026-10-05,09:02,2026-10,Warehouse counter,Social,Void,9000000048,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000255,2026-10-05,09:02,2026-10,Warehouse counter,Social,Void,9000000048,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000255,2026-10-05,09:02,2026-10,Warehouse counter,Social,Void,9000000048,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,3,169.00,507.00
+SMP-WH-000255,2026-10-05,09:02,2026-10,Warehouse counter,Social,Void,9000000048,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-MK-000198,2026-10-05,09:38,2026-10,Market stall,Walk-in,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,3,199.00,597.00
+SMP-WH-000256,2026-10-05,09:38,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000256,2026-10-05,09:38,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000257,2026-10-05,12:30,2026-10,Warehouse counter,Social,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000258,2026-10-05,15:01,2026-10,Warehouse counter,Walk-in,Finalized,9000000033,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-WH-000258,2026-10-05,15:01,2026-10,Warehouse counter,Walk-in,Finalized,9000000033,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-WH-000259,2026-10-05,16:40,2026-10,Warehouse counter,Phone,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000259,2026-10-05,16:40,2026-10,Warehouse counter,Phone,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000260,2026-10-05,17:17,2026-10,Warehouse counter,Walk-in,Finalized,9000000040,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000260,2026-10-05,17:17,2026-10,Warehouse counter,Walk-in,Finalized,9000000040,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000260,2026-10-05,17:17,2026-10,Warehouse counter,Walk-in,Finalized,9000000040,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-MK-000199,2026-10-05,20:05,2026-10,Market stall,Walk-in,Finalized,9000000027,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000261,2026-10-06,14:48,2026-10,Warehouse counter,Social,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000262,2026-10-06,15:26,2026-10,Warehouse counter,Walk-in,Finalized,9000000103,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-WH-000263,2026-10-06,17:24,2026-10,Warehouse counter,Online,Finalized,9000000018,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000263,2026-10-06,17:24,2026-10,Warehouse counter,Online,Finalized,9000000018,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000264,2026-10-06,18:00,2026-10,Warehouse counter,Walk-in,Finalized,9000000073,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-WH-000264,2026-10-06,18:00,2026-10,Warehouse counter,Walk-in,Finalized,9000000073,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-MK-000200,2026-10-07,10:33,2026-10,Market stall,Social,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000200,2026-10-07,10:33,2026-10,Market stall,Social,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000265,2026-10-07,11:00,2026-10,Warehouse counter,Walk-in,Finalized,9000000021,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000266,2026-10-07,16:46,2026-10,Warehouse counter,Online,Finalized,9000000024,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,3,99.00,297.00
+SMP-WH-000266,2026-10-07,16:46,2026-10,Warehouse counter,Online,Finalized,9000000024,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,3,69.00,207.00
+SMP-WH-000267,2026-10-08,10:16,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-WH-000267,2026-10-08,10:16,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-WH-000268,2026-10-08,15:24,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000269,2026-10-09,11:40,2026-10,Warehouse counter,Social,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-WH-000269,2026-10-09,11:40,2026-10,Warehouse counter,Social,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,2,269.00,538.00
+SMP-MK-000201,2026-10-09,12:41,2026-10,Market stall,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000201,2026-10-09,12:41,2026-10,Market stall,Walk-in,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-MK-000201,2026-10-09,12:41,2026-10,Market stall,Walk-in,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000202,2026-10-09,16:16,2026-10,Market stall,Online,Finalized,9000000097,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,3,949.00,2847.00
+SMP-MK-000203,2026-10-09,17:00,2026-10,Market stall,Walk-in,Finalized,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000203,2026-10-09,17:00,2026-10,Market stall,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-MK-000203,2026-10-09,17:00,2026-10,Market stall,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,3,179.00,537.00
+SMP-WH-000270,2026-10-09,20:11,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000270,2026-10-09,20:11,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000204,2026-10-10,10:07,2026-10,Market stall,Phone,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-MK-000205,2026-10-10,13:40,2026-10,Market stall,Phone,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000205,2026-10-10,13:40,2026-10,Market stall,Phone,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000271,2026-10-10,15:02,2026-10,Warehouse counter,Online,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,3,269.00,807.00
+SMP-WH-000271,2026-10-10,15:02,2026-10,Warehouse counter,Online,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-WH-000271,2026-10-10,15:02,2026-10,Warehouse counter,Online,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-MK-000206,2026-10-10,17:28,2026-10,Market stall,Social,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-WH-000272,2026-10-10,20:28,2026-10,Warehouse counter,Social,Finalized,9000000044,SMP-DH100,Dhania powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000272,2026-10-10,20:28,2026-10,Warehouse counter,Social,Finalized,9000000044,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-WH-000272,2026-10-10,20:28,2026-10,Warehouse counter,Social,Finalized,9000000044,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-MK-000207,2026-10-11,14:25,2026-10,Market stall,Walk-in,Finalized,9000000062,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000207,2026-10-11,14:25,2026-10,Market stall,Walk-in,Finalized,9000000062,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000207,2026-10-11,14:25,2026-10,Market stall,Walk-in,Finalized,9000000062,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,3,899.00,2697.00
+SMP-WH-000273,2026-10-11,16:22,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,3,149.00,447.00
+SMP-WH-000273,2026-10-11,16:22,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,3,69.00,207.00
+SMP-MK-000208,2026-10-11,18:44,2026-10,Market stall,Email,Finalized,9000000067,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000208,2026-10-11,18:44,2026-10,Market stall,Email,Finalized,9000000067,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000208,2026-10-11,18:44,2026-10,Market stall,Email,Finalized,9000000067,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-WH-000274,2026-10-12,09:27,2026-10,Warehouse counter,Online,Finalized,9000000004,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-WH-000274,2026-10-12,09:27,2026-10,Warehouse counter,Online,Finalized,9000000004,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-WH-000275,2026-10-12,10:07,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-WH-000275,2026-10-12,10:07,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000275,2026-10-12,10:07,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,3,49.00,147.00
+SMP-WH-000276,2026-10-12,10:15,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-MK-000209,2026-10-12,13:20,2026-10,Market stall,Email,Finalized,9000000005,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,3,1699.00,5097.00
+SMP-MK-000210,2026-10-12,18:49,2026-10,Market stall,Walk-in,Finalized,9000000104,SMP-GM100,Garam masala,Spices,Coorg Spice House,2,69.00,138.00
+SMP-MK-000210,2026-10-12,18:49,2026-10,Market stall,Walk-in,Finalized,9000000104,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000210,2026-10-12,18:49,2026-10,Market stall,Walk-in,Finalized,9000000104,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000277,2026-10-12,19:15,2026-10,Warehouse counter,Online,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,3,119.00,357.00
+SMP-WH-000277,2026-10-12,19:15,2026-10,Warehouse counter,Online,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-WH-000278,2026-10-13,11:10,2026-10,Warehouse counter,Phone,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,3,99.00,297.00
+SMP-MK-000211,2026-10-14,15:22,2026-10,Market stall,Walk-in,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-WH-000279,2026-10-14,17:51,2026-10,Warehouse counter,Walk-in,Finalized,9000000069,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000279,2026-10-14,17:51,2026-10,Warehouse counter,Walk-in,Finalized,9000000069,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000212,2026-10-14,19:04,2026-10,Market stall,Walk-in,Finalized,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,1,169.00,169.00
+SMP-MK-000213,2026-10-15,10:54,2026-10,Market stall,Walk-in,Finalized,9000000067,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,3,269.00,807.00
+SMP-MK-000214,2026-10-15,12:29,2026-10,Market stall,Phone,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000214,2026-10-15,12:29,2026-10,Market stall,Phone,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-MK-000214,2026-10-15,12:29,2026-10,Market stall,Phone,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000280,2026-10-15,13:01,2026-10,Warehouse counter,Phone,Finalized,9000000023,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000280,2026-10-15,13:01,2026-10,Warehouse counter,Phone,Finalized,9000000023,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-WH-000280,2026-10-15,13:01,2026-10,Warehouse counter,Phone,Finalized,9000000023,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-MK-000215,2026-10-15,17:34,2026-10,Market stall,Social,Finalized,9000000048,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000215,2026-10-15,17:34,2026-10,Market stall,Social,Finalized,9000000048,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000281,2026-10-15,20:07,2026-10,Warehouse counter,Social,Finalized,9000000035,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-WH-000281,2026-10-15,20:07,2026-10,Warehouse counter,Social,Finalized,9000000035,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-WH-000281,2026-10-15,20:07,2026-10,Warehouse counter,Social,Finalized,9000000035,SMP-LM500,Little millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000282,2026-10-16,14:35,2026-10,Warehouse counter,Walk-in,Finalized,9000000102,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,2,129.00,258.00
+SMP-WH-000282,2026-10-16,14:35,2026-10,Warehouse counter,Walk-in,Finalized,9000000102,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000283,2026-10-16,18:15,2026-10,Warehouse counter,Walk-in,Finalized,9000000052,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000283,2026-10-16,18:15,2026-10,Warehouse counter,Walk-in,Finalized,9000000052,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-WH-000283,2026-10-16,18:15,2026-10,Warehouse counter,Walk-in,Finalized,9000000052,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000284,2026-10-16,19:41,2026-10,Warehouse counter,Email,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000284,2026-10-16,19:41,2026-10,Warehouse counter,Email,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-WH-000285,2026-10-17,09:17,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,2,99.00,198.00
+SMP-WH-000285,2026-10-17,09:17,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000286,2026-10-17,12:32,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,3,59.00,177.00
+SMP-WH-000286,2026-10-17,12:32,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-MK-000216,2026-10-17,13:30,2026-10,Market stall,Walk-in,Finalized,9000000097,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-MK-000216,2026-10-17,13:30,2026-10,Market stall,Walk-in,Finalized,9000000097,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000216,2026-10-17,13:30,2026-10,Market stall,Walk-in,Finalized,9000000097,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000287,2026-10-17,13:37,2026-10,Warehouse counter,Online,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000217,2026-10-17,13:39,2026-10,Market stall,Walk-in,Finalized,9000000084,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000218,2026-10-17,13:42,2026-10,Market stall,Phone,Finalized,9000000074,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,3,189.00,567.00
+SMP-MK-000218,2026-10-17,13:42,2026-10,Market stall,Phone,Finalized,9000000074,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-MK-000218,2026-10-17,13:42,2026-10,Market stall,Phone,Finalized,9000000074,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-WH-000288,2026-10-17,14:30,2026-10,Warehouse counter,Phone,Void,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000288,2026-10-17,14:30,2026-10,Warehouse counter,Phone,Void,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,3,69.00,207.00
+SMP-WH-000288,2026-10-17,14:30,2026-10,Warehouse counter,Phone,Void,,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-MK-000219,2026-10-17,15:15,2026-10,Market stall,Walk-in,Finalized,9000000057,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-MK-000220,2026-10-17,16:07,2026-10,Market stall,Phone,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-MK-000220,2026-10-17,16:07,2026-10,Market stall,Phone,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-MK-000220,2026-10-17,16:07,2026-10,Market stall,Phone,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000289,2026-10-17,17:51,2026-10,Warehouse counter,Phone,Finalized,9000000037,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000221,2026-10-17,18:14,2026-10,Market stall,Walk-in,Finalized,9000000064,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-WH-000290,2026-10-17,19:42,2026-10,Warehouse counter,Phone,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,3,99.00,297.00
+SMP-WH-000290,2026-10-17,19:42,2026-10,Warehouse counter,Phone,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-MK-000222,2026-10-17,19:46,2026-10,Market stall,Social,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000291,2026-10-18,09:42,2026-10,Warehouse counter,Phone,Void,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000291,2026-10-18,09:42,2026-10,Warehouse counter,Phone,Void,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000292,2026-10-19,09:47,2026-10,Warehouse counter,Walk-in,Void,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,1,189.00,189.00
+SMP-WH-000292,2026-10-19,09:47,2026-10,Warehouse counter,Walk-in,Void,,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-MK-000223,2026-10-19,10:11,2026-10,Market stall,Email,Finalized,9000000066,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000223,2026-10-19,10:11,2026-10,Market stall,Email,Finalized,9000000066,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,3,749.00,2247.00
+SMP-MK-000223,2026-10-19,10:11,2026-10,Market stall,Email,Finalized,9000000066,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-MK-000224,2026-10-19,13:05,2026-10,Market stall,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,2,899.00,1798.00
+SMP-MK-000224,2026-10-19,13:05,2026-10,Market stall,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,2,59.00,118.00
+SMP-WH-000293,2026-10-19,14:41,2026-10,Warehouse counter,Walk-in,Finalized,9000000019,SMP-GM100,Garam masala,Spices,Coorg Spice House,3,69.00,207.00
+SMP-WH-000293,2026-10-19,14:41,2026-10,Warehouse counter,Walk-in,Finalized,9000000019,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,1,69.00,69.00
+SMP-WH-000293,2026-10-19,14:41,2026-10,Warehouse counter,Walk-in,Finalized,9000000019,SMP-RM500,Rajma,Pulses,Konkan Pulses Traders,2,169.00,338.00
+SMP-MK-000225,2026-10-19,16:13,2026-10,Market stall,Walk-in,Finalized,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000225,2026-10-19,16:13,2026-10,Market stall,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-MK-000225,2026-10-19,16:13,2026-10,Market stall,Walk-in,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000226,2026-10-19,18:02,2026-10,Market stall,Phone,Finalized,9000000066,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000227,2026-10-19,18:57,2026-10,Market stall,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000227,2026-10-19,18:57,2026-10,Market stall,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000227,2026-10-19,18:57,2026-10,Market stall,Walk-in,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,3,189.00,567.00
+SMP-MK-000228,2026-10-19,20:41,2026-10,Market stall,Phone,Finalized,9000000086,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-MK-000228,2026-10-19,20:41,2026-10,Market stall,Phone,Finalized,9000000086,SMP-LM500,Little millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-MK-000228,2026-10-19,20:41,2026-10,Market stall,Phone,Finalized,9000000086,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000294,2026-10-20,09:19,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000229,2026-10-20,11:43,2026-10,Market stall,Social,Finalized,9000000068,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,3,99.00,297.00
+SMP-MK-000229,2026-10-20,11:43,2026-10,Market stall,Social,Finalized,9000000068,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,3,99.00,297.00
+SMP-WH-000295,2026-10-20,15:34,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000295,2026-10-20,15:34,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-WH-000296,2026-10-20,18:03,2026-10,Warehouse counter,Walk-in,Finalized,9000000083,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,1,899.00,899.00
+SMP-WH-000297,2026-10-21,10:45,2026-10,Warehouse counter,Phone,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000297,2026-10-21,10:45,2026-10,Warehouse counter,Phone,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000297,2026-10-21,10:45,2026-10,Warehouse counter,Phone,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-WH-000298,2026-10-21,13:01,2026-10,Warehouse counter,Email,Finalized,9000000113,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-WH-000298,2026-10-21,13:01,2026-10,Warehouse counter,Email,Finalized,9000000113,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000299,2026-10-22,11:30,2026-10,Warehouse counter,Social,Finalized,9000000072,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-WH-000299,2026-10-22,11:30,2026-10,Warehouse counter,Social,Finalized,9000000072,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,2,169.00,338.00
+SMP-WH-000300,2026-10-22,14:16,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,3,119.00,357.00
+SMP-WH-000301,2026-10-22,16:01,2026-10,Warehouse counter,Phone,Void,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-WH-000302,2026-10-22,16:51,2026-10,Warehouse counter,Walk-in,Finalized,9000000016,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-WH-000303,2026-10-22,17:36,2026-10,Warehouse counter,Walk-in,Finalized,9000000005,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-WH-000304,2026-10-22,17:52,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-WH-000304,2026-10-22,17:52,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000304,2026-10-22,17:52,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000305,2026-10-22,19:44,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-MK-000230,2026-10-23,11:04,2026-10,Market stall,Social,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000230,2026-10-23,11:04,2026-10,Market stall,Social,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-MK-000231,2026-10-23,11:19,2026-10,Market stall,Phone,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,2,1699.00,3398.00
+SMP-MK-000231,2026-10-23,11:19,2026-10,Market stall,Phone,Finalized,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-MK-000232,2026-10-23,16:26,2026-10,Market stall,Phone,Finalized,9000000066,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-MK-000232,2026-10-23,16:26,2026-10,Market stall,Phone,Finalized,9000000066,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000306,2026-10-23,16:35,2026-10,Warehouse counter,Social,Finalized,9000000006,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,1,949.00,949.00
+SMP-WH-000307,2026-10-23,20:18,2026-10,Warehouse counter,Social,Finalized,9000000011,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,3,279.00,837.00
+SMP-WH-000308,2026-10-24,09:49,2026-10,Warehouse counter,Online,Finalized,,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,1,149.00,149.00
+SMP-WH-000308,2026-10-24,09:49,2026-10,Warehouse counter,Online,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,2,179.00,358.00
+SMP-WH-000309,2026-10-24,18:40,2026-10,Warehouse counter,Walk-in,Finalized,9000000022,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000309,2026-10-24,18:40,2026-10,Warehouse counter,Walk-in,Finalized,9000000022,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000233,2026-10-24,19:27,2026-10,Market stall,Phone,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000233,2026-10-24,19:27,2026-10,Market stall,Phone,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-MK-000233,2026-10-24,19:27,2026-10,Market stall,Phone,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000234,2026-10-24,19:31,2026-10,Market stall,Phone,Finalized,9000000037,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,1,279.00,279.00
+SMP-MK-000234,2026-10-24,19:31,2026-10,Market stall,Phone,Finalized,9000000037,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-WH-000310,2026-10-24,20:10,2026-10,Warehouse counter,Phone,Finalized,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-WH-000310,2026-10-24,20:10,2026-10,Warehouse counter,Phone,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000311,2026-10-25,10:20,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-WH-000312,2026-10-25,12:04,2026-10,Warehouse counter,Online,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000312,2026-10-25,12:04,2026-10,Warehouse counter,Online,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000313,2026-10-25,13:05,2026-10,Warehouse counter,Online,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,3,229.00,687.00
+SMP-WH-000314,2026-10-25,17:07,2026-10,Warehouse counter,Online,Finalized,9000000035,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000315,2026-10-25,19:14,2026-10,Warehouse counter,Walk-in,Finalized,9000000097,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000235,2026-10-26,10:25,2026-10,Market stall,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-MK-000235,2026-10-26,10:25,2026-10,Market stall,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-MK-000235,2026-10-26,10:25,2026-10,Market stall,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000316,2026-10-26,15:05,2026-10,Warehouse counter,Email,Finalized,9000000002,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000316,2026-10-26,15:05,2026-10,Warehouse counter,Email,Finalized,9000000002,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000316,2026-10-26,15:05,2026-10,Warehouse counter,Email,Finalized,9000000002,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000317,2026-10-26,16:59,2026-10,Warehouse counter,Walk-in,Finalized,9000000017,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-WH-000317,2026-10-26,16:59,2026-10,Warehouse counter,Walk-in,Finalized,9000000017,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,2,49.00,98.00
+SMP-WH-000318,2026-10-26,18:55,2026-10,Warehouse counter,Walk-in,Finalized,9000000027,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-WH-000318,2026-10-26,18:55,2026-10,Warehouse counter,Walk-in,Finalized,9000000027,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000236,2026-10-26,20:36,2026-10,Market stall,Walk-in,Finalized,9000000045,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-MK-000236,2026-10-26,20:36,2026-10,Market stall,Walk-in,Finalized,9000000045,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000237,2026-10-27,11:19,2026-10,Market stall,Online,Finalized,,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,1,99.00,99.00
+SMP-MK-000237,2026-10-27,11:19,2026-10,Market stall,Online,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000238,2026-10-27,12:10,2026-10,Market stall,Phone,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,2,199.00,398.00
+SMP-MK-000238,2026-10-27,12:10,2026-10,Market stall,Phone,Finalized,,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,3,899.00,2697.00
+SMP-WH-000319,2026-10-27,18:40,2026-10,Warehouse counter,Walk-in,Void,9000000043,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,3,169.00,507.00
+SMP-WH-000319,2026-10-27,18:40,2026-10,Warehouse counter,Walk-in,Void,9000000043,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-WH-000320,2026-10-27,18:57,2026-10,Warehouse counter,Phone,Finalized,,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000320,2026-10-27,18:57,2026-10,Warehouse counter,Phone,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-WH-000321,2026-10-28,11:29,2026-10,Warehouse counter,Phone,Finalized,9000000023,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-WH-000321,2026-10-28,11:29,2026-10,Warehouse counter,Phone,Finalized,9000000023,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,1,499.00,499.00
+SMP-WH-000321,2026-10-28,11:29,2026-10,Warehouse counter,Phone,Finalized,9000000023,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,3,749.00,2247.00
+SMP-MK-000239,2026-10-28,11:46,2026-10,Market stall,Phone,Finalized,9000000005,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,2,229.00,458.00
+SMP-WH-000322,2026-10-28,12:04,2026-10,Warehouse counter,Walk-in,Finalized,9000000060,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,3,119.00,357.00
+SMP-WH-000322,2026-10-28,12:04,2026-10,Warehouse counter,Walk-in,Finalized,9000000060,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,3,899.00,2697.00
+SMP-WH-000322,2026-10-28,12:04,2026-10,Warehouse counter,Walk-in,Finalized,9000000060,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000240,2026-10-28,12:30,2026-10,Market stall,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000240,2026-10-28,12:30,2026-10,Market stall,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000240,2026-10-28,12:30,2026-10,Market stall,Walk-in,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,2,119.00,238.00
+SMP-MK-000241,2026-10-28,18:45,2026-10,Market stall,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-MK-000241,2026-10-28,18:45,2026-10,Market stall,Walk-in,Finalized,,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000242,2026-10-29,10:57,2026-10,Market stall,Phone,Finalized,,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,3,129.00,387.00
+SMP-MK-000242,2026-10-29,10:57,2026-10,Market stall,Phone,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-MK-000243,2026-10-29,18:04,2026-10,Market stall,Social,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-MK-000244,2026-10-29,19:00,2026-10,Market stall,Walk-in,Finalized,9000000011,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000245,2026-10-30,14:23,2026-10,Market stall,Walk-in,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000246,2026-10-30,14:43,2026-10,Market stall,Phone,Finalized,9000000043,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,3,499.00,1497.00
+SMP-MK-000246,2026-10-30,14:43,2026-10,Market stall,Phone,Finalized,9000000043,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-MK-000247,2026-10-30,15:31,2026-10,Market stall,Social,Finalized,9000000008,SMP-MD1K,Moong dal,Pulses,Konkan Pulses Traders,1,179.00,179.00
+SMP-MK-000247,2026-10-30,15:31,2026-10,Market stall,Social,Finalized,9000000008,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-MK-000248,2026-10-30,17:28,2026-10,Market stall,Walk-in,Finalized,9000000069,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-MK-000248,2026-10-30,17:28,2026-10,Market stall,Walk-in,Finalized,9000000069,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,3,59.00,177.00
+SMP-MK-000248,2026-10-30,17:28,2026-10,Market stall,Walk-in,Finalized,9000000069,SMP-LM500,Little millet,Millets,Nashik Millet Farm,1,159.00,159.00
+SMP-MK-000249,2026-10-31,11:22,2026-10,Market stall,Social,Finalized,9000000091,SMP-GH500,Cow ghee,Ghee,Gir Dairy Co-op,3,899.00,2697.00
+SMP-MK-000249,2026-10-31,11:22,2026-10,Market stall,Social,Finalized,9000000091,SMP-LM500,Little millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-MK-000249,2026-10-31,11:22,2026-10,Market stall,Social,Finalized,9000000091,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-WH-000323,2026-10-31,15:17,2026-10,Warehouse counter,Walk-in,Finalized,9000000076,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000323,2026-10-31,15:17,2026-10,Warehouse counter,Walk-in,Finalized,9000000076,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000324,2026-10-31,15:59,2026-10,Warehouse counter,Walk-in,Finalized,,SMP-HN250,Organic honey,Sweeteners,Kutch Jaggery Works,1,269.00,269.00
+SMP-WH-000325,2026-10-31,16:42,2026-10,Warehouse counter,Phone,Void,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-WH-000325,2026-10-31,16:42,2026-10,Warehouse counter,Phone,Void,,SMP-GH250,Cow ghee,Ghee,Gir Dairy Co-op,2,499.00,998.00
+SMP-WH-000326,2026-10-31,16:50,2026-10,Warehouse counter,Walk-in,Finalized,9000000051,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-WH-000326,2026-10-31,16:50,2026-10,Warehouse counter,Walk-in,Finalized,9000000051,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000327,2026-11-01,15:33,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-UD1K,Urad dal,Pulses,Konkan Pulses Traders,2,189.00,378.00
+SMP-WH-000328,2026-11-01,17:46,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-LM500,Little millet,Millets,Nashik Millet Farm,3,159.00,477.00
+SMP-WH-000328,2026-11-01,17:46,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-JG500,Jaggery powder,Sweeteners,Kutch Jaggery Works,2,69.00,138.00
+SMP-MK-000250,2026-11-01,19:55,2026-11,Market stall,Walk-in,Finalized,9000000041,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-MK-000250,2026-11-01,19:55,2026-11,Market stall,Walk-in,Finalized,9000000041,SMP-CH100,Red chilli powder,Spices,Coorg Spice House,1,49.00,49.00
+SMP-MK-000250,2026-11-01,19:55,2026-11,Market stall,Walk-in,Finalized,9000000041,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-MK-000251,2026-11-02,09:40,2026-11,Market stall,Walk-in,Finalized,,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,2,59.00,118.00
+SMP-MK-000251,2026-11-02,09:40,2026-11,Market stall,Walk-in,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000329,2026-11-02,10:25,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,3,59.00,177.00
+SMP-WH-000330,2026-11-02,10:52,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-TD1K,Toor dal,Pulses,Konkan Pulses Traders,1,199.00,199.00
+SMP-WH-000331,2026-11-02,14:34,2026-11,Warehouse counter,Phone,Finalized,9000000089,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000331,2026-11-02,14:34,2026-11,Warehouse counter,Phone,Finalized,9000000089,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,3,229.00,687.00
+SMP-MK-000252,2026-11-02,16:25,2026-11,Market stall,Walk-in,Finalized,,SMP-CP500,Chana dal,Pulses,Konkan Pulses Traders,1,99.00,99.00
+SMP-WH-000332,2026-11-03,16:13,2026-11,Warehouse counter,Online,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,1,99.00,99.00
+SMP-MK-000253,2026-11-03,19:59,2026-11,Market stall,Walk-in,Finalized,9000000018,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000333,2026-11-04,11:03,2026-11,Warehouse counter,Walk-in,Finalized,9000000083,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,3,39.00,117.00
+SMP-WH-000333,2026-11-04,11:03,2026-11,Warehouse counter,Walk-in,Finalized,9000000083,SMP-JW500,Jowar flour,Flours,Vidarbha Flour Mill,1,129.00,129.00
+SMP-WH-000333,2026-11-04,11:03,2026-11,Warehouse counter,Walk-in,Finalized,9000000083,SMP-RF1K,Ragi flour,Flours,Vidarbha Flour Mill,2,279.00,558.00
+SMP-WH-000333,2026-11-04,11:03,2026-11,Warehouse counter,Walk-in,Finalized,9000000083,SMP-GM100,Garam masala,Spices,Coorg Spice House,1,69.00,69.00
+SMP-WH-000334,2026-11-04,13:23,2026-11,Warehouse counter,Social,Finalized,,SMP-DT250,Dates,Sweeteners,Kutch Jaggery Works,1,229.00,229.00
+SMP-WH-000335,2026-11-04,15:30,2026-11,Warehouse counter,Phone,Finalized,9000000095,SMP-TM100,Turmeric powder,Spices,Coorg Spice House,2,39.00,78.00
+SMP-WH-000335,2026-11-04,15:30,2026-11,Warehouse counter,Phone,Finalized,9000000095,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,2,69.00,138.00
+SMP-WH-000336,2026-11-04,16:33,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-WH-000336,2026-11-04,16:33,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000337,2026-11-04,16:40,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-WH-000337,2026-11-04,16:40,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-GHBL500,Bilona ghee,Ghee,Gir Dairy Co-op,2,949.00,1898.00
+SMP-WH-000337,2026-11-04,16:40,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-GM100,Garam masala,Spices,Coorg Spice House,3,69.00,207.00
+SMP-WH-000338,2026-11-04,16:58,2026-11,Warehouse counter,Online,Finalized,,SMP-BR1K,Barnyard millet,Millets,Nashik Millet Farm,1,299.00,299.00
+SMP-WH-000338,2026-11-04,16:58,2026-11,Warehouse counter,Online,Finalized,,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-MK-000254,2026-11-04,19:19,2026-11,Market stall,Online,Finalized,9000000027,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,1,69.00,69.00
+SMP-MK-000254,2026-11-04,19:19,2026-11,Market stall,Online,Finalized,9000000027,SMP-RF500,Ragi flour,Flours,Vidarbha Flour Mill,2,149.00,298.00
+SMP-MK-000254,2026-11-04,19:19,2026-11,Market stall,Online,Finalized,9000000027,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,3,749.00,2247.00
+SMP-WH-000339,2026-11-04,20:12,2026-11,Warehouse counter,Walk-in,Finalized,9000000109,SMP-FX500,Foxtail millet,Millets,Nashik Millet Farm,1,169.00,169.00
+SMP-MK-000255,2026-11-05,15:47,2026-11,Market stall,Walk-in,Finalized,,SMP-PJ250,Palm jaggery,Sweeteners,Kutch Jaggery Works,2,99.00,198.00
+SMP-MK-000255,2026-11-05,15:47,2026-11,Market stall,Walk-in,Finalized,,SMP-DH100,Dhania powder,Spices,Coorg Spice House,1,39.00,39.00
+SMP-WH-000340,2026-11-05,18:28,2026-11,Warehouse counter,Walk-in,Finalized,9000000108,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000340,2026-11-05,18:28,2026-11,Warehouse counter,Walk-in,Finalized,9000000108,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000340,2026-11-05,18:28,2026-11,Warehouse counter,Walk-in,Finalized,9000000108,SMP-PM500,Pearl millet,Millets,Nashik Millet Farm,2,99.00,198.00
+SMP-MK-000256,2026-11-05,20:55,2026-11,Market stall,Walk-in,Finalized,9000000108,SMP-AT1K,Whole wheat atta,Flours,Vidarbha Flour Mill,3,69.00,207.00
+SMP-WH-000341,2026-11-06,09:30,2026-11,Warehouse counter,Online,Finalized,9000000036,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,2,749.00,1498.00
+SMP-WH-000342,2026-11-06,11:22,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-GHBF500,Buffalo ghee,Ghee,Gir Dairy Co-op,1,749.00,749.00
+SMP-WH-000342,2026-11-06,11:22,2026-11,Warehouse counter,Walk-in,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00
+SMP-WH-000343,2026-11-07,17:09,2026-11,Warehouse counter,Online,Finalized,9000000024,SMP-GH1K,Cow ghee,Ghee,Gir Dairy Co-op,1,1699.00,1699.00
+SMP-WH-000343,2026-11-07,17:09,2026-11,Warehouse counter,Online,Finalized,9000000024,SMP-CM100,Cumin seeds,Spices,Coorg Spice House,1,59.00,59.00
+SMP-WH-000344,2026-11-07,20:20,2026-11,Warehouse counter,Online,Finalized,,SMP-KD500,Kodo millet,Millets,Nashik Millet Farm,2,159.00,318.00
+SMP-WH-000344,2026-11-07,20:20,2026-11,Warehouse counter,Online,Finalized,,SMP-BJ500,Bajra flour,Flours,Vidarbha Flour Mill,1,119.00,119.00
+SMP-WH-000344,2026-11-07,20:20,2026-11,Warehouse counter,Online,Finalized,,SMP-BS500,Brown sugar,Sweeteners,Kutch Jaggery Works,1,59.00,59.00

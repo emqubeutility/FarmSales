@@ -83,6 +83,7 @@ export class SalesService {
       for (const line of dto.lines) {
         const item = itemsById.get(line.itemId);
         if (!item) throw new NotFoundException(`Item ${line.itemId} not found`);
+        this.requireBatchForTrackedItem(item, line);
         const taxRatePct = await this.taxClasses.effectiveRatePct(tx, item.taxClassId);
         await tx.saleLine.create({
           data: { saleId: sale.id, itemId: item.id, qty: line.qty, mrpPaise: item.mrpPaise ?? 0, taxRatePct, batchId: line.batchId ?? null },
@@ -107,6 +108,7 @@ export class SalesService {
       for (const line of dto.lines) {
         const item = itemsById.get(line.itemId);
         if (!item) throw new NotFoundException(`Item ${line.itemId} not found`);
+        this.requireBatchForTrackedItem(item, line);
         const taxRatePct = await this.taxClasses.effectiveRatePct(tx, item.taxClassId);
         const saleLine = await tx.saleLine.create({
           data: { saleId: sale.id, itemId: item.id, qty: line.qty, mrpPaise: item.mrpPaise ?? 0, taxRatePct, batchId: line.batchId ?? null },
@@ -151,11 +153,15 @@ export class SalesService {
         await this.packUnits.release(tx, `Hold:${id}`);
         await tx.saleLine.deleteMany({ where: { saleId: id } });
         const itemsById = await this.loadItems(tx, dto.lines.map((l) => l.itemId));
+        // An edit of quantities keeps the batch each item already had on this held bill.
+        const previousBatch = new Map(before.lines.map((l) => [l.itemId, l.batchId]));
         for (const line of dto.lines) {
           const item = itemsById.get(line.itemId);
           if (!item) throw new NotFoundException(`Item ${line.itemId} not found`);
+          const batchId = line.batchId ?? previousBatch.get(item.id) ?? null;
+          this.requireBatchForTrackedItem(item, { batchId: batchId ?? undefined, unitCodes: line.unitCodes });
           const taxRatePct = await this.taxClasses.effectiveRatePct(tx, item.taxClassId);
-          await tx.saleLine.create({ data: { saleId: id, itemId: item.id, qty: line.qty, mrpPaise: item.mrpPaise ?? 0, taxRatePct, batchId: line.batchId ?? null } });
+          await tx.saleLine.create({ data: { saleId: id, itemId: item.id, qty: line.qty, mrpPaise: item.mrpPaise ?? 0, taxRatePct, batchId } });
           if (line.unitCodes && line.batchId) {
             await this.packUnits.claimCodes(tx, line.unitCodes, { itemId: item.id, batchId: line.batchId }, 'RESERVED', `Hold:${id}`);
           }
@@ -311,6 +317,7 @@ export class SalesService {
   private async allocateAndDecrementLine(tx: PrismaTx, saleId: string, line: PendingSaleLine) {
     const item = await tx.item.findUnique({ where: { id: line.itemId } });
     if (!item) throw new NotFoundException(`Item ${line.itemId} not found`);
+    this.requireBatchForTrackedItem(item, line);
 
     if (line.batchId) {
       // A batch picked exactly (scanned packs). Check it belongs to this item, is not on hold or
@@ -351,6 +358,13 @@ export class SalesService {
     }
   }
 
+  // A batch-tracked item needs its batch on the line before the bill is held or paid. Packs scanned by
+  // label, or a batch picked on the line, already carry it. Items with no batch are sold FEFO as usual.
+  private requireBatchForTrackedItem(item: { name: string; trackBatches: boolean }, line: { batchId?: string; unitCodes?: string[] }) {
+    if (item.trackBatches && !line.batchId && !(line.unitCodes && line.unitCodes.length > 0)) {
+      throw new BadRequestException(`Choose the batch for ${item.name} before saving the bill`);
+    }
+  }
   private getFullSale(tx: PrismaTx, id: string) {
     return tx.sale.findUnique({ where: { id }, relationLoadStrategy: 'join', include });
   }

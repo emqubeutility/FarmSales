@@ -7,6 +7,7 @@ import { StockService } from '../stock/stock.service.js';
 import { DocumentSeriesService } from '../document-series/document-series.service.js';
 import { TaxClassesService } from '../tax-classes/tax-classes.service.js';
 import { PackUnitsService } from '../pack-units/pack-units.service.js';
+import type { PrismaTx } from '../common/prisma-tx.type.js';
 
 const include = {
   customer: true,
@@ -77,6 +78,9 @@ export class OrdersService {
 
       const code = await this.documentSeries.allocateNext('OR-', tx);
 
+      // A phone number ties the order to a customer record: the first order creates it, later ones reuse it.
+      const customerId = dto.customerId ?? (dto.customerPhone ? await this.linkCustomerByPhone(tx, dto) : undefined);
+
       const order = await tx.order.create({
         data: {
           code,
@@ -85,10 +89,14 @@ export class OrdersService {
           paymentPlan: dto.paymentPlan,
           prepaidMode: dto.paymentPlan === 'PREPAID' ? dto.prepaidMode : undefined,
           prepaidReference: dto.paymentPlan === 'PREPAID' ? dto.prepaidReference : undefined,
-          customerId: dto.customerId,
+          customerId,
           customerName: dto.customerName,
           customerPhone: dto.customerPhone,
           deliveryAddress: dto.deliveryAddress,
+          deliveryLandmark: dto.deliveryLandmark,
+          deliveryCity: dto.deliveryCity,
+          deliveryState: dto.deliveryState,
+          deliveryPincode: dto.deliveryPincode,
           zoneId: dto.zoneId,
           discountPct: dto.discountPct,
           grossPaise: totals.grossPaise,
@@ -109,6 +117,30 @@ export class OrdersService {
       await this.auditLog.record(tx, { userId, entity: 'Order', entityId: order.id, action: 'create', after: { code: order.code, totalPaise: order.totalPaise } });
       return tx.order.findUnique({ where: { id: order.id }, include });
     });
+  }
+
+  /**
+   * Finds the customer with this phone number, or creates one from the order. When the customer has no
+   * address yet, the delivery address of this order is saved on the customer.
+   */
+  private async linkCustomerByPhone(tx: PrismaTx, dto: CreateOrderDto): Promise<string> {
+    const phone = dto.customerPhone!;
+    const address = {
+      addressLine: dto.deliveryAddress,
+      landmark: dto.deliveryLandmark,
+      city: dto.deliveryCity,
+      state: dto.deliveryState,
+      pincode: dto.deliveryPincode,
+    };
+    const existing = await tx.customer.findFirst({ where: { phone }, orderBy: { createdAt: 'asc' } });
+    if (existing) {
+      if (!existing.addressLine && dto.deliveryAddress) {
+        await tx.customer.update({ where: { id: existing.id }, data: address });
+      }
+      return existing.id;
+    }
+    const created = await tx.customer.create({ data: { name: dto.customerName, type: 'RETAIL', phone, ...address } });
+    return created.id;
   }
 
   /** FEFO-allocates and decrements stock for every line — the real stock movement, done once. */

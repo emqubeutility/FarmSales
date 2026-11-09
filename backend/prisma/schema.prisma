@@ -474,12 +474,19 @@ model Customer {
   gstin            String?
   creditLimitPaise Int?
   termsDays        Int?
+  phone            String?
+  addressLine      String?
+  landmark         String?
+  city             String?
+  state            String?
+  pincode          String?
   active           Boolean      @default(true)
   createdAt        DateTime     @default(now())
 
   creditNotes CreditNote[]
   orders      Order[]
 
+  @@index([phone])
   @@map("customer")
 }
 
@@ -612,6 +619,10 @@ model Order {
   customerName         String
   customerPhone        String?
   deliveryAddress      String?
+  deliveryLandmark     String?
+  deliveryCity         String?
+  deliveryState        String?
+  deliveryPincode      String?
   zoneId               String?
   discountPct          Decimal                 @db.Decimal(5, 2)
   grossPaise           Int

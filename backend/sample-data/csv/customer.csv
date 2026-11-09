@@ -1,0 +1,121 @@
+id,name,type,gstin,creditLimitPaise,termsDays,phone,addressLine,landmark,city,state,pincode,active,createdAt
+9f5312a2-5da3-4bc1-977a-a0150d5949b1,[Sample] Mehta Stores,B2B,,,,9000000001,"271, Sample Road",,Thane,Maharashtra,400601,true,2026-02-10 05:30:00
+570e6f05-2722-4bcc-8e20-3929a9e2c7e1,[Sample] Sharma Stores,B2B,,,,9000000002,"43, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-08-29 05:30:00
+1112df34-361a-465f-aefd-ee6fb7dc22d3,[Sample] Gupta Stores,B2B,,,,9000000003,"82, Sample Road",,Pune,Maharashtra,411001,true,2026-08-08 05:30:00
+bc77dc33-2395-4e91-90a1-5acf224b6447,[Sample] Iyer Stores,B2B,,,,9000000004,"49, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-04-06 05:30:00
+2a0aa378-15ae-4d3b-968d-270b76142715,[Sample] Nair Stores,B2B,,,,9000000005,"55, Sample Road",,Thane,Maharashtra,400601,true,2026-02-19 05:30:00
+cdde4665-a098-4977-af78-f3e853ab854e,[Sample] Rao Stores,B2B,,,,9000000006,"160, Sample Road",,Pune,Maharashtra,411001,true,2026-02-05 05:30:00
+16b83ed2-54ee-4701-9fd0-7a71808903b8,Rahul Pillai,RETAIL,,,,9000000007,"131, Sample Road",,Mumbai,Maharashtra,400001,true,2026-09-20 05:30:00
+67a0935b-e8eb-473e-9d9a-ce894f24c719,Ravi Joshi,RETAIL,,,,9000000008,"186, Sample Road",,Mumbai,Maharashtra,400064,true,2026-02-10 05:30:00
+de8d742a-c6b8-44f4-8396-ba72d4b7c796,Manoj Mehta,RETAIL,,,,9000000009,"144, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-02-02 05:30:00
+822e57ac-6373-4841-9250-1ef4897d1d7b,Anita Desai,RETAIL,,,,9000000010,"173, Sample Road",,Thane,Maharashtra,400601,true,2026-09-12 05:30:00
+a4b630f8-bf20-4c70-9981-3a5d9c44657b,Manoj Shah,RETAIL,,,,9000000011,"227, Sample Road",,Mumbai,Maharashtra,400064,true,2026-09-16 05:30:00
+ebc07029-f1c3-42e9-afcf-b2e891547867,Rohit Pillai,RETAIL,,,,9000000012,"48, Sample Road",,Mumbai,Maharashtra,400001,true,2026-09-13 05:30:00
+32143944-90db-4d54-a90d-4aa48c9d1367,Manoj Iyer,RETAIL,,,,9000000013,"126, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-08-30 05:30:00
+47f2ec2f-3e75-4d3b-b5b3-d157c0a43c08,Sanjay Pillai,RETAIL,,,,9000000014,"111, Sample Road",,Thane,Maharashtra,400601,true,2026-03-30 05:30:00
+405e629c-686b-43ca-8f8e-efa811fab586,Rekha Kamat,RETAIL,,,,9000000015,"204, Sample Road",,Mumbai,Maharashtra,400050,true,2026-08-07 05:30:00
+ad0208e9-e90d-45de-9c1e-078263f3263d,Anita Iyer,RETAIL,,,,9000000016,"217, Sample Road",,Pune,Maharashtra,411001,true,2026-03-12 05:30:00
+8c708c3b-14f1-4eb4-811f-bee6fc3a2238,Divya Sharma,RETAIL,,,,9000000017,"139, Sample Road",,Thane,Maharashtra,400601,true,2026-08-20 05:30:00
+81005dd4-1db2-4368-9f4d-3639ec6385de,Rahul Patil,RETAIL,,,,9000000018,"174, Sample Road",,Mumbai,Maharashtra,400001,true,2026-05-14 05:30:00
+298dd7c2-0492-4b7d-9dca-30dd00e7c9c4,Pooja Kulkarni,RETAIL,,,,9000000019,"263, Sample Road",,Mumbai,Maharashtra,400064,true,2026-08-14 05:30:00
+2af25882-5978-4aa6-8333-1cbbbee559f4,Rahul Shah,RETAIL,,,,9000000020,"297, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-03-25 05:30:00
+9f065fa1-5c85-49a3-b40f-265ac9ce0191,Rahul Gupta,RETAIL,,,,9000000021,"124, Sample Road",,Pune,Maharashtra,411001,true,2026-10-02 05:30:00
+ed6dd046-9dbf-4f86-8261-8a5422058ec2,Ravi Kulkarni,RETAIL,,,,9000000022,"200, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-08-09 05:30:00
+4c04ba64-ed31-4c5f-9040-ed7579cb38b7,Neha Joshi,RETAIL,,,,9000000023,"70, Sample Road",,Mumbai,Maharashtra,400050,true,2026-09-29 05:30:00
+27c40110-8d89-4537-871d-e999842df2aa,Manoj Kulkarni,RETAIL,,,,9000000024,"63, Sample Road",,Mumbai,Maharashtra,400050,true,2026-08-19 05:30:00
+5877ded9-7a28-47bd-a4cd-ea2aa836800f,Deepak Shah,RETAIL,,,,9000000025,"21, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-05-31 05:30:00
+ad3d3b86-2a5c-4514-9f25-3c1136d01c70,Rekha Kamat,RETAIL,,,,9000000026,"73, Sample Road",,Mumbai,Maharashtra,400050,true,2026-08-24 05:30:00
+e04b605c-cd05-4e6c-b060-c852baa5e5ca,Rahul Patil,RETAIL,,,,9000000027,"80, Sample Road",,Mumbai,Maharashtra,400064,true,2026-05-19 05:30:00
+12ac9a0f-9c18-4300-9ffe-e71ad1be1d73,Priya More,RETAIL,,,,9000000028,"228, Sample Road",,Mumbai,Maharashtra,400064,true,2026-04-11 05:30:00
+927d3bae-c05c-4d33-8841-d6f9a8224a8e,Anita Gupta,RETAIL,,,,9000000029,"156, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-08-22 05:30:00
+ff4f7890-5b9a-4e81-a43e-1a1c2ee5a2e0,Pooja Patil,RETAIL,,,,9000000030,"214, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-04-04 05:30:00
+a8010b9a-8d23-45b4-a115-e4e90d28fe64,Sneha Patil,RETAIL,,,,9000000031,"163, Sample Road",,Pune,Maharashtra,411001,true,2026-08-17 05:30:00
+cab15693-ba38-48cb-ae08-a3d6cf9c979a,Rohit Iyer,RETAIL,,,,9000000032,"27, Sample Road",,Pune,Maharashtra,411001,true,2026-09-22 05:30:00
+8c03d19c-d18f-4f6e-9272-0f0f0e726029,Manoj Shah,RETAIL,,,,9000000033,"18, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-02-28 05:30:00
+92d41684-c0c3-491d-9016-a2c73717b7c4,Rekha Joshi,RETAIL,,,,9000000034,"289, Sample Road",,Mumbai,Maharashtra,400001,true,2026-06-12 05:30:00
+e2e3b46e-3b8f-47cd-bfdf-bd66a95ede7c,Rahul Gupta,RETAIL,,,,9000000035,"278, Sample Road",,Mumbai,Maharashtra,400001,true,2026-03-07 05:30:00
+1be5f421-9f35-4582-94a2-e63d434901e7,Lata Sharma,RETAIL,,,,9000000036,"90, Sample Road",,Thane,Maharashtra,400601,true,2026-09-27 05:30:00
+2a8db41f-7cda-44c2-b69c-6df4929c0b52,Neha Desai,RETAIL,,,,9000000037,"258, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-04-08 05:30:00
+2b8a02fc-9823-436b-98a9-3b13ad030ea8,Ajay Thakur,RETAIL,,,,9000000038,"9, Sample Road",,Pune,Maharashtra,411001,true,2026-09-25 05:30:00
+041c07b7-ac14-4e4a-925c-675735487c4f,Divya Patil,RETAIL,,,,9000000039,"45, Sample Road",,Pune,Maharashtra,411001,true,2026-06-14 05:30:00
+a2a28bb8-b81b-4a1d-aaeb-313ba78cd780,Rekha Desai,RETAIL,,,,9000000040,"84, Sample Road",,Thane,Maharashtra,400601,true,2026-03-09 05:30:00
+bbb6b186-980a-41b7-9f43-fcd593d8c507,Ravi Nair,RETAIL,,,,9000000041,"181, Sample Road",,Mumbai,Maharashtra,400001,true,2026-02-22 05:30:00
+18634a5b-ed02-43a4-b947-d0326a8daf8c,Sneha Thakur,RETAIL,,,,9000000042,"236, Sample Road",,Mumbai,Maharashtra,400050,true,2026-05-05 05:30:00
+ea080d85-4e0e-456d-810c-7ac1d5fea717,Pooja Rao,RETAIL,,,,9000000043,"147, Sample Road",,Mumbai,Maharashtra,400001,true,2026-07-28 05:30:00
+97c3da73-65a8-4da3-b7f7-c936b07be8a0,Kiran Kamat,RETAIL,,,,9000000044,"78, Sample Road",,Mumbai,Maharashtra,400064,true,2026-04-19 05:30:00
+1629d64a-6457-4a1e-ba28-e25ecbe81425,Suresh Desai,RETAIL,,,,9000000045,"200, Sample Road",,Mumbai,Maharashtra,400050,true,2026-08-31 05:30:00
+d04f0780-14c5-42b6-b8e0-1cd149d6ad28,Deepak Mehta,RETAIL,,,,9000000046,"183, Sample Road",,Mumbai,Maharashtra,400064,true,2026-08-05 05:30:00
+eb71eaa4-05f8-44ab-bb43-eaf48dfdc86d,Sanjay More,RETAIL,,,,9000000047,"3, Sample Road",,Pune,Maharashtra,411001,true,2026-05-25 05:30:00
+79096e80-bf08-41b4-9972-07738080dd06,Asha Rao,RETAIL,,,,9000000048,"10, Sample Road",,Mumbai,Maharashtra,400064,true,2026-02-17 05:30:00
+dd3e65e6-42e9-4b06-a3b0-349010a082c4,Lata Iyer,RETAIL,,,,9000000049,"25, Sample Road",,Mumbai,Maharashtra,400050,true,2026-09-25 05:30:00
+27391860-4f28-4c42-869e-8218e6e1c1da,Divya Kamat,RETAIL,,,,9000000050,"150, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-07-24 05:30:00
+b40bd1c0-fdd3-46cc-a68a-d1126ddbf0a4,Manoj Mehta,RETAIL,,,,9000000051,"232, Sample Road",,Thane,Maharashtra,400601,true,2026-08-31 05:30:00
+76232181-37a4-43da-b9c2-d9e87e95aa3d,Ravi Mehta,RETAIL,,,,9000000052,"65, Sample Road",,Thane,Maharashtra,400601,true,2026-09-20 05:30:00
+21130fc2-e3f5-49ad-8de0-1543298ccefb,Pooja Thakur,RETAIL,,,,9000000053,"235, Sample Road",,Pune,Maharashtra,411001,true,2026-07-20 05:30:00
+d976567e-dd94-46fc-b62f-6bdb72db7b1c,Divya Pillai,RETAIL,,,,9000000054,"143, Sample Road",,Mumbai,Maharashtra,400050,true,2026-06-07 05:30:00
+9b85befc-dbb5-4f99-b5ce-c0fcb2051f37,Ravi Desai,RETAIL,,,,9000000055,"102, Sample Road",,Mumbai,Maharashtra,400001,true,2026-05-31 05:30:00
+d0afdc19-c711-4489-a511-43e0991e62a3,Manoj More,RETAIL,,,,9000000056,"160, Sample Road",,Mumbai,Maharashtra,400064,true,2026-07-20 05:30:00
+4c9a330f-d02a-42c9-bb63-5a17fc474e00,Asha Kamat,RETAIL,,,,9000000057,"74, Sample Road",,Thane,Maharashtra,400601,true,2026-06-09 05:30:00
+67747400-2473-4e99-96fa-d91335ee93f8,Sanjay Gupta,RETAIL,,,,9000000058,"215, Sample Road",,Mumbai,Maharashtra,400064,true,2026-06-27 05:30:00
+9af89806-d0f3-4f3a-aead-b17ef2defc6d,Lata Patil,RETAIL,,,,9000000059,"188, Sample Road",,Mumbai,Maharashtra,400001,true,2026-04-09 05:30:00
+9a0b5b6b-0b21-48bf-b82b-39b4b0e57a68,Vijay Nair,RETAIL,,,,9000000060,"299, Sample Road",,Pune,Maharashtra,411001,true,2026-03-31 05:30:00
+03e015c9-d044-4c02-9a2b-24654e71bb75,Sanjay Patil,RETAIL,,,,9000000061,"258, Sample Road",,Mumbai,Maharashtra,400001,true,2026-04-30 05:30:00
+03b60ebc-abe6-4515-8e6f-4fdaa2e50ede,Kiran Pillai,RETAIL,,,,9000000062,"83, Sample Road",,Mumbai,Maharashtra,400064,true,2026-02-09 05:30:00
+91d156b9-a8fe-40bb-8b03-f183f1d4840f,Lata Joshi,RETAIL,,,,9000000063,"195, Sample Road",,Mumbai,Maharashtra,400064,true,2026-07-09 05:30:00
+d099fb58-1d31-4849-a974-a61300f0f2d9,Rahul Kulkarni,RETAIL,,,,9000000064,"226, Sample Road",,Pune,Maharashtra,411001,true,2026-08-16 05:30:00
+8a416589-ab23-40a7-a119-fcff14248abf,Neha Kamat,RETAIL,,,,9000000065,"112, Sample Road",,Thane,Maharashtra,400601,true,2026-02-26 05:30:00
+e6a11438-0569-4aeb-8a8a-a1c5d4fcfa8b,Neha Kamat,RETAIL,,,,9000000066,"267, Sample Road",,Mumbai,Maharashtra,400001,true,2026-09-14 05:30:00
+ba82dcf0-1d2a-4272-a221-187b10f8e619,Neha Sharma,RETAIL,,,,9000000067,"144, Sample Road",,Thane,Maharashtra,400601,true,2026-05-10 05:30:00
+2ac8f5e2-1348-4ce1-afd3-82b9dfbe1e32,Ajay Thakur,RETAIL,,,,9000000068,"138, Sample Road",,Pune,Maharashtra,411001,true,2026-09-15 05:30:00
+b06dcc1f-df23-4bd7-8c95-fe6b91798249,Ajay Iyer,RETAIL,,,,9000000069,"279, Sample Road",,Mumbai,Maharashtra,400050,true,2026-06-09 05:30:00
+33aedd06-b8bd-41bd-a521-4982d4515f45,Kiran Shah,RETAIL,,,,9000000070,"279, Sample Road",,Mumbai,Maharashtra,400050,true,2026-05-12 05:30:00
+dd3408e3-3d3c-45b3-8af8-7ae0db8b1eb5,Anita Shah,RETAIL,,,,9000000071,"286, Sample Road",,Thane,Maharashtra,400601,true,2026-06-23 05:30:00
+5994d0cc-48e9-4aa1-b423-36ddb3007403,Lata Desai,RETAIL,,,,9000000072,"266, Sample Road",,Mumbai,Maharashtra,400064,true,2026-09-03 05:30:00
+fbfb58d0-4dab-4c7c-a83e-b415fa0704e5,Kiran Rao,RETAIL,,,,9000000073,"104, Sample Road",,Thane,Maharashtra,400601,true,2026-06-28 05:30:00
+0ff6e7f7-4178-4442-83ed-49ae02634b38,Lata Joshi,RETAIL,,,,9000000074,"272, Sample Road",,Mumbai,Maharashtra,400001,true,2026-07-26 05:30:00
+6a5261b0-7051-4fba-93b2-be5c0d2daca1,Lata Sharma,RETAIL,,,,9000000075,"276, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-10-03 05:30:00
+09dd521d-4cb8-4d0b-b02e-2a41cfad107b,Rahul Patil,RETAIL,,,,9000000076,"218, Sample Road",,Thane,Maharashtra,400601,true,2026-08-31 05:30:00
+6f4c199e-956c-4149-8bfe-df9c3b09a243,Sanjay Kamat,RETAIL,,,,9000000077,"127, Sample Road",,Thane,Maharashtra,400601,true,2026-02-24 05:30:00
+32b8e61b-18d9-4187-9dbe-9bb71755936d,Sanjay Kamat,RETAIL,,,,9000000078,"271, Sample Road",,Mumbai,Maharashtra,400064,true,2026-03-21 05:30:00
+78eac556-037d-4a99-89b3-40ba48b122aa,Ajay Rao,RETAIL,,,,9000000079,"249, Sample Road",,Mumbai,Maharashtra,400050,true,2026-02-21 05:30:00
+4de59571-1b87-4af5-a2e9-8828ea35828c,Lata Pillai,RETAIL,,,,9000000080,"71, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-04-26 05:30:00
+4e673562-9d0e-4f82-9081-be0c20128da9,Lata Mehta,RETAIL,,,,9000000081,"273, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-04-22 05:30:00
+4e3051ca-da02-4aff-96c9-ad0a5e127806,Neha Mehta,RETAIL,,,,9000000082,"57, Sample Road",,Mumbai,Maharashtra,400001,true,2026-09-02 05:30:00
+c7877830-0b47-4917-b916-8e4b63265b7f,Meera Rao,RETAIL,,,,9000000083,"142, Sample Road",,Mumbai,Maharashtra,400050,true,2026-03-18 05:30:00
+0b9442ab-be56-4886-8d26-8e3da1229005,Anita Kamat,RETAIL,,,,9000000084,"136, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-09-19 05:30:00
+4eb789af-920f-4bed-a363-0243fa9e06a4,Neha More,RETAIL,,,,9000000085,"167, Sample Road",,Mumbai,Maharashtra,400050,true,2026-02-02 05:30:00
+0a8bcf46-7453-4f72-a5b2-97e9341a85b7,Kiran Kulkarni,RETAIL,,,,9000000086,"111, Sample Road",,Mumbai,Maharashtra,400050,true,2026-05-14 05:30:00
+68001833-cdae-4d1b-a4bb-7be8ab239c0b,Sneha Kamat,RETAIL,,,,9000000087,"245, Sample Road",,Thane,Maharashtra,400601,true,2026-05-30 05:30:00
+5dc403ee-65ac-4fde-b751-404c0ea61164,Lata Gupta,RETAIL,,,,9000000088,"284, Sample Road",,Pune,Maharashtra,411001,true,2026-05-05 05:30:00
+ed9a1e0a-e6f2-4990-84dd-df2dab3c4d55,Manoj Shah,RETAIL,,,,9000000089,"170, Sample Road",,Thane,Maharashtra,400601,true,2026-02-02 05:30:00
+1d19ee50-7795-4ed1-9afa-d1ad2bf190cf,Kiran Sharma,RETAIL,,,,9000000090,"272, Sample Road",,Mumbai,Maharashtra,400064,true,2026-05-23 05:30:00
+969bc549-71b7-47f3-a631-b5b7c96f3061,Suresh More,RETAIL,,,,9000000091,"205, Sample Road",,Mumbai,Maharashtra,400001,true,2026-02-20 05:30:00
+575f14ac-e9df-4e85-b73b-bd303ba9915a,Divya Gupta,RETAIL,,,,9000000092,"136, Sample Road",,Mumbai,Maharashtra,400050,true,2026-03-02 05:30:00
+c8667e48-2403-447a-892b-f9fe08cc446f,Lata Rao,RETAIL,,,,9000000093,"184, Sample Road",,Mumbai,Maharashtra,400050,true,2026-06-26 05:30:00
+1b2ba2fc-5098-4883-bb99-094607a75807,Sneha Mehta,RETAIL,,,,9000000094,"7, Sample Road",,Thane,Maharashtra,400601,true,2026-09-30 05:30:00
+80ee7794-7d84-49a3-83a9-f356caaeb2a4,Rekha Shah,RETAIL,,,,9000000095,"291, Sample Road",,Mumbai,Maharashtra,400064,true,2026-05-09 05:30:00
+72397678-19b7-4111-a116-25077cdb2e2e,Anita Nair,RETAIL,,,,9000000096,"297, Sample Road",,Thane,Maharashtra,400601,true,2026-04-19 05:30:00
+b7459afc-f154-42ae-9842-aefe58cda979,Meera Sharma,RETAIL,,,,9000000097,"198, Sample Road",,Thane,Maharashtra,400601,true,2026-09-18 05:30:00
+eca35849-70a6-4e5d-b070-fe13942dcde9,Ravi Pillai,RETAIL,,,,9000000098,"174, Sample Road",,Mumbai,Maharashtra,400050,true,2026-02-12 05:30:00
+da8771e7-ec40-478d-8916-87cad43d107e,Neha Pillai,RETAIL,,,,9000000099,"57, Sample Road",,Thane,Maharashtra,400601,true,2026-03-16 05:30:00
+46631df8-78e3-4cda-a11d-675a80506fa4,Priya Sharma,RETAIL,,,,9000000100,"254, Sample Road",,Thane,Maharashtra,400601,true,2026-02-25 05:30:00
+e96e87e9-eee3-4121-9802-45ac22bfbca6,Ajay Iyer,RETAIL,,,,9000000101,"46, Sample Road",,Mumbai,Maharashtra,400001,true,2026-04-29 05:30:00
+25cf2855-ee74-4bab-aa77-b2a2c0be50e7,Vijay Patil,RETAIL,,,,9000000102,"119, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-02-14 05:30:00
+9eeadb0a-8c53-4f12-88e9-57e79767f560,Neha Iyer,RETAIL,,,,9000000103,"52, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-02-18 05:30:00
+39382a3d-b80c-4a8c-9b89-2497fd6d3ae6,Deepak Thakur,RETAIL,,,,9000000104,"151, Sample Road",,Mumbai,Maharashtra,400050,true,2026-08-06 05:30:00
+2cdd345e-a56b-4522-95ff-ea747d3917e4,Sneha Rao,RETAIL,,,,9000000105,"190, Sample Road",,Mumbai,Maharashtra,400064,true,2026-08-15 05:30:00
+73438ad7-bdc5-43ef-a8ff-23e68bf2915d,Rekha Kulkarni,RETAIL,,,,9000000106,"265, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-06-26 05:30:00
+ca01948f-e329-40b8-b856-24b7ba39cac0,Rekha More,RETAIL,,,,9000000107,"188, Sample Road",,Mumbai,Maharashtra,400050,true,2026-05-26 05:30:00
+4df5866b-34bc-4a83-a76f-627007f1132a,Ravi Patil,RETAIL,,,,9000000108,"113, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-03-21 05:30:00
+4532f8c7-1e18-474b-a56f-7267a908c9c1,Suresh Joshi,RETAIL,,,,9000000109,"109, Sample Road",,Pune,Maharashtra,411001,true,2026-03-06 05:30:00
+51f5c8da-9715-4472-9c03-8ac25005e812,Anita Kamat,RETAIL,,,,9000000110,"171, Sample Road",,Thane,Maharashtra,400601,true,2026-07-26 05:30:00
+021421ad-81ec-48f3-a33c-f6f1ca988b63,Rahul Desai,RETAIL,,,,9000000111,"291, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-03-04 05:30:00
+1667ae5e-391f-41b6-b716-7065bf5975d9,Lata Gupta,RETAIL,,,,9000000112,"227, Sample Road",,Mumbai,Maharashtra,400050,true,2026-03-05 05:30:00
+d08c8e04-5272-43c8-9be9-647c35561553,Rahul Joshi,RETAIL,,,,9000000113,"120, Sample Road",,Mumbai,Maharashtra,400064,true,2026-07-26 05:30:00
+5648be26-4c17-4f64-a489-ca94155a7587,Lata Desai,RETAIL,,,,9000000114,"76, Sample Road",,Mumbai,Maharashtra,400050,true,2026-04-17 05:30:00
+85bab942-db9a-4c49-8c32-054414909756,Asha Desai,RETAIL,,,,9000000115,"14, Sample Road",,Mumbai,Maharashtra,400050,true,2026-03-23 05:30:00
+d3d29cc2-9e80-4cf6-8cfd-ec78a28c5807,Sneha Shah,RETAIL,,,,9000000116,"82, Sample Road",,Pune,Maharashtra,411001,true,2026-03-02 05:30:00
+b492e51e-e0fd-4427-93ca-562e98d333f6,Sneha Thakur,RETAIL,,,,9000000117,"180, Sample Road",,Pune,Maharashtra,411001,true,2026-03-10 05:30:00
+7257b8d4-6de7-4263-a827-463c645a6168,Pooja Nair,RETAIL,,,,9000000118,"42, Sample Road",,Mumbai,Maharashtra,400050,true,2026-04-17 05:30:00
+07a889cc-b679-4e3d-8373-c87a182b52b2,Asha Patil,RETAIL,,,,9000000119,"236, Sample Road",,Navi Mumbai,Maharashtra,400703,true,2026-04-29 05:30:00
+ce147b21-7109-4316-bdd6-46b9c9d38be5,Neha More,RETAIL,,,,9000000120,"163, Sample Road",,Thane,Maharashtra,400601,true,2026-04-19 05:30:00

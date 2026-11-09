@@ -5,6 +5,21 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { api, ApiError } from "../lib/api.js";
 import { formatPaise } from "../lib/format.js";
 import { CameraScanner } from "../components/CameraScanner.js";
+import {
+  BatchPickDialog,
+  type BatchChoice,
+} from "../components/BatchPickDialog.js";
+import { OrderForm } from "../components/OrderForm.js";
+import {
+  buildOrderBody,
+  emptyOrderForm,
+  orderErrors,
+  sourceOption,
+  type OrderFormErrors,
+  type OrderFormKey,
+  type OrderFormValues,
+  type OrderSource,
+} from "../lib/order-form.js";
 
 type PosChannel = Channel;
 interface CustomerOption {
@@ -12,6 +27,7 @@ interface CustomerOption {
   name: string;
 }
 interface ZoneOption {
+  pincodes: string | null;
   id: string;
   name: string;
 }
@@ -25,6 +41,7 @@ interface TaxClass {
   rates: TaxRate[];
 }
 interface SellableItem {
+  trackBatches: boolean;
   id: string;
   code: string;
   name: string;
@@ -51,6 +68,15 @@ interface ScanBatch {
   id: string;
   code: string;
   itemId: string;
+  status: string;
+  bestBefore: string | null;
+  item: {
+    name: string;
+    size: string | null;
+    mrpPaise: number | null;
+    taxClassId: string | null;
+  };
+  stockBalances: { qty: string }[];
 }
 
 // Shows a pop-up so the cashier cannot miss it, and returns the same text for the red message.
@@ -66,6 +92,8 @@ interface ChannelDiscountRow {
 }
 // A bill line is a set of scanned packs of one batch (key = itemId|batchId|packs, one code per pack).
 interface BillLine {
+  // The item is tracked by batch: its batch must be chosen (batchId) before the bill is held or paid.
+  tracked?: boolean;
   key: string;
   itemId: string;
   batchId?: string;
@@ -85,6 +113,7 @@ interface HeldSale {
     qty: string;
     mrpPaise: number;
     taxRatePct: string;
+    batchId?: string | null;
     item: { name: string };
   }[];
 }
@@ -108,16 +137,10 @@ export function PosPage() {
   const orderMode = searchParams.get("mode") === "order";
   const [customers, setCustomers] = useState<CustomerOption[]>([]);
   const [zones, setZones] = useState<ZoneOption[]>([]);
-  const [customerId, setCustomerId] = useState("");
-  const [customerName, setCustomerName] = useState("");
-  const [customerPhone, setCustomerPhone] = useState("");
-  const [deliveryAddress, setDeliveryAddress] = useState("");
-  const [zoneId, setZoneId] = useState("");
-  const [paymentPlan, setPaymentPlan] = useState<
-    "COD" | "PREPAID" | "UPI_ON_DELIVERY"
-  >("COD");
-  const [prepaidMode, setPrepaidMode] = useState<"CASH" | "UPI">("UPI");
-  const [prepaidReference, setPrepaidReference] = useState("");
+  // Order Desk form (mode=order): the values, which fields have been left, and whether Create order was pressed.
+  const [orderValues, setOrderValues] = useState<OrderFormValues>(emptyOrderForm);
+  const [orderTouched, setOrderTouched] = useState<Partial<Record<OrderFormKey, boolean>>>({});
+  const [orderSubmitted, setOrderSubmitted] = useState(false);
   const [items, setItems] = useState<SellableItem[]>([]);
   const [taxClasses, setTaxClasses] = useState<Record<string, TaxClass>>({});
   const [channelDiscounts, setChannelDiscounts] = useState<
@@ -137,6 +160,8 @@ export function PosPage() {
   const [resumingSaleId, setResumingSaleId] = useState<string | null>(null);
   // Cash or UPI payment dialog, open while the cashier takes the phone number and payment.
   const [payDialog, setPayDialog] = useState<"CASH" | "UPI" | null>(null);
+  // Batch choice for batch-tracked items, asked before the bill is held or paid (see startSave).
+  const [batchPrompt, setBatchPrompt] = useState<{ next: "hold" | "CASH" | "UPI" } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [receipt, setReceipt] = useState<FinalizedSale | null>(null);
   const [busy, setBusy] = useState(false);
@@ -264,6 +289,57 @@ export function PosPage() {
     });
   }
 
+  // A pack label carries its batch barcode, so scanning it adds one pack of that batch. Which pack
+  // is taken is decided when the bill is saved (oldest first), as with a manual add.
+  function addBatchToBill(batch: ScanBatch) {
+    if (batch.status !== "ACTIVE") {
+      setError(`Batch ${batch.code} is on hold and cannot be sold`);
+      return;
+    }
+    if (isExpired(batch.bestBefore)) {
+      const day = batch.bestBefore
+        ? new Date(batch.bestBefore).toLocaleDateString("en-IN")
+        : "";
+      setError(
+        expiredNotice(
+          `EXPIRED: batch ${batch.code} expired on ${day}. It cannot be sold and is not added to the bill.`,
+        ),
+      );
+      return;
+    }
+    const key = `${batch.itemId}|${batch.id}|batch`;
+    const inStock = batch.stockBalances.reduce((sum, b) => sum + Number(b.qty), 0);
+    const onBill = lines.find((l) => l.key === key)?.qty ?? 0;
+    if (onBill + 1 > inStock) {
+      setError(
+        `Only ${inStock} pack${inStock === 1 ? "" : "s"} of ${batch.code} in stock`,
+      );
+      return;
+    }
+    setLines((prev) => {
+      const existing = prev.find((l) => l.key === key);
+      if (existing) {
+        return prev.map((l) => (l.key === key ? { ...l, qty: l.qty + 1 } : l));
+      }
+      return [
+        ...prev,
+        {
+          key,
+          itemId: batch.itemId,
+          batchId: batch.id,
+          batchCode: batch.code,
+          name: batch.item.size
+            ? `${batch.item.name} ${batch.item.size}`
+            : batch.item.name,
+          mrpPaise: batch.item.mrpPaise ?? 0,
+          taxRatePct: taxRateByClass(batch.item.taxClassId),
+          qty: 1,
+        },
+      ];
+    });
+    setScanMessage(`Added ${batch.item.name} · batch ${batch.code}`);
+  }
+
   // Takes the last scanned pack off its line. Packs are removed by scanning or by this button.
   function removeLastPack(key: string) {
     setScanMessage(null);
@@ -358,9 +434,7 @@ export function PosPage() {
       );
       const batch = matches.find((b) => b.code.toUpperCase() === upper);
       if (batch) {
-        setError(
-          `Batch ${batch.code} is sold by the label on each pack. Scan one pack label (for example ${batch.code}-0001).`,
-        );
+        addBatchToBill(batch);
         return;
       }
       setError(`"${code}" is not a product, batch or pack code`);
@@ -401,11 +475,13 @@ export function PosPage() {
     `${i.name} ${i.code}`.toLowerCase().includes(search.toLowerCase()),
   );
 
-  function addItemToOrder(item: SellableItem) {
+  // Adds one unit of an item without a pack label. The server picks its batch (FEFO) when the bill
+  // is saved. Used for bills and orders alike. Scanned packs keep their own lines.
+  function addItemToLines(item: SellableItem) {
     setError(null);
     setLines((prev) => {
       const existing = prev.find(
-        (line) => line.itemId === item.id && !line.unitCodes,
+        (line) => line.itemId === item.id && !line.unitCodes && !line.batchId,
       );
       if (existing)
         return prev.map((line) =>
@@ -416,6 +492,7 @@ export function PosPage() {
         {
           key: `${item.id}-${Date.now()}`,
           itemId: item.id,
+          tracked: item.trackBatches,
           name: item.size ? `${item.name} ${item.size}` : item.name,
           mrpPaise: item.mrpPaise ?? 0,
           taxRatePct: taxRateByClass(item.taxClassId),
@@ -425,33 +502,46 @@ export function PosPage() {
     });
   }
 
+  // The Order Desk body and its problems, recomputed as the form changes. Shown errors are the ones for
+  // fields already left, or all of them once Create order has been pressed.
+  const orderBody = buildOrderBody(orderValues, customers, lines, discountPct, "WAREHOUSE_COUNTER");
+  const allOrderErrors: OrderFormErrors = orderMode ? orderErrors(orderValues, orderBody) : {};
+  const visibleOrderErrors: OrderFormErrors = {};
+  for (const key of Object.keys(allOrderErrors) as OrderFormKey[]) {
+    if (orderSubmitted || orderTouched[key]) visibleOrderErrors[key] = allOrderErrors[key];
+  }
+
+  function setOrderField<K extends keyof OrderFormValues>(key: K, value: OrderFormValues[K]) {
+    setError(null); // an old "fix the fields" message no longer matches the form
+    setOrderValues((v) => ({ ...v, [key]: value }));
+  }
+
+  // Picking a source sets the sales channel too, so the channel discount follows it.
+  function chooseOrderSource(source: OrderSource) {
+    setError(null);
+    setOrderValues((v) => ({ ...v, source, customerId: "" }));
+    setChannel(sourceOption(source).channel);
+  }
+
+  function touchOrderField(key: OrderFormKey) {
+    setOrderTouched((t) => ({ ...t, [key]: true }));
+  }
+
   async function createOrder() {
-    if (!totals || lines.length === 0) return;
-    if (!customerName.trim()) {
-      setError("Please enter the customer name");
+    setOrderSubmitted(true);
+    const problems = orderErrors(orderValues, orderBody);
+    if (Object.keys(problems).length > 0) {
+      setError(problems.lines ?? "Fix the highlighted fields before creating the order");
       return;
     }
     setError(null);
     setBusy(true);
     try {
-      await api.post("/orders", {
-        channel,
-        salesPoint: "WAREHOUSE_COUNTER",
-        paymentPlan,
-        prepaidMode: paymentPlan === "PREPAID" ? prepaidMode : undefined,
-        prepaidReference:
-          paymentPlan === "PREPAID"
-            ? prepaidReference.trim() || undefined
-            : undefined,
-        customerId: customerId || undefined,
-        customerName: customerName.trim(),
-        customerPhone: customerPhone.trim() || undefined,
-        deliveryAddress: deliveryAddress.trim() || undefined,
-        zoneId: zoneId || undefined,
-        discountPct,
-        lines: lines.map((line) => ({ itemId: line.itemId, qty: line.qty })),
-      });
+      await api.post("/orders", orderBody);
       resetCart();
+      setOrderValues(emptyOrderForm);
+      setOrderTouched({});
+      setOrderSubmitted(false);
       navigate("/orders");
     } catch (err) {
       setError(
@@ -470,8 +560,8 @@ export function PosPage() {
   }
 
   // Lines sent to the server. Scanned packs carry their batch and codes.
-  function billLines() {
-    return lines.map((l) => ({
+  function billLines(list: BillLine[] = lines) {
+    return list.map((l) => ({
       itemId: l.itemId,
       qty: l.qty,
       batchId: l.batchId,
@@ -479,7 +569,41 @@ export function PosPage() {
     }));
   }
 
-  async function handleHold() {
+  // A batch-tracked line that still needs its batch before the bill is held or paid.
+  function needsBatch(l: BillLine): boolean {
+    return !!l.tracked && !l.batchId && !l.unitCodes;
+  }
+
+  // Holding or paying comes first through here: batch-tracked items need their batch chosen first.
+  function startSave(next: "hold" | "CASH" | "UPI") {
+    setError(null);
+    const missing = lines.filter(needsBatch);
+    if (missing.length === 0) {
+      if (next === "hold") void handleHold();
+      else setPayDialog(next);
+      return;
+    }
+    if (resumingSaleId) {
+      setError(
+        "This held bill was saved before batches were chosen. Cancel the resume and hold the bill again, choosing the batches.",
+      );
+      return;
+    }
+    setBatchPrompt({ next });
+  }
+
+  // The cashier chose a batch for each batch-tracked line. Then the bill is held or the payment opens.
+  function confirmBatches(choices: Record<string, BatchChoice>, next: "hold" | "CASH" | "UPI") {
+    const updated = lines.map((l) =>
+      choices[l.key] ? { ...l, ...choices[l.key] } : l,
+    );
+    setLines(updated);
+    setBatchPrompt(null);
+    if (next === "hold") void handleHold(updated);
+    else setPayDialog(next);
+  }
+
+  async function handleHold(list: BillLine[] = lines) {
     setError(null);
     setBusy(true);
     try {
@@ -487,7 +611,7 @@ export function PosPage() {
         salesPoint: "WAREHOUSE_COUNTER",
         channel,
         discountPct,
-        lines: billLines(),
+        lines: billLines(list),
       });
       resetCart();
       await loadAll();
@@ -506,6 +630,8 @@ export function PosPage() {
       sale.lines.map((l) => ({
         key: l.itemId,
         itemId: l.itemId,
+        batchId: l.batchId ?? undefined,
+        tracked: items.find((i) => i.id === l.itemId)?.trackBatches ?? false,
         name: l.item.name,
         mrpPaise: l.mrpPaise,
         taxRatePct: Number(l.taxRatePct),
@@ -552,57 +678,6 @@ export function PosPage() {
       <div className="top">
         <h1>{orderMode ? "New order" : "Counter Sale"}</h1>
         {orderMode && <span className="pill g">Order Desk</span>}
-        <div
-          className="row"
-          style={{
-            display: "flex",
-            background: "#EEF1EC",
-            borderRadius: 10,
-            padding: 3,
-            gap: 2,
-          }}
-        >
-          {orderMode && (
-            <div
-              className="row"
-              style={{
-                display: "flex",
-                background: "#EEF1EC",
-                borderRadius: 10,
-                padding: 3,
-                gap: 2,
-              }}
-            >
-              {(
-                [
-                  "WALK_IN",
-                  "PHONE",
-                  "ONLINE",
-                  "EMAIL",
-                  "SOCIAL",
-                ] as PosChannel[]
-              ).map((c) => (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => setChannel(c)}
-                  style={{
-                    minHeight: 34,
-                    padding: "0 14px",
-                    border: 0,
-                    borderRadius: 8,
-                    fontSize: 13,
-                    fontWeight: 600,
-                    background: channel === c ? "#fff" : "transparent",
-                    color: channel === c ? "#12301F" : "#3E4F45",
-                  }}
-                >
-                  {channelLabels[c]}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
         <div style={{ flex: 1 }} />
         {orderMode ? (
           <button className="btn" onClick={() => navigate("/orders")}>
@@ -680,116 +755,15 @@ export function PosPage() {
             </div>
           )}
           {orderMode && (
-            <div
-              className="card order-create-fields"
-              style={{
-                padding: 14,
-                display: "grid",
-                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-                gap: 10,
-              }}
-            >
-              <div>
-                <label className="lbl">Customer (optional saved record)</label>
-                <select
-                  className="in"
-                  value={customerId}
-                  onChange={(e) => {
-                    setCustomerId(e.target.value);
-                    const c = customers.find((x) => x.id === e.target.value);
-                    if (c) setCustomerName(c.name);
-                  }}
-                >
-                  <option value="">Walk-in / new customer</option>
-                  {customers.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="lbl">Customer name *</label>
-                <input
-                  className="in"
-                  value={customerName}
-                  onChange={(e) => setCustomerName(e.target.value)}
-                  placeholder="Customer name"
-                />
-              </div>
-              <div>
-                <label className="lbl">Phone</label>
-                <input
-                  className="in"
-                  value={customerPhone}
-                  onChange={(e) => setCustomerPhone(e.target.value)}
-                  placeholder="Phone number"
-                />
-              </div>
-              <div>
-                <label className="lbl">Payment plan</label>
-                <select
-                  className="in"
-                  value={paymentPlan}
-                  onChange={(e) =>
-                    setPaymentPlan(e.target.value as typeof paymentPlan)
-                  }
-                >
-                  <option value="COD">Cash on delivery</option>
-                  <option value="UPI_ON_DELIVERY">UPI on delivery</option>
-                  <option value="PREPAID">Prepaid</option>
-                </select>
-              </div>
-              {paymentPlan === "PREPAID" && (
-                <>
-                  <div>
-                    <label className="lbl">Prepaid via</label>
-                    <select
-                      className="in"
-                      value={prepaidMode}
-                      onChange={(e) =>
-                        setPrepaidMode(e.target.value as "CASH" | "UPI")
-                      }
-                    >
-                      <option value="UPI">UPI</option>
-                      <option value="CASH">Cash</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="lbl">Payment reference</label>
-                    <input
-                      className="in"
-                      value={prepaidReference}
-                      onChange={(e) => setPrepaidReference(e.target.value)}
-                    />
-                  </div>
-                </>
-              )}
-              <div>
-                <label className="lbl">Delivery zone</label>
-                <select
-                  className="in"
-                  value={zoneId}
-                  onChange={(e) => setZoneId(e.target.value)}
-                >
-                  <option value="">Pickup / no zone</option>
-                  {zones.map((z) => (
-                    <option key={z.id} value={z.id}>
-                      {z.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div style={{ gridColumn: "span 3" }}>
-                <label className="lbl">Delivery address</label>
-                <input
-                  className="in"
-                  value={deliveryAddress}
-                  onChange={(e) => setDeliveryAddress(e.target.value)}
-                  placeholder="Address (if delivery)"
-                />
-              </div>
-            </div>
+            <OrderForm
+              values={orderValues}
+              customers={customers}
+              zones={zones}
+              errors={visibleOrderErrors}
+              onChange={setOrderField}
+              onSourceChange={chooseOrderSource}
+              onBlur={touchOrderField}
+            />
           )}
           <input
             className="in"
@@ -835,13 +809,7 @@ export function PosPage() {
                 key={item.id}
                 type="button"
                 className="card"
-                onClick={() =>
-                  orderMode
-                    ? addItemToOrder(item)
-                    : setError(
-                        `${item.name} is sold by its pack label. Scan the label on the pack.`,
-                      )
-                }
+                onClick={() => addItemToLines(item)}
                 style={{
                   textAlign: "left",
                   padding: 12,
@@ -852,6 +820,11 @@ export function PosPage() {
                 }}
               >
                 <b>{item.name}</b>
+                <span>
+                  <span className={item.trackBatches ? "pill g" : "pill n"} style={{ fontSize: 11 }}>
+                    {item.trackBatches ? "Batch" : "No batch"}
+                  </span>
+                </span>
                 <span className="muted" style={{ fontSize: 12.5 }}>
                   {item.size ?? item.code}
                 </span>
@@ -902,9 +875,14 @@ export function PosPage() {
               <div key={l.key} className="row" style={{ alignItems: "center" }}>
                 <span>
                   {l.name}
+                  {l.tracked && !l.batchId && !l.unitCodes && (
+                    <div className="muted" style={{ fontSize: 12, color: "#9A6700" }}>
+                      Batch to be chosen when you save
+                    </div>
+                  )}
                   {l.batchCode && (
                     <div className="muted" style={{ fontSize: 12 }}>
-                      Batch {l.batchCode} · scanned packs
+                      {l.unitCodes ? `Batch ${l.batchCode} · scanned packs` : `Batch ${l.batchCode}`}
                     </div>
                   )}
                   {l.unitCodes && (
@@ -1064,9 +1042,7 @@ export function PosPage() {
               <button
                 className="btn p"
                 style={{ gridColumn: "span 2", minHeight: 54 }}
-                disabled={
-                  !totals || lines.length === 0 || busy || !customerName.trim()
-                }
+                disabled={!totals || lines.length === 0 || busy}
                 onClick={createOrder}
               >
                 {busy ? "Creating order…" : "Create order"}
@@ -1077,7 +1053,7 @@ export function PosPage() {
                   className="btn p"
                   style={{ minHeight: 56 }}
                   disabled={!totals || busy}
-                  onClick={() => setPayDialog("CASH")}
+                  onClick={() => startSave("CASH")}
                 >
                   Cash
                 </button>
@@ -1085,7 +1061,7 @@ export function PosPage() {
                   className="btn p"
                   style={{ minHeight: 56 }}
                   disabled={!totals || busy}
-                  onClick={() => setPayDialog("UPI")}
+                  onClick={() => startSave("UPI")}
                 >
                   UPI
                 </button>
@@ -1094,7 +1070,7 @@ export function PosPage() {
                     className="btn"
                     style={{ gridColumn: "span 2" }}
                     disabled={lines.length === 0 || busy}
-                    onClick={handleHold}
+                    onClick={() => startSave("hold")}
                   >
                     Hold bill
                   </button>
@@ -1113,6 +1089,16 @@ export function PosPage() {
           </div>
         </div>
       </div>
+
+      {batchPrompt && (
+        <BatchPickDialog
+          lines={lines
+            .filter(needsBatch)
+            .map((l) => ({ key: l.key, itemId: l.itemId, name: l.name, qty: l.qty }))}
+          onCancel={() => setBatchPrompt(null)}
+          onConfirm={(choices) => confirmBatches(choices, batchPrompt.next)}
+        />
+      )}
 
       {payDialog && totals && (
         <PaymentDialog

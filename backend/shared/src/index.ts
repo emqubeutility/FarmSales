@@ -17,6 +17,7 @@ export * from './schemas/zone.js';
 export * from './schemas/customer.js';
 export * from './schemas/return.js';
 export * from './schemas/order.js';
+export * from './schemas/address.js';
 export * from './schemas/business-profile.js';
 export * from './schemas/batch.js';
 export * from './schemas/category.js';

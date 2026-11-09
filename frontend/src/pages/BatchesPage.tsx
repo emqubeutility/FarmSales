@@ -1,9 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { api } from '../lib/api.js';
 import { formatDate } from '../lib/format.js';
 import { isExpired } from '@farm-sales/shared';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
 import { BarcodeSvg } from '../components/BarcodeSvg.js';
+import { PackLabelPrint } from '../components/PackLabelPrint.js';
+import { BatchFilterDrawer } from '../components/BatchFilterDrawer.js';
+import { FilterControls, FilterSummary } from '../components/FilterToolbar.js';
+import {
+  DEFAULT_BATCH_FILTERS,
+  NO_SUPPLIER,
+  countActiveBatchFilters,
+  describeBatchFilters,
+  filterBatches,
+  type BatchFilters,
+} from '../lib/batch-filters.js';
 
 interface BatchListRow {
   id: string;
@@ -32,10 +43,22 @@ export function BatchesPage() {
   const [selected, setSelected] = useState<BatchDetail | null>(null);
   // Best-before correction for the selected batch: null means not editing.
   const [editingBestBefore, setEditingBestBefore] = useState<string | null>(null);
-  // How many pack labels to print for the selected batch. Starts at the packs in stock.
-  const [labelCount, setLabelCount] = useState('1');
+  // The batch whose pack labels are open in the print dialog, if any.
+  const [printingBatchId, setPrintingBatchId] = useState<string | null>(null);
   const [bestBeforeError, setBestBeforeError] = useState<string | null>(null);
-  const sortable = useTableSort(batches, batchSortValues);
+  const [filters, setFilters] = useState<BatchFilters>(DEFAULT_BATCH_FILTERS);
+  const visible = useMemo(() => filterBatches(batches, filters), [batches, filters]);
+  const sortable = useTableSort(visible, batchSortValues);
+
+  // Supplier names come from the batches themselves, since each row carries its supplier name.
+  const supplierOptions = useMemo(() => {
+    const names = [...new Set(batches.map((b) => b.supplier?.name).filter((n): n is string => !!n))].sort((a, b) => a.localeCompare(b));
+    return [
+      { value: '', label: 'All suppliers' },
+      { value: NO_SUPPLIER, label: 'No supplier' },
+      ...names.map((name) => ({ value: name, label: name })),
+    ];
+  }, [batches]);
 
   async function saveBestBefore() {
     if (!selected) return;
@@ -65,10 +88,41 @@ export function BatchesPage() {
       <div className="top">
         <h1>Batches</h1>
         <div style={{ flex: 1 }} />
-        <input className="in" style={{ width: 260 }} placeholder="Search batch or item" value={search} onChange={(e) => setSearch(e.target.value)} />
+        <FilterControls
+          search={search}
+          onSearch={setSearch}
+          searchLabel="Search batches"
+          searchPlaceholder="Search batch or item"
+          compactSearch
+          activeCount={countActiveBatchFilters(filters)}
+          renderDrawer={(close) => (
+            <BatchFilterDrawer
+              initial={filters}
+              batches={batches}
+              supplierOptions={supplierOptions}
+              onClose={close}
+              onApply={(next) => {
+                setFilters(next);
+                close();
+              }}
+            />
+          )}
+        />
       </div>
       <div className="body">
         <div className="card" style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
+          <FilterSummary
+            activeCount={countActiveBatchFilters(filters)}
+            chips={describeBatchFilters(filters).map((chip) => ({
+              key: chip.key,
+              label: chip.label,
+              onRemove: () => setFilters({ ...filters, ...chip.patch }),
+            }))}
+            onClearAll={() => setFilters(DEFAULT_BATCH_FILTERS)}
+            shown={visible.length}
+            total={batches.length}
+            noun="batches"
+          />
           <table className="tbl">
             <thead>
               <tr>
@@ -77,6 +131,7 @@ export function BatchesPage() {
                 <SortTh label="Best before" sortKey="bestBefore" sort={sortable.sort} onSort={sortable.toggle} />
                 <SortTh label="On hand" sortKey="onHand" align="r" sort={sortable.sort} onSort={sortable.toggle} />
                 <SortTh label="Status" sortKey="status" sort={sortable.sort} onSort={sortable.toggle} />
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -93,10 +148,34 @@ export function BatchesPage() {
                   </td>
                   <td className="r">{b.stockBalances[0]?.qty ?? 0}</td>
                   <td><span className={`pill ${b.status === 'ACTIVE' ? 'g' : 'a'}`}>{b.status === 'ACTIVE' ? 'Active' : 'On hold'}</span></td>
+                  <td className="r">
+                    <button
+                      type="button"
+                      className="btn"
+                      style={{ minHeight: 44 }}
+                      onClick={(e) => {
+                        // Print without also opening the details panel for this row.
+                        e.stopPropagation();
+                        setPrintingBatchId(b.id);
+                      }}
+                    >
+                      Print labels
+                    </button>
+                  </td>
                 </tr>
               ))}
               {batches.length === 0 && (
-                <tr><td colSpan={5} className="muted" style={{ padding: 20, textAlign: 'center' }}>No batches yet</td></tr>
+                <tr><td colSpan={6} className="muted" style={{ padding: 20, textAlign: 'center' }}>No batches yet</td></tr>
+              )}
+              {batches.length > 0 && visible.length === 0 && (
+                <tr>
+                  <td colSpan={6} style={{ textAlign: 'center', padding: 40 }}>
+                    <div style={{ fontWeight: 600 }}>No batches match these filters</div>
+                    <button type="button" className="btn" style={{ marginTop: 14 }} onClick={() => setFilters(DEFAULT_BATCH_FILTERS)}>
+                      Reset filters
+                    </button>
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
@@ -131,29 +210,10 @@ export function BatchesPage() {
               <div className="muted" style={{ fontSize: 12 }}>On hand</div>
               <div style={{ fontSize: 24, fontWeight: 700 }}>{selected.stockBalances[0]?.qty ?? 0}</div>
             </div>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-              <label htmlFor="labelCount" className="muted" style={{ fontSize: 13 }}>Labels</label>
-              <input
-                id="labelCount"
-                className="in"
-                type="number"
-                min={1}
-                value={labelCount}
-                onChange={(e) => setLabelCount(e.target.value)}
-                style={{ width: 90 }}
-              />
-              <button
-                type="button"
-                className="btn p"
-                title="Prints the number of labels in the box, from the packs in stock"
-                onClick={() => window.open(`/labels/batch/${selected.id}?count=${Math.max(1, Math.floor(Number(labelCount) || 1))}`, '_blank')}
-              >
-                Print pack labels
-              </button>
-            </div>
           </div>
         )}
       </div>
+      {printingBatchId && <PackLabelPrint batchId={printingBatchId} onClose={() => setPrintingBatchId(null)} />}
     </>
   );
 }
