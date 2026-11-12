@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api, ApiError } from '../lib/api.js';
 import { formatPaise, formatDate } from '../lib/format.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
+import { usePaging, TablePagination } from '../components/Pagination.js';
 
 interface SaleLineBatchRow { id: string; batchId: string; qty: string; batch: { code: string } }
 interface SaleLineRow { id: string; itemId: string; mrpPaise: number; item: { name: string; size: string | null }; batches: SaleLineBatchRow[] }
@@ -104,6 +105,8 @@ export function ReturnsPage() {
     }
   }
 
+  const { pageRows, paging } = usePaging(sortableReturnRows.rows);
+
   return (
     <>
       <div className="top">
@@ -139,7 +142,7 @@ export function ReturnsPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {sortableReturnRows.rows.map(({ line, b }) => (
+                    {pageRows.map(({ line, b }) => (
                       <tr key={b.id}>
                         <td><b>{line.item.name}{line.item.size ? ` ${line.item.size}` : ''}</b><div className="muted" style={{ fontSize: 12.5 }}>Batch {b.batch.code} · {formatPaise(line.mrpPaise)}</div></td>
                         <td className="r">{b.qty}</td>
@@ -157,6 +160,7 @@ export function ReturnsPage() {
                     ))}
                   </tbody>
                 </table>
+            <TablePagination {...paging} />
               </div>
 
               <div className="card" style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>

@@ -1,6 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './lib/auth-context.js';
 import { RequireAuth } from './components/RequireAuth.js';
+import { RequireMenu } from './components/RequireMenu.js';
+import { MenuAccessProvider } from './lib/menu-access-context.js';
 import { AppShell } from './components/AppShell.js';
 import { LoginPage } from './pages/LoginPage.js';
 import { DashboardPage } from './pages/DashboardPage.js';
@@ -27,7 +29,9 @@ export default function App() {
         <Route element={<RequireAuth />}>
           {/* Printable bill, no sidebar. */}
           <Route path="/bills/:id" element={<BillPage />} />
-          <Route element={<AppShell />}>
+          <Route element={<MenuAccessProvider><AppShell /></MenuAccessProvider>}>
+            {/* Each page is open only to the roles in MENU_ROLES (shared). */}
+            <Route element={<RequireMenu />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/pos" element={<PosPage />} />
             <Route path="/orders" element={<OrdersPage />} />
@@ -42,6 +46,7 @@ export default function App() {
             <Route path="/customers" element={<CustomersPage />} />
             <Route path="/reports" element={<PlaceholderPage title="Reports" description="Sales, inventory, profitability and GST reports will be available here." />} />
             <Route path="/users" element={<UsersPage />} />
+            </Route>
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/dashboard" replace />} />

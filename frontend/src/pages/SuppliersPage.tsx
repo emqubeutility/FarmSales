@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { api, ApiError } from '../lib/api.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
+import { usePaging, TablePagination } from '../components/Pagination.js';
 
 interface Supplier {
   id: string;
@@ -56,6 +57,8 @@ export function SuppliersPage() {
       setSaving(false);
     }
   }
+
+  const { pageRows, paging } = usePaging(sortable.rows);
 
   return (
     <>
@@ -133,7 +136,7 @@ export function SuppliersPage() {
                 </tr>
               </thead>
               <tbody>
-                {sortable.rows.map((s) => (
+                {pageRows.map((s) => (
                   <tr key={s.id}>
                     <td><b>{s.name}</b></td>
                     <td>{s.gstin ?? '–'}</td>
@@ -154,6 +157,7 @@ export function SuppliersPage() {
                 )}
               </tbody>
             </table>
+            <TablePagination {...paging} />
           </div>
         </div>
       </div>

@@ -102,15 +102,15 @@ interface FilterSummaryProps {
   total: number;
   /** What the rows are, for the count, e.g. "bills" or "orders". */
   noun: string;
+  /** False hides the count text; the chips and clear link still show. */
+  showCount?: boolean;
 }
 
-// The count, the applied-filter chips, and a clear link.
-export function FilterSummary({ activeCount, chips, onClearAll, shown, total, noun }: FilterSummaryProps) {
+// The applied-filter chips and a clear link. No row counts are shown; the bar is hidden when no filter is on.
+export function FilterSummary({ activeCount, chips, onClearAll }: FilterSummaryProps) {
+  if (chips.length === 0 && activeCount === 0) return null;
   return (
     <div className="ft-summary">
-      <span className="ft-count-text" aria-live="polite">
-        {shown === total ? `${total} ${noun}` : `${shown} of ${total} ${noun}`}
-      </span>
       {chips.map((chip) => (
         <button key={chip.key} type="button" className="ft-applied" onClick={chip.onRemove} aria-label={`Remove filter ${chip.label}`}>
           {chip.label}
@@ -134,10 +134,12 @@ interface FilterToolbarProps extends Omit<FilterControlsProps, 'compactSearch'> 
   noun: string;
   /** Shown first on the toolbar row, e.g. the page title. */
   leading?: ReactNode;
+  /** False hides the row count, e.g. on the orders page. */
+  showCount?: boolean;
 }
 
 // Controls and summary together, inside a card. Use leading for a title on the same row.
-export function FilterToolbar({ leading, chips, onClearAll, shown, total, noun, ...controls }: FilterToolbarProps) {
+export function FilterToolbar({ leading, chips, onClearAll, shown, total, noun, showCount, ...controls }: FilterToolbarProps) {
   return (
     <div className="ft-bar">
       <div className="ft-toolbar">
@@ -152,6 +154,7 @@ export function FilterToolbar({ leading, chips, onClearAll, shown, total, noun, 
         shown={shown}
         total={total}
         noun={noun}
+        showCount={showCount}
       />
     </div>
   );

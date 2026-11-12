@@ -25,6 +25,9 @@ import { CreditNotesModule } from './credit-notes/credit-notes.module.js';
 import { OrdersModule } from './orders/orders.module.js';
 import { BusinessProfileModule } from './business-profile/business-profile.module.js';
 import { PackUnitsModule } from './pack-units/pack-units.module.js';
+import { DashboardModule } from './dashboard/dashboard.module.js';
+import { MenuAccessModule } from './menu-access/menu-access.module.js';
+import { ReportsModule } from './reports/reports.module.js';
 
 @Module({
   imports: [
@@ -52,6 +55,9 @@ import { PackUnitsModule } from './pack-units/pack-units.module.js';
     CreditNotesModule,
     OrdersModule,
     BusinessProfileModule,
+    DashboardModule,
+    MenuAccessModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

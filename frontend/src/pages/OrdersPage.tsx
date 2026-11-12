@@ -16,6 +16,7 @@ import {
   searchOrders,
   type OrderFilters,
 } from '../lib/order-filters.js';
+import { usePaging, TablePagination } from '../components/Pagination.js';
 
 interface Zone { id: string; name: string }
 interface OrderLine { id: string; itemId: string; qty: string; mrpPaise: number; item: { name: string; size?: string | null }; batches?: { batch: { code: string }; qty: string }[] }
@@ -414,22 +415,13 @@ export function OrdersPage() {
     return null;
   }
 
+  const { pageRows, paging } = usePaging(visibleOrders);
   return (
     <>
       <div className="top">
         <div><h1>Fulfilments</h1><div className="muted" style={{ fontSize: 12 }}>Manage incoming orders and fulfilment</div></div>
         <div style={{ flex: 1 }} />
-      </div>
-      <div className="body" style={{ flexDirection: 'column', gap: 16 }}>
-        {error && <div className="error-banner">{error}</div>}
-        <div className="order-desk-summary" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 10 }}>
-          {ORDER_STATUS_OPTIONS.slice(1).map((s) => <button key={s.value} type="button" className="card" onClick={() => setFilters({ ...filters, status: s.value })} style={{ textAlign: 'left', padding: '13px 15px', borderColor: filters.status === s.value ? 'var(--accent)' : 'var(--border)', background: filters.status === s.value ? 'var(--accent-bg)' : '#fff' }}>
-            <div className="muted" style={{ fontSize: 12, fontWeight: 600 }}>{s.label}</div><div style={{ fontSize: 24, fontWeight: 700, marginTop: 4 }}>{counts[s.value as keyof typeof counts]}</div>
-          </button>)}
-        </div>
-        <section className="card" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1, overflow: 'hidden' }}>
-          <FilterToolbar
-            leading="Orders"
+        <FilterToolbar
             actions={<button type="button" className="btn p" onClick={() => navigate('/pos?mode=order')}>＋ New order</button>}
             search={search}
             onSearch={setSearch}
@@ -445,6 +437,7 @@ export function OrdersPage() {
             shown={visibleOrders.length}
             total={orders.length}
             noun="orders"
+            showCount={false}
             renderDrawer={(close) => (
               <OrderFilterDrawer
                 initial={filters}
@@ -458,11 +451,21 @@ export function OrdersPage() {
               />
             )}
           />
+      </div>
+      <div className="body" style={{ flexDirection: 'column', gap: 16 }}>
+        {error && <div className="error-banner">{error}</div>}
+        <div className="order-desk-summary" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10 }}>
+          {ORDER_STATUS_OPTIONS.map((s) => <button key={s.value} type="button" className="card" onClick={() => setFilters({ ...filters, status: s.value })} style={{ textAlign: 'left', padding: '13px 15px', borderColor: filters.status === s.value ? 'var(--accent)' : 'var(--border)', background: filters.status === s.value ? 'var(--accent-bg)' : '#fff' }}>
+            <div className="muted" style={{ fontSize: 12, fontWeight: 600 }}>{s.label}</div><div style={{ fontSize: 24, fontWeight: 700, marginTop: 4 }}>{counts[s.value as keyof typeof counts]}</div>
+          </button>)}
+        </div>
+        <section className="card" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1, overflow: 'hidden' }}>
+          
           <div style={{ overflow: 'auto', flex: 1 }}>
             <table className="tbl order-desk-table">
               <thead><tr><th>Order</th><th>Customer</th><th>Channel</th><th>Items</th><th>Payment</th><th className="r">Total</th><th>Status</th><th /></tr></thead>
               <tbody>
-                {visibleOrders.map((order) => <tr key={order.id} onClick={() => setSelected(order)} className={selected?.id === order.id ? 'sel' : ''} style={{ cursor: 'pointer' }}>
+                {pageRows.map((order) => <tr key={order.id} onClick={() => setSelected(order)} className={selected?.id === order.id ? 'sel' : ''} style={{ cursor: 'pointer' }}>
                   <td><strong>{order.code}</strong><div className="muted" style={{ fontSize: 11 }}>{order.createdAt ? new Date(order.createdAt).toLocaleString('en-IN') : ''}</div></td>
                   <td>{order.customerName}<div className="muted" style={{ fontSize: 12 }}>{order.customerPhone || 'No phone'}</div></td>
                   <td>{channelLabels[order.channel]}</td><td>{order.lines.length} item(s)</td>
@@ -474,6 +477,7 @@ export function OrdersPage() {
               </tbody>
             </table>
           </div>
+          <TablePagination {...paging} />
         </section>
       </div>
 

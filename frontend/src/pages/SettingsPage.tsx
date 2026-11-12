@@ -1,32 +1,25 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import type { Channel } from '@farm-sales/shared';
 import { api, ApiError } from '../lib/api.js';
 import { formatPaise } from '../lib/format.js';
 import { Link } from 'react-router-dom';
 import { Field, Modal, Notice, SectionCard, StatusPill, Switch } from '../components/ui.js';
+import { Icon } from '../components/Icon.js';
+import { MenuAccessSettings } from '../components/MenuAccessSettings.js';
 
 // Settings is one page with a menu on the left. Each item is one job, so nothing is buried.
-// Staff accounts live on their own page, Users.
+// Staff accounts live on their own page, Users, and are linked from the menu.
 
-type SectionId = 'business' | 'channels' | 'zones' | 'tax' | 'categories' | 'billing';
+type SectionId = 'business' | 'channels' | 'categories' | 'zones' | 'tax' | 'menu' | 'billing';
 
-const sections: { group: string; items: { id: SectionId; label: string; help: string }[] }[] = [
-  { group: 'Business', items: [{ id: 'business', label: 'Business profile', help: 'Name, address and printed details' }] },
-  {
-    group: 'Sales',
-    items: [
-      { id: 'channels', label: 'Channels and discounts', help: 'How much a cashier may discount' },
-      { id: 'categories', label: 'Product categories', help: 'Rice, Atta, Ghee and so on' },
-    ],
-  },
-  { group: 'Delivery', items: [{ id: 'zones', label: 'Delivery zones', help: 'Pincodes and delivery fees' }] },
-  {
-    group: 'Tax and bills',
-    items: [
-      { id: 'tax', label: 'Tax classes and GST', help: 'Rates by product class' },
-      { id: 'billing', label: 'Bill numbers', help: 'Prefix and next number' },
-    ],
-  },
+const sections: { id: SectionId; label: string; help: string; icon: string }[] = [
+  { id: 'business', label: 'Business Profile', help: 'Name, address and printed details', icon: 'store' },
+  { id: 'channels', label: 'Channels & Discounts', help: 'How much a cashier may discount', icon: 'percent' },
+  { id: 'categories', label: 'Product Categories', help: 'Rice, Atta, Ghee and so on', icon: 'tag' },
+  { id: 'zones', label: 'Delivery Zones', help: 'Pincodes and delivery fees', icon: 'truck' },
+  { id: 'tax', label: 'Tax Classes & GST', help: 'Rates by product class', icon: 'file' },
+  { id: 'menu', label: 'Menu Access', help: 'Which sidebar pages each role sees', icon: 'menu' },
+  { id: 'billing', label: 'Bill Numbers', help: 'Prefix and next number', icon: 'hash' },
 ];
 
 const danger = '#B42318';
@@ -51,6 +44,19 @@ function Table({ head, children, empty }: { head: ReactNode[]; children: ReactNo
   );
 }
 
+// Title, a line of description, and an optional action on the right (such as Save Changes).
+function SectionHeader({ title, description, action }: { title: string; description?: string; action?: ReactNode }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
+      <div>
+        <h2 style={{ margin: 0, fontSize: 22 }}>{title}</h2>
+        {description && <div className="muted" style={{ fontSize: 13.5, marginTop: 2 }}>{description}</div>}
+      </div>
+      {action}
+    </div>
+  );
+}
+
 // ---------- Business profile ----------
 
 interface BusinessProfile {
@@ -63,11 +69,18 @@ interface BusinessProfile {
   logoUrl: string | null;
   upiId: string | null;
   upiQrImageUrl: string | null;
+  showLogoOnBills: boolean;
+  showGstinOnBills: boolean;
 }
 
-type BusinessForm = { [K in keyof BusinessProfile]: string };
+// The text fields of the form. The two print options are switches, so they are kept apart.
+type TextKey = 'name' | 'address' | 'gstin' | 'fssaiNumber' | 'phone' | 'email' | 'logoUrl' | 'upiId' | 'upiQrImageUrl';
+interface BusinessForm extends Record<TextKey, string> {
+  showLogoOnBills: boolean;
+  showGstinOnBills: boolean;
+}
 
-const emptyBusiness: BusinessForm = { name: '', address: '', gstin: '', fssaiNumber: '', phone: '', email: '', logoUrl: '', upiId: '', upiQrImageUrl: '' };
+const emptyBusiness: BusinessForm = { name: '', address: '', gstin: '', fssaiNumber: '', phone: '', email: '', logoUrl: '', upiId: '', upiQrImageUrl: '', showLogoOnBills: true, showGstinOnBills: true };
 
 function isWebAddress(value: string): boolean {
   try {
@@ -78,17 +91,78 @@ function isWebAddress(value: string): boolean {
   }
 }
 
-function businessErrors(f: BusinessForm): Partial<Record<keyof BusinessForm, string>> {
-  const e: Partial<Record<keyof BusinessForm, string>> = {};
+function businessErrors(f: BusinessForm): Partial<Record<TextKey, string>> {
+  const e: Partial<Record<TextKey, string>> = {};
   if (f.name.trim().length < 2) e.name = 'Enter the business name';
   if (f.phone && !/^[6-9]\d{9}$/.test(f.phone)) e.phone = 'Enter a 10-digit mobile number';
   if (f.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) e.email = 'Enter a valid email address';
   if (f.gstin && !/^[0-9A-Z]{15}$/.test(f.gstin)) e.gstin = 'GSTIN is 15 characters: capital letters and digits';
   if (f.fssaiNumber && !/^\d+$/.test(f.fssaiNumber)) e.fssaiNumber = 'Use digits only';
   if (f.upiId && !/^[\w.-]{2,256}@[A-Za-z]{2,64}$/.test(f.upiId)) e.upiId = 'Enter a UPI ID, for example name@bank';
-  if (f.logoUrl && !isWebAddress(f.logoUrl)) e.logoUrl = 'Enter a web address starting with https://';
-  if (f.upiQrImageUrl && !isWebAddress(f.upiQrImageUrl)) e.upiQrImageUrl = 'Enter a web address starting with https://';
+  if (f.logoUrl && !f.logoUrl.startsWith('data:image/') && !isWebAddress(f.logoUrl)) e.logoUrl = 'Upload a PNG, JPEG or WebP image';
+  if (f.upiQrImageUrl && !/^data:image\/(png|jpeg|webp);base64,/.test(f.upiQrImageUrl) && !isWebAddress(f.upiQrImageUrl)) e.upiQrImageUrl = 'Upload a PNG, JPEG or WebP image';
   return e;
+}
+
+// An image picked from this computer (PNG, JPEG or WebP, up to 300 KB), kept as a data address.
+const IMAGE_MAX_BYTES = 300 * 1024;
+function ImageUpload({ title, hint, alt, value, onChange, error }: { title?: string; hint?: string; alt: string; value: string; onChange: (next: string) => void; error?: string }) {
+  const [localError, setLocalError] = useState<string | null>(null);
+
+  async function pick(file: File) {
+    setLocalError(null);
+    if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type)) {
+      setLocalError('Use a PNG, JPEG or WebP image');
+      return;
+    }
+    if (file.size > IMAGE_MAX_BYTES) {
+      setLocalError('This image is larger than 300 KB. Save a smaller copy and try again.');
+      return;
+    }
+    const dataUrl = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result));
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+    });
+    onChange(dataUrl);
+  }
+
+  const message = localError ?? error;
+  return (
+    <div style={{ gridColumn: '1 / -1', display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
+      <div style={{ width: 150, height: 150, flex: 'none', border: '1px dashed #C9D2C8', borderRadius: 12, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+        {value ? (
+          <img src={value} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+        ) : (
+          <span className="muted" style={{ fontSize: 12.5, textAlign: 'center', padding: 10 }}>No image yet</span>
+        )}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start', minWidth: 0, flex: 1 }}>
+        {title && <div className="lbl" style={{ margin: 0 }}>{title}</div>}
+        <label className="btn p" style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', padding: '0 18px', cursor: 'pointer' }}>
+          Upload Image
+          <input
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            style={{ display: 'none' }}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              e.target.value = '';
+              if (file) void pick(file);
+            }}
+          />
+        </label>
+        {value && (
+          <button type="button" className="btn" style={{ minHeight: 44 }} onClick={() => { setLocalError(null); onChange(''); }}>
+            Remove
+          </button>
+        )}
+        {hint && <div className="muted" style={{ fontSize: 12.5 }}>{hint}</div>}
+        {message && <div role="alert" className="field-error">{message}</div>}
+      </div>
+    </div>
+  );
 }
 
 function BusinessSection() {
@@ -110,14 +184,20 @@ function BusinessSection() {
         logoUrl: p.logoUrl ?? '',
         upiId: p.upiId ?? '',
         upiQrImageUrl: p.upiQrImageUrl ?? '',
+        showLogoOnBills: p.showLogoOnBills,
+        showGstinOnBills: p.showGstinOnBills,
       });
       setLoaded(true);
     }).catch((err) => setMessage({ kind: 'error', text: errorText(err, 'Could not load the business profile') }));
   }, []);
 
   const errors = businessErrors(form);
-  const shown = (k: keyof BusinessForm) => (submitted ? errors[k] : undefined);
-  const set = (k: keyof BusinessForm, v: string) => {
+  const shown = (k: TextKey) => (submitted ? errors[k] : undefined);
+  const set = (k: TextKey, v: string) => {
+    setMessage(null);
+    setForm((f) => ({ ...f, [k]: v }));
+  };
+  const setSwitch = (k: 'showLogoOnBills' | 'showGstinOnBills', v: boolean) => {
     setMessage(null);
     setForm((f) => ({ ...f, [k]: v }));
   };
@@ -139,9 +219,13 @@ function BusinessSection() {
         fssaiNumber: pick(form.fssaiNumber),
         phone: pick(form.phone),
         email: pick(form.email),
-        logoUrl: pick(form.logoUrl),
+        // Removing the logo sends null.
+        logoUrl: form.logoUrl.trim() ? form.logoUrl : null,
         upiId: pick(form.upiId),
-        upiQrImageUrl: pick(form.upiQrImageUrl),
+        // Removing the image sends null, so the saved QR is cleared.
+        upiQrImageUrl: form.upiQrImageUrl.trim() ? form.upiQrImageUrl : null,
+        showLogoOnBills: form.showLogoOnBills,
+        showGstinOnBills: form.showGstinOnBills,
       });
       setMessage({ kind: 'success', text: 'Saved. Printed bills use these details from now on.' });
     } catch (err) {
@@ -151,7 +235,7 @@ function BusinessSection() {
     }
   }
 
-  const input = (k: keyof BusinessForm, label: string, opts: { required?: boolean; hint?: string; type?: string; placeholder?: string; wide?: boolean; multiline?: boolean } = {}) => (
+  const input = (k: TextKey, label: string, opts: { required?: boolean; hint?: string; type?: string; placeholder?: string; wide?: boolean; multiline?: boolean } = {}) => (
     <Field label={label} required={opts.required} error={shown(k)} hint={opts.hint} style={opts.wide ? { gridColumn: '1 / -1' } : undefined}>
       {({ id, invalid }) =>
         opts.multiline ? (
@@ -167,23 +251,28 @@ function BusinessSection() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <SectionCard
-        title="Business details"
-        description="Shown at the top of printed bills and on the online shop."
-        footer={
-          <>
-            <button type="button" className="btn p" style={{ minHeight: 44, padding: '0 20px' }} disabled={saving || !loaded} onClick={() => void save()}>
-              {saving ? 'Saving…' : 'Save changes'}
-            </button>
-            {message && <span style={{ fontSize: 13.5, color: message.kind === 'error' ? danger : '#14502F', fontWeight: 600 }}>{message.text}</span>}
-          </>
+      {/* Save Changes sits top right, and saves the whole profile at once. */}
+      <SectionHeader
+        title="Business Profile"
+        description="Name, address and printed details"
+        action={
+          <button type="button" className="btn p" style={{ minHeight: 44, padding: '0 24px' }} disabled={saving || !loaded} onClick={() => void save()}>
+            {saving ? 'Saving…' : 'Save Changes'}
+          </button>
         }
-      >
+      />
+      {message && <Notice kind={message.kind}>{message.text}</Notice>}
+
+      <SectionCard title="Company logo" description="Shown in the sidebar and at the top of printed bills. PNG, JPEG or WebP, up to 300 KB.">
+        <ImageUpload alt="Company logo" value={form.logoUrl} error={shown('logoUrl')} onChange={(v) => set('logoUrl', v)} />
+      </SectionCard>
+
+      <SectionCard title="Business details" description="Shown at the top of printed bills.">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 14 }}>
           {input('name', 'Business name', { required: true, wide: true })}
-          {input('address', 'Address', { wide: true, multiline: true })}
           {input('phone', 'Phone', { hint: '10 digits' })}
           {input('email', 'Email', { type: 'email' })}
+          {input('address', 'Address', { wide: true, multiline: true })}
         </div>
       </SectionCard>
 
@@ -194,11 +283,14 @@ function BusinessSection() {
         </div>
       </SectionCard>
 
-      <SectionCard title="Payments and branding" description="For the UPI details customers pay to, and the logo on bills.">
+      <SectionCard title="Payments and branding" description="The UPI details customers pay to, and what appears on printed bills.">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 14 }}>
           {input('upiId', 'UPI ID', { placeholder: 'name@bank' })}
-          {input('logoUrl', 'Logo image address', { placeholder: 'https://…', hint: 'The image is hosted elsewhere' })}
-          {input('upiQrImageUrl', 'UPI QR code image address', { placeholder: 'https://…', wide: true })}
+          <ImageUpload title="UPI QR code" alt="UPI QR code" hint="PNG, JPEG or WebP, up to 300 KB. Shown on the UPI payment screen and on the bill." value={form.upiQrImageUrl} error={shown('upiQrImageUrl')} onChange={(v) => set('upiQrImageUrl', v)} />
+        </div>
+        <div style={{ borderTop: '1px solid #E4EBE5', marginTop: 18, paddingTop: 8, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <Switch checked={form.showLogoOnBills} onChange={(v) => setSwitch('showLogoOnBills', v)} label="Show logo on printed bills" />
+          <Switch checked={form.showGstinOnBills} onChange={(v) => setSwitch('showGstinOnBills', v)} label="Show GSTIN on printed bills" />
         </div>
       </SectionCard>
     </div>
@@ -798,9 +890,27 @@ function NextNumberEditor({ series, onClose, onSaved }: { series: Series; onClos
 
 // ---------- Page ----------
 
+// One row of the settings menu: an icon tile, a bold label and a line of help.
+const menuRow = (on: boolean): CSSProperties => ({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 12,
+  width: '100%',
+  minHeight: 60,
+  padding: '10px 12px',
+  borderRadius: 10,
+  border: 0,
+  cursor: 'pointer',
+  textAlign: 'left',
+  textDecoration: 'none',
+  color: '#17261E',
+  background: on ? '#E3F0E7' : 'transparent',
+});
+const menuTile: CSSProperties = { width: 38, height: 38, borderRadius: 10, background: '#EAF2EC', color: '#14502F', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' };
+
 export function SettingsPage() {
   const [active, setActive] = useState<SectionId>('business');
-  const current = sections.flatMap((g) => g.items).find((i) => i.id === active);
+  const current = sections.find((s) => s.id === active);
 
   return (
     <>
@@ -812,41 +922,32 @@ export function SettingsPage() {
       </div>
 
       <div className="body" style={{ gap: 20, alignItems: 'flex-start' }}>
-        <nav aria-label="Settings sections" style={{ width: 240, flex: 'none', position: 'sticky', top: 0, display: 'flex', flexDirection: 'column', gap: 14 }}>
-          {sections.map((group) => (
-            <div key={group.group}>
-              <div className="muted" style={{ fontSize: 11.5, fontWeight: 700, letterSpacing: '.05em', textTransform: 'uppercase', padding: '0 10px 6px' }}>{group.group}</div>
-              {group.items.map((item) => {
-                const on = item.id === active;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    aria-current={on ? 'page' : undefined}
-                    onClick={() => setActive(item.id)}
-                    style={{ display: 'block', width: '100%', textAlign: 'left', padding: '10px 12px', borderRadius: 10, border: 0, cursor: 'pointer', background: on ? '#E3F0E7' : 'transparent', marginBottom: 2 }}
-                  >
-                    <div style={{ fontWeight: 700, fontSize: 14, color: on ? '#12301F' : '#17261E' }}>{item.label}</div>
-                    <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>{item.help}</div>
-                  </button>
-                );
-              })}
-            </div>
-          ))}
-
-          <div className="card" style={{ padding: 14, marginTop: 6 }}>
-            <div style={{ fontWeight: 700, fontSize: 14 }}>Staff accounts</div>
-            <div className="muted" style={{ fontSize: 12.5, margin: '4px 0 10px' }}>Add people, change their roles, or switch an account off.</div>
-            <Link to="/users" className="btn" style={{ minHeight: 40, display: 'inline-flex', alignItems: 'center' }}>Open Users</Link>
-          </div>
+        <nav className="card" aria-label="Settings sections" style={{ width: 280, flex: 'none', padding: 10, position: 'sticky', top: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {sections.map((item) => {
+            const on = item.id === active;
+            return (
+              <button key={item.id} type="button" aria-current={on ? 'page' : undefined} onClick={() => setActive(item.id)} style={menuRow(on)}>
+                <span style={menuTile}><Icon name={item.icon} size={20} /></span>
+                <span style={{ minWidth: 0 }}>
+                  <span style={{ display: 'block', fontWeight: 700, fontSize: 14.5 }}>{item.label}</span>
+                  <span className="muted" style={{ display: 'block', fontSize: 12.5, marginTop: 2 }}>{item.help}</span>
+                </span>
+              </button>
+            );
+          })}
+          <Link to="/users" style={menuRow(false)}>
+            <span style={menuTile}><Icon name="users" size={20} /></span>
+            <span style={{ minWidth: 0 }}>
+              <span style={{ display: 'block', fontWeight: 700, fontSize: 14.5 }}>Staff Accounts</span>
+              <span className="muted" style={{ display: 'block', fontSize: 12.5, marginTop: 2 }}>Add people, roles and access</span>
+            </span>
+          </Link>
         </nav>
 
         <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div>
-            <h2 style={{ margin: 0, fontSize: 20 }}>{current?.label}</h2>
-            <div className="muted" style={{ fontSize: 13.5, marginTop: 2 }}>{current?.help}</div>
-          </div>
+          {active !== 'business' && active !== 'menu' && current && <SectionHeader title={current.label} description={current.help} />}
           {active === 'business' && <BusinessSection />}
+          {active === 'menu' && <MenuAccessSettings />}
           {active === 'channels' && <ChannelsSection />}
           {active === 'zones' && <ZonesSection />}
           {active === 'tax' && <TaxSection />}

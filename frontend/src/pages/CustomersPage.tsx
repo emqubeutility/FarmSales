@@ -5,6 +5,7 @@ import { formatDate, formatPaise } from '../lib/format.js';
 import { useAuth } from '../lib/auth-context.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
 import { AccordionItem, DetailRow, Field, Modal, Notice, StatusPill, Switch } from '../components/ui.js';
+import { usePaging, TablePagination } from '../components/Pagination.js';
 
 interface CustomerRow {
   id: string;
@@ -164,12 +165,6 @@ export function CustomersPage() {
     last: (c: CustomerRow) => (c.lastOrderAt ? new Date(c.lastOrderAt).getTime() : 0),
   });
 
-  const totals = useMemo(() => ({
-    all: customers.length,
-    withOrders: customers.filter((c) => c.orderCount > 0).length,
-    b2b: customers.filter((c) => c.type === 'B2B').length,
-    spent: customers.reduce((sum, c) => sum + c.totalSpentPaise, 0),
-  }), [customers]);
 
   function toggle(key: SectionKey) {
     setOpen((s) => ({ ...s, [key]: !s[key] }));
@@ -180,6 +175,7 @@ export function CustomersPage() {
     if (id) setSelectedId(id);
   }
 
+  const { pageRows, paging } = usePaging(sortable.rows);
   return (
     <>
       <div className="top" style={{ gap: 12 }}>
@@ -188,32 +184,9 @@ export function CustomersPage() {
           <div className="muted" style={{ fontSize: 12 }}>People who ordered, and the customers you saved</div>
         </div>
         <div style={{ flex: 1 }} />
-        <input className="in" style={{ width: 280 }} placeholder="Search name, mobile, city, GSTIN" aria-label="Search customers" value={search} onChange={(e) => setSearch(e.target.value)} />
-        {isOwner && <button className="btn p" style={{ minHeight: 40, whiteSpace: "nowrap" }} onClick={() => setEditor({ mode: "create" })}>Add customer</button>}
-      </div>
-
-      <div className="body" style={{ flexDirection: 'column', gap: 16 }}>
-        {error && <Notice kind="error">{error}</Notice>}
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 12 }}>
-          {[
-            { label: 'Customers', value: String(totals.all) },
-            { label: 'Have ordered', value: String(totals.withOrders) },
-            { label: 'B2B accounts', value: String(totals.b2b) },
-            { label: 'Total sales', value: formatPaise(totals.spent) },
-          ].map((tile) => (
-            <div key={tile.label} className="card" style={{ padding: '14px 16px' }}>
-              <div className="muted" style={{ fontSize: 12.5, fontWeight: 600 }}>{tile.label}</div>
-              <div style={{ fontSize: 22, fontWeight: 800, marginTop: 4 }}>{tile.value}</div>
-            </div>
-          ))}
-        </div>
-
-        <section className="card" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1, overflow: 'hidden' }}>
-          <div style={{ padding: 14, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', borderBottom: '1px solid var(--border-light)' }}>
-            <div role="group" aria-label="Customer type" style={{ display: 'flex', background: '#EEF1EC', borderRadius: 10, padding: 3, gap: 2 }}>
+        <div role="group" aria-label="Customer type" style={{ display: 'flex', background: '#EEF1EC', borderRadius: 10, padding: 3, gap: 2 }}>
               {([
-                { value: 'ALL', label: `All (${customers.length})` },
+                { value: 'ALL', label: 'All' },
                 { value: 'RETAIL', label: 'Retail' },
                 { value: 'B2B', label: 'B2B' },
               ] as const).map((f) => (
@@ -228,10 +201,17 @@ export function CustomersPage() {
                 </button>
               ))}
             </div>
-            <div style={{ flex: 1 }} />
-            <span className="muted" style={{ fontSize: 13 }}>{filtered.length} shown</span>
-          </div>
 
+        <input className="in" style={{ width: 280 }} placeholder="Search name, mobile, city, GSTIN" aria-label="Search customers" value={search} onChange={(e) => setSearch(e.target.value)} />
+        {isOwner && <button className="btn p" style={{ minHeight: 40, whiteSpace: "nowrap" }} onClick={() => setEditor({ mode: "create" })}>Add customer</button>}
+      </div>
+
+      <div className="body" style={{ flexDirection: 'column', gap: 16 }}>
+        {error && <Notice kind="error">{error}</Notice>}
+
+
+        <section className="card" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1, overflow: 'hidden' }}>
+          
           <div style={{ overflow: 'auto', flex: 1 }}>
             {loading ? (
               <div className="muted" style={{ padding: 30, textAlign: 'center' }}>Loading customers…</div>
@@ -249,7 +229,7 @@ export function CustomersPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {sortable.rows.map((c) => (
+                  {pageRows.map((c) => (
                     <tr key={c.id} className={selectedId === c.id ? 'sel' : ''} style={{ cursor: 'pointer' }} onClick={() => setSelectedId(c.id)}>
                       <td>
                         <strong>{c.name}</strong>
@@ -278,6 +258,7 @@ export function CustomersPage() {
               </table>
             )}
           </div>
+          {!loading && <TablePagination {...paging} />}
         </section>
       </div>
 

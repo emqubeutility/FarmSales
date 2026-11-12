@@ -8,7 +8,10 @@ import { AppModule } from './app.module.js';
 
 // Shared by the long-running server (main.ts) and the Vercel function (vercel.ts).
 export async function createApp(): Promise<NestExpressApplication> {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  // The default JSON limit (100 KB) is too small for an uploaded UPI QR image, so the parsers are set here.
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, { bodyParser: false });
+  app.useBodyParser('json', { limit: '1mb' });
+  app.useBodyParser('urlencoded', { limit: '1mb', extended: true });
   app.setGlobalPrefix('api');
   // Behind a proxy (Vercel, load balancers) req.secure is only true with this, and
   // without it the secure session cookie is never set.

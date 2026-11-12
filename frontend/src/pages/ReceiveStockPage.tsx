@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api, ApiError } from '../lib/api.js';
 import { formatPaise, formatDate } from '../lib/format.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
+import { usePaging, TablePagination } from '../components/Pagination.js';
 
 interface Supplier { id: string; name: string }
 interface Item { id: string; code: string; name: string; unit: string }
@@ -138,6 +139,8 @@ export function ReceiveStockPage() {
     }
   }
 
+  const { pageRows, paging } = usePaging(sortableReceipts.rows);
+
   return (
     <>
       <div className="top">
@@ -235,7 +238,7 @@ export function ReceiveStockPage() {
               </tr>
             </thead>
             <tbody>
-              {sortableReceipts.rows.map((r) => (
+              {pageRows.map((r) => (
                 <tr key={r.id}>
                   <td>{r.supplier.name}</td>
                   <td>{r.supplierBillNo}</td>
@@ -282,6 +285,7 @@ export function ReceiveStockPage() {
               )}
             </tbody>
           </table>
+            <TablePagination {...paging} />
           <div className="muted" style={{ padding: '10px 16px', fontSize: 12.5 }}>
             Edit/void only work while nothing has consumed from this receipt's stock yet — once it has, you'll get an error suggesting a stock adjustment instead.
           </div>

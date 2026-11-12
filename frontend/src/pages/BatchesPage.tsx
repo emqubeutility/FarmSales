@@ -15,6 +15,7 @@ import {
   filterBatches,
   type BatchFilters,
 } from '../lib/batch-filters.js';
+import { usePaging, TablePagination } from '../components/Pagination.js';
 
 interface BatchListRow {
   id: string;
@@ -83,6 +84,8 @@ export function BatchesPage() {
     setSelected(detail);
   }
 
+  const { pageRows, paging } = usePaging(sortable.rows);
+
   return (
     <>
       <div className="top">
@@ -135,7 +138,7 @@ export function BatchesPage() {
               </tr>
             </thead>
             <tbody>
-              {sortable.rows.map((b) => (
+              {pageRows.map((b) => (
                 <tr key={b.id} className={selected?.id === b.id ? 'sel' : ''} style={{ cursor: 'pointer' }} onClick={() => select(b.id)}>
                   <td>
                     <b>{b.code}</b>
@@ -179,6 +182,7 @@ export function BatchesPage() {
               )}
             </tbody>
           </table>
+            <TablePagination {...paging} />
         </div>
 
         {selected && (

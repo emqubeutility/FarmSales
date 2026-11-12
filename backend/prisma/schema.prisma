@@ -33,6 +33,16 @@ model User {
   @@map("user")
 }
 
+// Which sidebar pages each non-owner role may open. A row means the role can open that page.
+// Owner always has every page, so OWNER has no rows here. Set by the owner in Settings > Menu Access.
+model RoleMenuAccess {
+  role  Role
+  route String
+
+  @@id([role, route])
+  @@map("role_menu_access")
+}
+
 // Settings changes are logged (HANDOVER.md section 3).
 model AuditLog {
   id         String   @id @default(uuid())
@@ -572,6 +582,9 @@ model BusinessProfile {
   logoUrl       String?
   upiId         String?
   upiQrImageUrl String?
+  // Printed-bill options: show the company logo, and the GSTIN line, on bills.
+  showLogoOnBills  Boolean @default(true)
+  showGstinOnBills Boolean @default(true)
 
   @@map("business_profile")
 }

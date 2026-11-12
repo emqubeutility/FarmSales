@@ -10,6 +10,7 @@ import {
   filterItems,
   type ItemFilters,
 } from '../lib/item-filters.js';
+import { usePaging, TablePagination } from '../components/Pagination.js';
 
 interface TaxClass {
   id: string;
@@ -80,8 +81,6 @@ export function ItemsPage() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const activeFilterCount = countActiveItemFilters(filters);
-  const trackedCount = items.filter((i) => i.trackBatches).length;
-  const untrackedCount = items.length - trackedCount;
   const shownItems = useMemo(() => filterItems(items, filters), [items, filters]);
   const sortableItems = useTableSort(shownItems, itemSortValues);
   const [taxClasses, setTaxClasses] = useState<TaxClass[]>([]);
@@ -200,6 +199,8 @@ export function ItemsPage() {
     filterButtonRef.current?.focus();
   }, []);
 
+  const { pageRows, paging } = usePaging(sortableItems.rows);
+
   return (
     <>
       <div className="top">
@@ -209,9 +210,9 @@ export function ItemsPage() {
         <div role="group" aria-label="Show items" style={{ display: 'flex', background: '#EEF1EC', borderRadius: 10, padding: 3, gap: 2 }}>
           {(
             [
-              { value: 'all', label: `All (${items.length})` },
-              { value: 'tracked', label: `Batch tracked (${trackedCount})` },
-              { value: 'untracked', label: `No batch (${untrackedCount})` },
+              { value: 'all', label: 'All' },
+              { value: 'tracked', label: 'Batch tracked' },
+              { value: 'untracked', label: 'No batch' },
             ] as const
           ).map((f) => (
             <button
@@ -271,7 +272,7 @@ export function ItemsPage() {
               </tr>
             </thead>
             <tbody>
-              {sortableItems.rows.map((item) => (
+              {pageRows.map((item) => (
                 <tr key={item.id} className={editingItem?.id === item.id ? 'sel' : ''}>
                   <td>
                     <b>{item.name}</b>
@@ -312,6 +313,7 @@ export function ItemsPage() {
               )}
             </tbody>
           </table>
+            <TablePagination {...paging} />
         </div>
 
         {showForm && (

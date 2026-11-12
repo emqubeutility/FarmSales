@@ -12,6 +12,7 @@ import {
   filterInventory,
   type InventoryFilters,
 } from '../lib/inventory-filters.js';
+import { usePaging, TablePagination } from '../components/Pagination.js';
 
 interface InventoryBatch {
   id: string;
@@ -107,6 +108,8 @@ export function InventoryPage() {
     }
   }
 
+  const { pageRows, paging } = usePaging(sortable.rows);
+
   return (
     <>
       <div className="top">
@@ -159,7 +162,7 @@ export function InventoryPage() {
               </tr>
             </thead>
             <tbody>
-              {sortable.rows.map((item) => {
+              {pageRows.map((item) => {
                 const totalQty = Number(item.totalQty);
                 const low = item.reorderLevel !== null && totalQty <= item.reorderLevel;
                 return (
@@ -205,6 +208,7 @@ export function InventoryPage() {
               )}
             </tbody>
           </table>
+            <TablePagination {...paging} />
         </div>
 
         {selected && (

@@ -35,6 +35,8 @@ interface BusinessProfile {
   logoUrl: string | null;
   upiId: string | null;
   upiQrImageUrl: string | null;
+  showLogoOnBills: boolean;
+  showGstinOnBills: boolean;
 }
 interface Bill {
   id: string;
@@ -123,12 +125,12 @@ export function BillSheet({ saleId, onClose }: { saleId: string; onClose?: () =>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 18 }}>
           <div style={{ display: 'flex', gap: 10 }}>
-            {business?.logoUrl && <img src={business.logoUrl} alt="" style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover' }} />}
+            {business?.logoUrl && business.showLogoOnBills && <img src={business.logoUrl} alt="" style={{ width: 44, height: 44, borderRadius: 8, objectFit: 'cover' }} />}
             <div>
               <div style={{ fontSize: 20, fontWeight: 700 }}>{business?.name ?? '[YOUR BRAND]'}</div>
               <div className="muted" style={{ fontSize: 12.5 }}>{business?.address ?? '[Address — set this in Settings]'}</div>
               <div className="muted" style={{ fontSize: 12.5 }}>
-                GSTIN: {business?.gstin ?? '[not set]'} &middot; FSSAI: {business?.fssaiNumber ?? '[not set]'}
+                {business?.showGstinOnBills !== false && <>GSTIN: {business?.gstin ?? '[not set]'} &middot; </>}FSSAI: {business?.fssaiNumber ?? '[not set]'}
               </div>
             </div>
           </div>

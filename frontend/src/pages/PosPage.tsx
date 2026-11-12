@@ -5,10 +5,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { api, ApiError } from "../lib/api.js";
 import { formatPaise } from "../lib/format.js";
 import { CameraScanner } from "../components/CameraScanner.js";
-import {
-  BatchPickDialog,
-  type BatchChoice,
-} from "../components/BatchPickDialog.js";
+import { useAuth } from "../lib/auth-context.js";
 import { OrderForm } from "../components/OrderForm.js";
 import {
   buildOrderBody,
@@ -22,6 +19,11 @@ import {
 } from "../lib/order-form.js";
 
 type PosChannel = Channel;
+// Stock on hand per item, from the stock overview (totalQty is a decimal, sent as text).
+interface StockRow {
+  id: string;
+  totalQty: string | number;
+}
 interface CustomerOption {
   id: string;
   name: string;
@@ -147,7 +149,30 @@ export function PosPage() {
     Record<Channel, ChannelDiscountRow>
   >({} as never);
   const [search, setSearch] = useState("");
-  const [scanValue, setScanValue] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(25);
+  const [showPaymentMethods, setShowPaymentMethods] = useState(false);
+  // Counter screen: which counter the bill is for, the stock filter, the grid or list view, and the stock per item.
+  // The counter selector was removed from the top bar, so bills always use the warehouse counter.
+  const [salesPoint] = useState<"WAREHOUSE_COUNTER" | "MARKET_STALL">("WAREHOUSE_COUNTER");
+  const [stockFilter, setStockFilter] = useState<"in" | "all" | "out">("in");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [stockByItem, setStockByItem] = useState<Record<string, number>>({});
+  const { user } = useAuth();
+  const initials = (user?.name ?? "?")
+    .split(" ")
+    .filter(Boolean)
+    .map((word) => word[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+  // Removes a whole line from the bill (scanned packs go with it).
+  function removeLine(key: string) {
+    setScanMessage(null);
+    setLines((prev) => prev.filter((l) => l.key !== key));
+  }
   const [scanMessage, setScanMessage] = useState<string | null>(null);
   const scanRef = useRef<HTMLInputElement>(null);
   const [channel, setChannel] = useState<PosChannel>(
@@ -160,21 +185,22 @@ export function PosPage() {
   const [resumingSaleId, setResumingSaleId] = useState<string | null>(null);
   // Cash or UPI payment dialog, open while the cashier takes the phone number and payment.
   const [payDialog, setPayDialog] = useState<"CASH" | "UPI" | null>(null);
-  // Batch choice for batch-tracked items, asked before the bill is held or paid (see startSave).
-  const [batchPrompt, setBatchPrompt] = useState<{ next: "hold" | "CASH" | "UPI" } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [receipt, setReceipt] = useState<FinalizedSale | null>(null);
   const [busy, setBusy] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
 
   async function loadAll() {
-    const [itemList, taxClassList, discountList, held] = await Promise.all([
+    const [itemList, taxClassList, discountList, held, stockList] = await Promise.all([
       api.get<SellableItem[]>("/items?active=true"),
       api.get<TaxClass[]>("/tax-classes"),
       api.get<ChannelDiscountRow[]>("/channel-discounts"),
       api.get<HeldSale[]>("/sales/held"),
+      // If stock cannot be read, the screen shows no stock badges and does not filter by stock.
+      api.get<StockRow[]>("/items/inventory").catch(() => [] as StockRow[]),
     ]);
     setItems(itemList);
+    setStockByItem(Object.fromEntries(stockList.map((s) => [s.id, Number(s.totalQty)])));
     setTaxClasses(Object.fromEntries(taxClassList.map((tc) => [tc.id, tc])));
     setChannelDiscounts(
       Object.fromEntries(discountList.map((d) => [d.channel, d])) as Record<
@@ -241,11 +267,41 @@ export function PosPage() {
     return () => window.removeEventListener("keydown", onKeyDown, true);
   }, [orderMode]);
 
-  // Used by the Add button and the Enter key in the manual entry box.
+  // Used by the Add button and the Enter key in the item box. A code is scanned (pack or batch), an
+  // item code adds that item, and a name adds the item when exactly one product matches it.
   function submitManualCode() {
-    const value = scanValue;
-    setScanValue("");
-    handleScan(value);
+    const value = search.trim();
+    if (!value) return;
+    const upper = value.toUpperCase();
+    const exact = items.find(
+      (i) => i.code.toUpperCase() === upper || (i.ean13 !== null && i.ean13 === value),
+    );
+    if (exact) {
+      addItemToLines(exact);
+      setSearch("");
+      setPage(1);
+      setScanMessage(`Added ${exact.name}`);
+      return;
+    }
+    if (value.includes("-")) {
+      setSearch("");
+      setPage(1);
+      handleScan(value);
+      return;
+    }
+    if (filteredItems.length === 1) {
+      addItemToLines(filteredItems[0]);
+      setSearch("");
+      setPage(1);
+      setScanMessage(`Added ${filteredItems[0].name}`);
+      return;
+    }
+    setScanMessage(null);
+    setError(
+      filteredItems.length === 0
+        ? `No item or pack matches "${value}".`
+        : `${filteredItems.length} items match. Pick one from the list, or type the full code.`,
+    );
   }
 
   useEffect(() => {
@@ -471,9 +527,36 @@ export function PosPage() {
     }
   }, [lines, discountPct, maxDiscountPct]);
 
-  const filteredItems = items.filter((i) =>
-    `${i.name} ${i.code}`.toLowerCase().includes(search.toLowerCase()),
-  );
+  const categoryKeywords: Record<string, string[]> = {
+    Rice: ["rice"],
+    "Atta & Flours": ["atta", "flour", "besan"],
+    Millets: ["millet"],
+    "Ghee & Oils": ["ghee", "oil"],
+    Pulses: ["chana", "dal", "pulse", "lentil"],
+  };
+  const stockKnown = Object.keys(stockByItem).length > 0;
+  function stockOf(id: string): number | null {
+    return stockKnown ? (stockByItem[id] ?? 0) : null;
+  }
+  const filteredItems = items.filter((item) => {
+    const searchable = `${item.name} ${item.code} ${item.size ?? ""}`.toLowerCase();
+    const matchesSearch = searchable.includes(search.toLowerCase().trim());
+    if (!matchesSearch) return false;
+    if (!orderMode && stockKnown) {
+      const stock = stockByItem[item.id] ?? 0;
+      if (stockFilter === "in" && stock <= 0) return false;
+      if (stockFilter === "out" && stock > 0) return false;
+    }
+    if (activeCategory === "All") return true;
+    if (activeCategory === "Others") {
+      return !Object.values(categoryKeywords).flat().some((word) => searchable.includes(word));
+    }
+    return (categoryKeywords[activeCategory] ?? []).some((word) => searchable.includes(word));
+  });
+  const pageCount = Math.max(1, Math.ceil(filteredItems.length / pageSize));
+  const paginatedItems = filteredItems.slice((page - 1) * pageSize, page * pageSize);
+  const pageStart = filteredItems.length === 0 ? 0 : (page - 1) * pageSize + 1;
+  const pageEnd = Math.min(page * pageSize, filteredItems.length);
 
   // Adds one unit of an item without a pack label. The server picks its batch (FEFO) when the bill
   // is saved. Used for bills and orders alike. Scanned packs keep their own lines.
@@ -569,37 +652,11 @@ export function PosPage() {
     }));
   }
 
-  // A batch-tracked line that still needs its batch before the bill is held or paid.
-  function needsBatch(l: BillLine): boolean {
-    return !!l.tracked && !l.batchId && !l.unitCodes;
-  }
-
-  // Holding or paying comes first through here: batch-tracked items need their batch chosen first.
+  // Pay: the payment method, then the payment. Hold: saves the bill. No batch step; the server
+  // picks the batch oldest first unless a batch was scanned onto the line.
   function startSave(next: "hold" | "CASH" | "UPI") {
     setError(null);
-    const missing = lines.filter(needsBatch);
-    if (missing.length === 0) {
-      if (next === "hold") void handleHold();
-      else setPayDialog(next);
-      return;
-    }
-    if (resumingSaleId) {
-      setError(
-        "This held bill was saved before batches were chosen. Cancel the resume and hold the bill again, choosing the batches.",
-      );
-      return;
-    }
-    setBatchPrompt({ next });
-  }
-
-  // The cashier chose a batch for each batch-tracked line. Then the bill is held or the payment opens.
-  function confirmBatches(choices: Record<string, BatchChoice>, next: "hold" | "CASH" | "UPI") {
-    const updated = lines.map((l) =>
-      choices[l.key] ? { ...l, ...choices[l.key] } : l,
-    );
-    setLines(updated);
-    setBatchPrompt(null);
-    if (next === "hold") void handleHold(updated);
+    if (next === "hold") void handleHold();
     else setPayDialog(next);
   }
 
@@ -608,7 +665,7 @@ export function PosPage() {
     setBusy(true);
     try {
       await api.post("/sales/hold", {
-        salesPoint: "WAREHOUSE_COUNTER",
+        salesPoint,
         channel,
         discountPct,
         lines: billLines(list),
@@ -654,7 +711,7 @@ export function PosPage() {
             { payments, customerPhone },
           )
         : await api.post<FinalizedSale>("/sales/finalize", {
-            salesPoint: "WAREHOUSE_COUNTER",
+            salesPoint,
             channel,
             discountPct,
             lines: billLines(),
@@ -684,15 +741,27 @@ export function PosPage() {
             Cancel
           </button>
         ) : (
-          <button className="btn" onClick={() => setShowHeld((v) => !v)}>
-            Held bills{" "}
-            <span className="pill n" style={{ marginLeft: 6 }}>
-              {heldSales.length}
+          <>
+            
+            <button
+              className="btn"
+              style={{ minHeight: 40, display: "inline-flex", alignItems: "center", gap: 8 }}
+              onClick={() => setShowHeld((v) => !v)}
+            >
+              Held bills
+              <span className={`pill ${heldSales.length ? "g" : "n"}`}>{heldSales.length}</span>
+            </button>
+            <span
+              title={user?.name}
+              aria-label={`Signed in as ${user?.name ?? "user"}`}
+              style={{ width: 40, height: 40, borderRadius: "50%", background: "#145B2B", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14 }}
+            >
+              {initials}
             </span>
-          </button>
+          </>
         )}
       </div>
-      <div className="body">
+      <div className="body pos-layout">
         <div
           style={{
             flex: 1,
@@ -700,20 +769,23 @@ export function PosPage() {
             display: "flex",
             flexDirection: "column",
             gap: 12,
+            // Counter screen: the item area fits the window, so the pagination stays at the bottom.
+            height: orderMode ? undefined : "calc(100vh - 110px)",
+            minHeight: orderMode ? undefined : 460,
           }}
         >
           {!orderMode && (
             <div>
-              <div style={{ display: "flex", gap: 8 }}>
+              <div style={{ display: "flex", gap: 10 }}>
                 <input
                   ref={scanRef}
                   className="in"
-                  style={{ height: 56, fontSize: 18, flex: 1, minWidth: 0 }}
-                  placeholder="Scan the pack label, or type its code and press Add"
-                  aria-label="Pack label code"
-                  value={scanValue}
+                  style={{ height: 56, fontSize: 17, flex: 1, minWidth: 0, borderRadius: 14 }}
+                  placeholder="Scan pack label, or type item code or name…"
+                  aria-label="Scan or search items"
+                  value={search}
                   disabled={!!resumingSaleId || busy}
-                  onChange={(e) => setScanValue(e.target.value)}
+                  onChange={(e) => { setSearch(e.target.value); setPage(1); }}
                   onKeyDown={(e) => {
                     if (e.key !== "Enter") return;
                     e.preventDefault();
@@ -724,8 +796,8 @@ export function PosPage() {
                 <button
                   type="button"
                   className="btn p"
-                  style={{ minHeight: 56, padding: "0 20px" }}
-                  disabled={!scanValue.trim() || !!resumingSaleId || busy}
+                  style={{ minHeight: 56, padding: "0 26px", fontSize: 16, borderRadius: 14 }}
+                  disabled={!search.trim() || !!resumingSaleId || busy}
                   onClick={submitManualCode}
                 >
                   Add
@@ -733,7 +805,7 @@ export function PosPage() {
                 <button
                   type="button"
                   className="btn"
-                  style={{ minHeight: 56, padding: "0 16px" }}
+                  style={{ minHeight: 56, padding: "0 18px", borderRadius: 14 }}
                   disabled={!!resumingSaleId || busy}
                   onClick={() => setShowCamera(true)}
                 >
@@ -765,14 +837,59 @@ export function PosPage() {
               onBlur={touchOrderField}
             />
           )}
-          <input
-            className="in"
-            style={{ height: 44, fontSize: 15 }}
-            placeholder="Search item by name or code"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          {orderMode && (
+            <input
+              className="in"
+              style={{ height: 44, fontSize: 15 }}
+              placeholder="Search item by name or code"
+              value={search}
+              onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+            />
+          )}
           {error && <div className="error-banner">{error}</div>}
+          {!orderMode && (
+            <div className="pos-category-row" role="group" aria-label="Product categories">
+              {["All", "Rice", "Atta & Flours", "Millets", "Ghee & Oils", "Pulses", "Others"].map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  className={`pos-category-chip${activeCategory === category ? " active" : ""}`}
+                  onClick={() => { setActiveCategory(category); setPage(1); }}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          )}
+          {!orderMode && (
+            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+              <select
+                className="in"
+                aria-label="Stock filter"
+                style={{ width: 200, height: 46, borderRadius: 12, fontWeight: 600 }}
+                value={stockFilter}
+                onChange={(e) => { setStockFilter(e.target.value as "in" | "all" | "out"); setPage(1); }}
+              >
+                <option value="all">All items</option>
+                <option value="in">In stock only</option>
+                <option value="out">Out of stock</option>
+              </select>
+              <div style={{ flex: 1 }} />
+              <div role="group" aria-label="View" style={{ display: "inline-flex", border: "1px solid #D2D8D2", borderRadius: 12, overflow: "hidden", background: "#fff" }}>
+                {(["grid", "list"] as const).map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    aria-pressed={viewMode === v}
+                    onClick={() => setViewMode(v)}
+                    style={{ minWidth: 60, minHeight: 46, border: 0, background: viewMode === v ? "#145B2B" : "#fff", color: viewMode === v ? "#fff" : "#3E4F45", fontWeight: 700, cursor: "pointer" }}
+                  >
+                    {v === "grid" ? "Grid" : "List"}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
           {!orderMode && showHeld && (
             <div className="card" style={{ padding: 12 }}>
               <div style={{ fontWeight: 700, marginBottom: 8 }}>Held bills</div>
@@ -799,12 +916,28 @@ export function PosPage() {
               minHeight: 0,
               overflow: "auto",
               display: "grid",
-              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-              gap: 10,
+              // Grid: as many compact cards per row as fit. List: one thin row per item.
+              gridTemplateColumns: viewMode === "list" ? "1fr" : "repeat(auto-fill, minmax(250px, 1fr))",
+              gap: viewMode === "list" ? 6 : 10,
               alignContent: "start",
+              paddingRight: 10,
             }}
           >
-            {filteredItems.map((item) => (
+            {paginatedItems.length === 0 && (
+              <div className="muted" style={{ gridColumn: "1 / -1", padding: 32, textAlign: "center" }}>
+                {stockFilter === "in" && stockKnown && search.trim() === "" && activeCategory === "All" ? (
+                  <>
+                    Nothing in stock right now.{" "}
+                    <button type="button" className="btn" style={{ minHeight: 36, marginLeft: 6 }} onClick={() => { setStockFilter("all"); setPage(1); }}>
+                      Show all items
+                    </button>
+                  </>
+                ) : (
+                  "No products match your search."
+                )}
+              </div>
+            )}
+            {paginatedItems.map((item) => (
               <button
                 key={item.id}
                 type="button"
@@ -812,40 +945,91 @@ export function PosPage() {
                 onClick={() => addItemToLines(item)}
                 style={{
                   textAlign: "left",
-                  padding: 12,
-                  minHeight: 96,
+                  padding: viewMode === "list" ? "8px 14px" : "12px 14px",
+                  minHeight: viewMode === "list" ? 56 : undefined,
                   display: "flex",
-                  flexDirection: "column",
-                  gap: 2,
+                  flexDirection: viewMode === "list" ? "row" : "column",
+                  alignItems: viewMode === "list" ? "center" : undefined,
+                  gap: viewMode === "list" ? 14 : 8,
+                  boxShadow: "0 2px 8px rgba(20, 48, 31, .035)",
                 }}
               >
-                <b>{item.name}</b>
-                <span>
-                  <span className={item.trackBatches ? "pill g" : "pill n"} style={{ fontSize: 11 }}>
-                    {item.trackBatches ? "Batch" : "No batch"}
-                  </span>
-                </span>
-                <span className="muted" style={{ fontSize: 12.5 }}>
-                  {item.size ?? item.code}
-                </span>
-                <div style={{ flex: 1 }} />
-                <span style={{ fontWeight: 700 }}>
-                  {formatPaise(item.mrpPaise)}
-                </span>
+                {(() => {
+                  const stock = stockOf(item.id);
+                  const list = viewMode === "list";
+                  return (
+                    <>
+                      <span style={{ display: "flex", flexDirection: "column", gap: list ? 2 : 4, flex: 1, minWidth: 0 }}>
+                        <b style={{ fontSize: 16, lineHeight: 1.25, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: list ? "nowrap" : "normal" }}>
+                          {item.name}{item.size ? ` ${item.size}` : ""}
+                        </b>
+                        <span className="muted" style={{ fontSize: 12 }}>{item.code}</span>
+                        {!list && (
+                          <span style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 2 }}>
+                            <span className={`pill ${item.trackBatches ? "b" : "n"}`} style={{ fontSize: 11, padding: "2px 8px" }}>{item.trackBatches ? "Batch" : "No batch"}</span>
+                            {stock !== null && (
+                              <span className={`pill ${stock > 0 ? "g" : "rd"}`} style={{ fontSize: 11, padding: "2px 8px" }}>{stock > 0 ? "In stock" : "Out of stock"}</span>
+                            )}
+                          </span>
+                        )}
+                      </span>
+                      {list && (
+                        <span style={{ display: "flex", gap: 6, flex: "none" }}>
+                          <span className={`pill ${item.trackBatches ? "b" : "n"}`} style={{ fontSize: 11, padding: "2px 8px" }}>{item.trackBatches ? "Batch" : "No batch"}</span>
+                          {stock !== null && (
+                            <span className={`pill ${stock > 0 ? "g" : "rd"}`} style={{ fontSize: 11, padding: "2px 8px" }}>{stock > 0 ? "In stock" : "Out of stock"}</span>
+                          )}
+                        </span>
+                      )}
+                      <span style={{ display: "flex", alignItems: "center", gap: 12, flex: "none", justifyContent: "space-between" }}>
+                        <span style={{ fontWeight: 800, fontSize: 17 }}>{formatPaise(item.mrpPaise)}</span>
+                        <span className="pos-add-label" style={{ minHeight: 34, padding: "0 12px", fontSize: 14 }}>+ Add</span>
+                      </span>
+                    </>
+                  );
+                })()}
               </button>
             ))}
           </div>
+          {!orderMode && (
+            <div className="pos-pagination" style={{ flex: "none", background: "#F3F5F1", paddingTop: 10 }}>
+              <span className="pos-pagination-summary">Showing {pageStart}–{pageEnd} of {filteredItems.length} items</span>
+              <div className="pos-page-controls">
+                <button type="button" className="pos-page-button" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} aria-label="Previous page">‹</button>
+                {Array.from({ length: pageCount }, (_, index) => index + 1).filter((pageNumber) => pageNumber === 1 || pageNumber === pageCount || Math.abs(pageNumber - page) <= 1).map((pageNumber, index, list) => (
+                  <span key={pageNumber} style={{ display: "contents" }}>
+                    {index > 0 && list[index - 1] !== pageNumber - 1 && <span className="pos-page-ellipsis">…</span>}
+                    <button type="button" className={`pos-page-button${page === pageNumber ? " active" : ""}`} onClick={() => setPage(pageNumber)}>{pageNumber}</button>
+                  </span>
+                ))}
+                <button type="button" className="pos-page-button" disabled={page >= pageCount} onClick={() => setPage((p) => Math.min(pageCount, p + 1))} aria-label="Next page">›</button>
+              </div>
+              <label className="pos-page-size-label">Items per page
+                <select className="in pos-page-size" value={pageSize} onChange={(e) => { setPageSize(Number(e.target.value)); setPage(1); }}>
+                  {[25, 50, 100].map((size) => <option key={size} value={size}>{size}</option>)}
+                </select>
+              </label>
+            </div>
+          )}
         </div>
 
         <div
           style={{
-            width: 392,
+            width: "clamp(420px, 35vw, 440px)",
             flex: "none",
             background: "#fff",
             border: "1px solid var(--border)",
-            borderRadius: 12,
+            borderRadius: 18,
             display: "flex",
             flexDirection: "column",
+            alignSelf: "flex-start",
+            position: "sticky",
+            top: 12,
+            // Fixed height: the header and totals stay put, and only the item lines scroll.
+            height: "calc(100vh - 100px)",
+            minHeight: 460,
+            overflow: "hidden",
+            boxShadow: "0 2px 10px rgba(20, 48, 31, .045)",
           }}
         >
           <div
@@ -856,9 +1040,12 @@ export function PosPage() {
               borderBottom: "1px solid var(--border-light)",
             }}
           >
-            <span style={{ fontSize: 16, fontWeight: 700 }}>
-              {orderMode ? "Order summary" : "Current bill"}
+            <span style={{ fontSize: 24, fontWeight: 800 }}>
+              {orderMode ? "Order summary" : "Current Bill"}
             </span>
+            {!orderMode && lines.length > 0 && !resumingSaleId && (
+              <button type="button" className="pos-clear-button" onClick={resetCart}>Clear</button>
+            )}
             {resumingSaleId && (
               <span className="pill b">Resuming held bill</span>
             )}
@@ -875,20 +1062,8 @@ export function PosPage() {
               <div key={l.key} className="row" style={{ alignItems: "center" }}>
                 <span>
                   {l.name}
-                  {l.tracked && !l.batchId && !l.unitCodes && (
-                    <div className="muted" style={{ fontSize: 12, color: "#9A6700" }}>
-                      Batch to be chosen when you save
-                    </div>
-                  )}
-                  {l.batchCode && (
-                    <div className="muted" style={{ fontSize: 12 }}>
-                      {l.unitCodes ? `Batch ${l.batchCode} · scanned packs` : `Batch ${l.batchCode}`}
-                    </div>
-                  )}
                   {l.unitCodes && (
-                    <div className="muted" style={{ fontSize: 12 }}>
-                      {l.unitCodes.join(", ")}
-                    </div>
+                    <div className="muted" style={{ fontSize: 12 }}>{l.qty} scanned pack(s)</div>
                   )}
                 </span>
                 <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -941,9 +1116,25 @@ export function PosPage() {
                     </>
                   )}
                   {resumingSaleId && <span>{l.qty}</span>}
-                  <span style={{ minWidth: 64, textAlign: "right" }}>
+                  <span className="muted" style={{ minWidth: 64, textAlign: "right", fontSize: 13 }}>
+                    {formatPaise(l.mrpPaise)}
+                  </span>
+                  <span style={{ minWidth: 76, textAlign: "right", fontWeight: 700 }}>
                     {formatPaise(l.mrpPaise * l.qty)}
                   </span>
+                  {!resumingSaleId && (
+                    <button
+                      type="button"
+                      aria-label={`Remove ${l.name}`}
+                      title="Remove from bill"
+                      onClick={() => removeLine(l.key)}
+                      style={{ border: 0, background: "transparent", color: "#B42318", cursor: "pointer", minHeight: 34, width: 34, padding: 0, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14" />
+                      </svg>
+                    </button>
+                  )}
                 </span>
               </div>
             ))}
@@ -972,47 +1163,48 @@ export function PosPage() {
                 </span>
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <button
-                  type="button"
-                  className="btn"
+                <input
+                  className="in"
+                  type="number"
+                  inputMode="numeric"
+                  min={0}
+                  max={maxDiscountPct}
+                  aria-label="Discount percent"
                   disabled={!!resumingSaleId}
-                  style={{ minHeight: 28, width: 28, padding: 0 }}
-                  onClick={() => setDiscountPct((p) => Math.max(0, p - 1))}
-                >
-                  −
-                </button>
-                <span
-                  style={{ minWidth: 30, textAlign: "center", fontWeight: 700 }}
-                >
-                  {discountPct}%
-                </span>
-                <button
-                  type="button"
-                  className="btn"
-                  disabled={!!resumingSaleId}
-                  style={{ minHeight: 28, width: 28, padding: 0 }}
-                  onClick={() =>
-                    setDiscountPct((p) => Math.min(maxDiscountPct, p + 1))
+                  value={discountPct}
+                  onChange={(e) =>
+                    setDiscountPct(Math.max(0, Math.min(maxDiscountPct, Number(e.target.value) || 0)))
                   }
-                >
-                  +
-                </button>
+                  style={{ width: 84, height: 40, textAlign: "right", fontWeight: 700 }}
+                />
+                <span style={{ fontWeight: 700 }}>%</span>
               </span>
             </div>
             {totals && (
               <>
                 <div className="row">
-                  <span>Taxable value</span>
-                  <span>{formatPaise(totals.taxablePaise)}</span>
+                  <span>Subtotal</span>
+                  <span>{formatPaise(totals.grossPaise)}</span>
                 </div>
+                {totals.discountPaise > 0 && (
+                  <div className="row">
+                    <span>Discount ({discountPct}%)</span>
+                    <span>− {formatPaise(totals.discountPaise)}</span>
+                  </div>
+                )}
                 <div className="row">
-                  <span>Tax</span>
+                  <span>
+                    Tax{" "}
+                    <span className="muted" style={{ fontSize: 12 }}>(included in MRP)</span>
+                  </span>
                   <span>{formatPaise(totals.taxPaise)}</span>
                 </div>
-                <div className="row">
-                  <span>Round-off</span>
-                  <span>{formatPaise(totals.roundOffPaise)}</span>
-                </div>
+                {totals.roundOffPaise !== 0 && (
+                  <div className="row">
+                    <span>Round off</span>
+                    <span>{formatPaise(totals.roundOffPaise)}</span>
+                  </div>
+                )}
               </>
             )}
             <div
@@ -1024,7 +1216,7 @@ export function PosPage() {
               }}
             >
               <span style={{ fontSize: 16, fontWeight: 700 }}>Total</span>
-              <span style={{ fontSize: 30, fontWeight: 700, color: "#12301F" }}>
+              <span style={{ fontSize: 28, fontWeight: 800, color: "#12301F" }}>
                 {totals ? formatPaise(totals.totalPaise) : "–"}
               </span>
             </div>
@@ -1050,24 +1242,16 @@ export function PosPage() {
             ) : (
               <>
                 <button
-                  className="btn p"
-                  style={{ minHeight: 56 }}
+                  className="btn p pos-pay-button"
+                  style={{ gridColumn: "span 2", minHeight: 66 }}
                   disabled={!totals || busy}
-                  onClick={() => startSave("CASH")}
+                  onClick={() => setShowPaymentMethods(true)}
                 >
-                  Cash
-                </button>
-                <button
-                  className="btn p"
-                  style={{ minHeight: 56 }}
-                  disabled={!totals || busy}
-                  onClick={() => startSave("UPI")}
-                >
-                  UPI
+                  Pay
                 </button>
                 {!resumingSaleId && (
                   <button
-                    className="btn"
+                    className="btn pos-hold-button"
                     style={{ gridColumn: "span 2" }}
                     disabled={lines.length === 0 || busy}
                     onClick={() => startSave("hold")}
@@ -1076,11 +1260,7 @@ export function PosPage() {
                   </button>
                 )}
                 {resumingSaleId && (
-                  <button
-                    className="btn"
-                    style={{ gridColumn: "span 2" }}
-                    onClick={resetCart}
-                  >
+                  <button className="btn" style={{ gridColumn: "span 2" }} onClick={resetCart}>
                     Cancel resume
                   </button>
                 )}
@@ -1090,14 +1270,18 @@ export function PosPage() {
         </div>
       </div>
 
-      {batchPrompt && (
-        <BatchPickDialog
-          lines={lines
-            .filter(needsBatch)
-            .map((l) => ({ key: l.key, itemId: l.itemId, name: l.name, qty: l.qty }))}
-          onCancel={() => setBatchPrompt(null)}
-          onConfirm={(choices) => confirmBatches(choices, batchPrompt.next)}
-        />
+      {showPaymentMethods && (
+        <div className="modal-backdrop" role="presentation" onClick={() => setShowPaymentMethods(false)}>
+          <div className="card pos-payment-choice" role="dialog" aria-modal="true" aria-labelledby="pos-payment-title" onClick={(e) => e.stopPropagation()}>
+            <h2 id="pos-payment-title">Select payment method</h2>
+            <p className="muted">Choose how the customer will pay.</p>
+            <div className="pos-payment-choice-actions">
+              <button type="button" className="btn p" onClick={() => { setShowPaymentMethods(false); startSave("CASH"); }}>Cash</button>
+              <button type="button" className="btn p" onClick={() => { setShowPaymentMethods(false); startSave("UPI"); }}>UPI</button>
+            </div>
+            <button type="button" className="btn" onClick={() => setShowPaymentMethods(false)}>Cancel</button>
+          </div>
+        </div>
       )}
 
       {payDialog && totals && (
@@ -1188,7 +1372,7 @@ function PaymentDialog({
   onConfirm: (phone: string) => void;
 }) {
   const [phone, setPhone] = useState("");
-  const [upi, setUpi] = useState<{ name: string; upiId: string | null } | null>(null);
+  const [upi, setUpi] = useState<{ name: string; upiId: string | null; upiQrImageUrl: string | null } | null>(null);
   const [upiStatus, setUpiStatus] = useState<
     "loading" | "ready" | "missing" | "error"
   >("loading");
@@ -1205,14 +1389,16 @@ function PaymentDialog({
     let active = true;
 
     api
-      .get<{ name: string; upiId: string | null }>("/business-profile")
+      .get<{ name: string; upiId: string | null; upiQrImageUrl: string | null }>("/business-profile")
       .then((profile) => {
         if (!active) return;
 
         const upiId = profile.upiId?.trim() || "";
 
-        setUpi({ ...profile, upiId: upiId || null });
-        setUpiStatus(upiId ? "ready" : "missing");
+        // The QR image uploaded in Settings is shown as it is. Without it, a QR is made from the UPI ID.
+        const uploadedQr = profile.upiQrImageUrl || null;
+        setUpi({ ...profile, upiId: upiId || null, upiQrImageUrl: uploadedQr });
+        setUpiStatus(upiId || uploadedQr ? "ready" : "missing");
       })
       .catch(() => {
         if (active) setUpiStatus("error");
@@ -1223,9 +1409,9 @@ function PaymentDialog({
     };
   }, [mode]);
 
-  // Generate QR only when a real business UPI ID exists.
+  // Generate QR only when a real business UPI ID exists and no QR image was uploaded.
   useEffect(() => {
-    if (mode !== "UPI" || !upi?.upiId) {
+    if (mode !== "UPI" || !upi?.upiId || upi.upiQrImageUrl) {
       setQr(null);
       return;
     }
@@ -1256,10 +1442,13 @@ function PaymentDialog({
     };
   }, [mode, upi, amount]);
 
+  // The QR to show: the uploaded image, or the one made from the UPI ID.
+  const shownQr = upi?.upiQrImageUrl || qr;
+
   const canConfirm =
     phoneValid &&
     !busy &&
-    (mode === "CASH" || !!qr);
+    (mode === "CASH" || !!shownQr);
 
   return (
     <div
@@ -1377,8 +1566,8 @@ function PaymentDialog({
                   UPI QR not configured
                 </div>
                 <div className="muted" style={{ fontSize: 13, marginTop: 6 }}>
-                  Add your business UPI ID under Settings → Business Profile
-                  to generate payment QR codes.
+                  Upload the UPI QR image, or add your UPI ID, under
+                  Settings → Business profile.
                 </div>
               </>
             )}
@@ -1391,10 +1580,10 @@ function PaymentDialog({
 
             {upiStatus === "ready" && (
               <>
-                {qr ? (
+                {shownQr ? (
                   <>
                     <img
-                      src={qr}
+                      src={shownQr}
                       alt="Business UPI payment QR code"
                       style={{
                         width: 240,
@@ -1422,7 +1611,7 @@ function PaymentDialog({
           </div>
         )}
 
-        {mode === "UPI" && qr && (
+        {mode === "UPI" && shownQr && (
           <div className="muted" style={{ fontSize: 13, lineHeight: 1.6 }}>
             1. Ask the customer to scan the QR code.
             <br />

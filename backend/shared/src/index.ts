@@ -21,3 +21,4 @@ export * from './schemas/address.js';
 export * from './schemas/business-profile.js';
 export * from './schemas/batch.js';
 export * from './schemas/category.js';
+export * from './menu-access.js';

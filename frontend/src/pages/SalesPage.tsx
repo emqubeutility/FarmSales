@@ -5,6 +5,7 @@ import { SortTh, useTableSort } from '../lib/table-sort.js';
 import { DEFAULT_SALE_FILTERS, filterSales, type SaleFilters } from '../lib/sale-filters.js';
 import { SalesFilterBar } from '../components/SalesFilterBar.js';
 import { BillSheet } from './BillPage.js';
+import { usePaging, TablePagination } from '../components/Pagination.js';
 
 interface SaleLine { id: string; itemId: string; qty: string; mrpPaise: number; item: { name: string } }
 interface Sale {
@@ -108,15 +109,18 @@ export function SalesPage() {
     }
   }
 
+  const { pageRows, paging } = usePaging(sortable.rows);
   return (
     <>
       <div className="top">
         <h1>Sales</h1>
+                <div style={{ flex: 1 }} />
+          <SalesFilterBar filters={filters} onChange={setFilters} sales={sales} shown={visibleSales.length} total={sales.length} />
+
       </div>
       <div className="body" style={{ flexDirection: 'column' }}>
         {error && <div className="error-banner">{error}</div>}
         <div className="card" style={{ overflow: 'hidden' }}>
-          <SalesFilterBar filters={filters} onChange={setFilters} sales={sales} shown={visibleSales.length} total={sales.length} />
           <table className="tbl">
             <thead>
               <tr>
@@ -130,7 +134,7 @@ export function SalesPage() {
               </tr>
             </thead>
             <tbody>
-              {sortable.rows.map((s) => (
+              {pageRows.map((s) => (
                 <tr key={s.id}>
                   <td>{s.number ?? <span className="muted">—</span>}</td>
                   <td className="muted">{s.channel}</td>
@@ -203,6 +207,7 @@ export function SalesPage() {
               )}
             </tbody>
           </table>
+            <TablePagination {...paging} />
         </div>
       </div>
       {viewingId && (
