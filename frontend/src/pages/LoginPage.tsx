@@ -203,19 +203,3 @@ export function LoginPage() {
     </main>
   );
 }
-
-const quickLogins = [
-  { label: 'Owner', email: 'owner@farmsales.test', password: 'OwnerPass123!' },
-  { label: 'Cashier', email: 'cashier@farmsales.test', password: 'CashierPass123!' },
-  {
-    label: 'Warehouse',
-    email: 'warehouse@farmsales.test',
-    password: 'WarehousePass123!',
-  },
-  { label: 'Delivery', email: 'delivery@farmsales.test', password: 'DeliveryPass123!' },
-  {
-    label: 'Cashier + Warehouse',
-    email: 'cashier.warehouse@farmsales.test',
-    password: 'ComboPass123!',
-  },
-];
