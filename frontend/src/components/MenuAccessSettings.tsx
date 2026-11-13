@@ -73,7 +73,7 @@ export function MenuAccessSettings() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
+      <div className="page-head" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
         <div>
           <h2 style={{ margin: 0, fontSize: 22 }}>Menu Access</h2>
           <div className="muted" style={{ fontSize: 13.5, marginTop: 2 }}>Choose which sidebar pages each role can open</div>
@@ -91,7 +91,7 @@ export function MenuAccessSettings() {
       {message && <Notice kind={message.kind}>{message.text}</Notice>}
 
       <SectionCard title="Sidebar pages by role" description="Owner-only pages (Reports, User Management, Settings) are fixed to the owner.">
-        <div style={{ overflowX: 'auto', margin: '-20px -20px 0' }}>
+        <div style={{ overflow: 'visible', margin: '-20px -20px 0' }}>
           <table className="tbl">
             <thead>
               <tr style={{ background: '#E8F3EC' }}>

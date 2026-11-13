@@ -32,7 +32,7 @@ function errorText(err: unknown, fallback: string): string {
 // Shared look for a list table inside a section card.
 function Table({ head, children, empty }: { head: ReactNode[]; children: ReactNode; empty?: string }) {
   return (
-    <div style={{ overflow: 'auto', margin: '-20px -20px 0' }}>
+    <div style={{ overflow: 'visible', margin: '-20px -20px 0' }}>
       <table className="tbl">
         <thead>
           <tr>{head.map((h, i) => <th key={i}>{h}</th>)}</tr>
@@ -944,7 +944,7 @@ export function SettingsPage() {
           </Link>
         </nav>
 
-        <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 16, ['--tbl-sticky-top' as string]: '76px' } as CSSProperties}>
           {active !== 'business' && active !== 'menu' && current && <SectionHeader title={current.label} description={current.help} />}
           {active === 'business' && <BusinessSection />}
           {active === 'menu' && <MenuAccessSettings />}

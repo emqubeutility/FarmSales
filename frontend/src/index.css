@@ -34,7 +34,9 @@ a { text-decoration: none; color: inherit; }
 button, input, select, textarea { font-family: inherit; font-size: inherit; }
 button { cursor: pointer; }
 
-.app { display: flex; width: 100%; min-height: 100vh; background: var(--bg); }
+/* The app fills the window. Only the page body scrolls, so the top bar stays fixed and the page
+   headers and table column names can stick under it. */
+.app { display: flex; width: 100%; height: 100vh; background: var(--bg); }
 .side {
   width: 208px; background: var(--sidebar-bg); padding: 20px 12px; box-sizing: border-box;
   display: flex; flex-direction: column; gap: 2px; flex: none; min-height: 100vh;
@@ -50,12 +52,17 @@ button { cursor: pointer; }
   color: var(--sidebar-group); font-size: 11px; font-weight: 600; letter-spacing: .06em;
   text-transform: uppercase; padding: 12px 10px 4px;
 }
-.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.main { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
 .top {
   height: 60px; flex: none; background: #fff; border-bottom: 1px solid var(--border);
   display: flex; align-items: center; padding: 0 24px; gap: 14px;
 }
 .top h1 { margin: 0; font-size: 20px; font-weight: 700; }
+/* A page heading with its buttons (such as Save Changes) stays at the top of the body while it scrolls. */
+.page-head {
+  position: sticky; top: 0; z-index: 5; height: 76px; box-sizing: border-box; padding: 12px 0;
+  align-items: center; background: var(--bg);
+}
 .body { flex: 1; min-height: 0; padding: 20px 24px; overflow: auto; display: flex; gap: 16px; }
 .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; }
 .muted { color: var(--muted); }
@@ -69,11 +76,15 @@ button { cursor: pointer; }
 .btn.p:hover { background: var(--accent-hover); }
 .btn:disabled { opacity: .4; cursor: not-allowed; }
 
-.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+/* Separate borders keep the bottom line under a sticky column-name row visible while rows scroll. */
+.tbl { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; }
 .tbl th {
   text-align: left; font-size: 12px; color: var(--muted); font-weight: 600;
   text-transform: uppercase; letter-spacing: .04em; padding: 9px 14px;
   border-bottom: 1px solid var(--border); background: #FAFBF9;
+  /* Column names stay visible while the rows scroll. A page with a sticky heading sets --tbl-sticky-top
+     to the heading's height, so the column names sit just below it. */
+  position: sticky; top: var(--tbl-sticky-top, 0); z-index: 2;
 }
 .tbl td { padding: 10px 14px; border-bottom: 1px solid var(--border-light); }
 .tbl tr.sel td { background: var(--accent-bg); }
@@ -461,19 +472,15 @@ select.in:disabled,
 .side-user-menu-item { width: 100%; min-height: 40px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; color: #B42318; font-weight: 700; text-align: left; cursor: pointer; }
 .side-user-menu-item:hover { background: #FDECEA; }
 
-/* Table pagination sticks to the bottom of the screen while the rows scroll. The card around it must
-   not clip (overflow hidden would stop the sticky position from working). */
-.card:has(.pos-pagination) { overflow: visible !important; }
+/* A list card with pagination fills the body and scrolls inside itself. The column names stick to the
+   card's top, the pagination sticks to its bottom, and the rows scroll in between. The card is the
+   scroll box, so the header and pagination are never cut off by the card or the body. */
+.body > .card:has(.pos-pagination), .body > section.card:has(.pos-pagination) {
+  flex: 1 1 auto; min-height: 0; max-height: 100%; overflow: auto !important;
+}
 .pos-pagination { position: sticky; bottom: 0; z-index: 3; }
-.body:has(.pos-pagination) { overflow: visible; }
-
-/* A list page with pagination fills the screen: its card grows to the bottom and the pagination sits at
-   the card's bottom edge, even when there are only a few rows. */
-.body:has(.pos-pagination) > .card:has(.pos-pagination) { flex: 1 0 auto; }
-.card:has(> .pos-pagination) { display: flex; flex-direction: column; }
-.card:has(> .pos-pagination) > .pos-pagination { margin-top: auto; }
-/* Any list card with pagination grows to fill its flex parent, so the pagination reaches the bottom. */
-.card:has(> .pos-pagination) { flex: 1 0 auto; }
+.card:has(> .pos-pagination) { display: flex; flex-direction: column; flex: 1 0 auto; }
+.card:has(> .pos-pagination) > .pos-pagination { margin-top: auto; background: #fff; }
 
 /* Sidebar, as in the dashboard design: a brand row with the menu button, icon navigation with groups,
    the user at the bottom. The menu button collapses it to icons only. */

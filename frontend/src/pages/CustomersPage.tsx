@@ -210,7 +210,7 @@ export function CustomersPage() {
         {error && <Notice kind="error">{error}</Notice>}
 
 
-        <section className="card" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1, overflow: 'hidden' }}>
+        <section className="card" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, maxHeight: '100%', flex: 1, overflow: 'hidden' }}>
           
           <div style={{ overflow: 'auto', flex: 1 }}>
             {loading ? (
