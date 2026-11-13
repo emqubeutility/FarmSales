@@ -13,6 +13,8 @@ import {
   type InventoryFilters,
 } from '../lib/inventory-filters.js';
 import { usePaging, TablePagination } from '../components/Pagination.js';
+import { LoadingRow } from '../components/Skeleton.js';
+import { useLoadingList } from '../lib/request-activity.js';
 
 interface InventoryBatch {
   id: string;
@@ -44,6 +46,7 @@ const inventorySortValues = {
 
 export function InventoryPage() {
   const [items, setItems] = useState<InventoryItem[]>([]);
+  const loading = useLoadingList();
   const [selected, setSelected] = useState<InventoryItem | null>(null);
   const [batchId, setBatchId] = useState('');
   const [qtyDelta, setQtyDelta] = useState('');
@@ -182,7 +185,8 @@ export function InventoryPage() {
                   </tr>
                 );
               })}
-              {visible.length === 0 && (
+              {visible.length === 0 && loading && <LoadingRow columns={5} />}
+              {visible.length === 0 && !loading && (
                 <tr>
                   <td colSpan={5} style={{ textAlign: 'center', padding: 40 }}>
                     {items.length === 0 ? (

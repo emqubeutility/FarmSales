@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useMenuAccess } from '../lib/menu-access-context.js';
+import { PageSkeleton } from './Skeleton.js';
 
 // Guards the app's pages by the pages the owner has given this user's roles. A user who types an
 // address they may not open is sent to the first page they do have, so the sidebar and the address
@@ -8,7 +9,7 @@ export function RequireMenu() {
   const { pathname } = useLocation();
   const { routes } = useMenuAccess();
 
-  if (routes === null) return null; // still loading
+  if (routes === null) return <PageSkeleton />; // still loading
   if (routes.includes(pathname)) return <Outlet />;
 
   const home = routes[0];

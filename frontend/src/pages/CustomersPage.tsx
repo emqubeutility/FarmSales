@@ -4,6 +4,7 @@ import { api, ApiError } from '../lib/api.js';
 import { formatDate, formatPaise } from '../lib/format.js';
 import { useAuth } from '../lib/auth-context.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
+import { SkeletonBlock, LoadingRow } from '../components/Skeleton.js';
 import { AccordionItem, DetailRow, Field, Modal, Notice, StatusPill, Switch } from '../components/ui.js';
 import { usePaging, TablePagination } from '../components/Pagination.js';
 
@@ -214,7 +215,7 @@ export function CustomersPage() {
           
           <div style={{ overflow: 'auto', flex: 1 }}>
             {loading ? (
-              <div className="muted" style={{ padding: 30, textAlign: 'center' }}>Loading customers…</div>
+              <table className="tbl"><tbody><LoadingRow columns={6} /></tbody></table>
             ) : (
               <table className="tbl">
                 <thead>
@@ -332,7 +333,7 @@ export function CustomersPage() {
                 </div>
               </>
             ) : (
-              <div className="muted" style={{ padding: 30 }}>Loading…</div>
+              <div style={{ padding: 20 }}><SkeletonBlock height={200} /></div>
             )}
           </aside>
         </div>

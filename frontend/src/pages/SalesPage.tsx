@@ -6,6 +6,8 @@ import { DEFAULT_SALE_FILTERS, filterSales, type SaleFilters } from '../lib/sale
 import { SalesFilterBar } from '../components/SalesFilterBar.js';
 import { BillSheet } from './BillPage.js';
 import { usePaging, TablePagination } from '../components/Pagination.js';
+import { LoadingRow } from '../components/Skeleton.js';
+import { useLoadingList } from '../lib/request-activity.js';
 
 interface SaleLine { id: string; itemId: string; qty: string; mrpPaise: number; item: { name: string } }
 interface Sale {
@@ -34,6 +36,7 @@ const LOAD_LIMIT = 1000;
 
 export function SalesPage() {
   const [sales, setSales] = useState<Sale[]>([]);
+  const loading = useLoadingList();
   const [filters, setFilters] = useState<SaleFilters>(DEFAULT_SALE_FILTERS);
   const visibleSales = useMemo(() => filterSales(sales, filters), [sales, filters]);
   const sortable = useTableSort(visibleSales, saleSortValues);
@@ -191,7 +194,8 @@ export function SalesPage() {
                   </td>
                 </tr>
               ))}
-              {sales.length === 0 && (
+              {sales.length === 0 && loading && <LoadingRow columns={7} />}
+              {sales.length === 0 && !loading && (
                 <tr><td colSpan={7} className="muted" style={{ padding: 20, textAlign: 'center' }}>No sales yet</td></tr>
               )}
               {sales.length > 0 && visibleSales.length === 0 && (

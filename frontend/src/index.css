@@ -523,6 +523,29 @@ select.in:disabled,
 }
 .users-tbl td { border-bottom: 1px solid #E6ECE7; }
 
+/* Loading: a thin bar across the top while requests run, and grey placeholders where data will appear. */
+.skeleton {
+  border-radius: 6px;
+  background: linear-gradient(90deg, #E9EEE9 25%, #F6F8F5 50%, #E9EEE9 75%);
+  background-size: 200% 100%; animation: loading-slide 1.3s ease-in-out infinite;
+}
+@keyframes loading-slide {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+/* "Loading data" with the dots moving: . .. ... */
+.loading-text { color: var(--muted); font-weight: 600; font-size: 14px; }
+.loading-dots::after { content: ''; display: inline-block; width: 1.4em; text-align: left; animation: loading-dots 1.2s steps(4, end) infinite; }
+@keyframes loading-dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
+
 
 
 /* ============================

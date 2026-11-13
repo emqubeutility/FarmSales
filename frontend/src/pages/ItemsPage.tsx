@@ -11,6 +11,8 @@ import {
   type ItemFilters,
 } from '../lib/item-filters.js';
 import { usePaging, TablePagination } from '../components/Pagination.js';
+import { LoadingRow } from '../components/Skeleton.js';
+import { useLoadingList } from '../lib/request-activity.js';
 
 interface TaxClass {
   id: string;
@@ -76,6 +78,7 @@ const itemSortValues = {
 
 export function ItemsPage() {
   const [items, setItems] = useState<Item[]>([]);
+  const loading = useLoadingList();
   // What the table shows. The tracking tabs and the Filters drawer both set the tracking filter.
   const [filters, setFilters] = useState<ItemFilters>(DEFAULT_ITEM_FILTERS);
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -298,7 +301,8 @@ export function ItemsPage() {
                   <td><button type="button" className="btn" onClick={() => openEdit(item)}>Edit</button></td>
                 </tr>
               ))}
-              {items.length === 0 && (
+              {items.length === 0 && loading && <LoadingRow columns={5} />}
+              {items.length === 0 && !loading && (
                 <tr><td colSpan={5} className="muted" style={{ padding: 20, textAlign: 'center' }}>No items yet</td></tr>
               )}
               {items.length > 0 && shownItems.length === 0 && (

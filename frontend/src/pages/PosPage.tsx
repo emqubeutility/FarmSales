@@ -933,7 +933,7 @@ export function PosPage() {
                     </button>
                   </>
                 ) : (
-                  "No products match your search."
+                  "Loading data please wait....."
                 )}
               </div>
             )}

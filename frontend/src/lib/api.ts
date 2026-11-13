@@ -1,3 +1,5 @@
+import { beginRequest, endRequest } from './request-activity.js';
+
 export class ApiError extends Error {
   status: number;
 
@@ -7,7 +9,17 @@ export class ApiError extends Error {
   }
 }
 
+// Every request is counted while it runs, so pages can show a loading state.
 async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
+  beginRequest();
+  try {
+    return await send<T>(method, path, body);
+  } finally {
+    endRequest();
+  }
+}
+
+async function send<T>(method: string, path: string, body?: unknown): Promise<T> {
   const res = await fetch(`/api${path}`, {
     method,
     credentials: 'include',

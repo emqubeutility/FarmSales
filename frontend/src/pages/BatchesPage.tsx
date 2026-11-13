@@ -16,6 +16,8 @@ import {
   type BatchFilters,
 } from '../lib/batch-filters.js';
 import { usePaging, TablePagination } from '../components/Pagination.js';
+import { LoadingRow } from '../components/Skeleton.js';
+import { useLoadingList } from '../lib/request-activity.js';
 
 interface BatchListRow {
   id: string;
@@ -41,6 +43,7 @@ const batchSortValues = {
 export function BatchesPage() {
   const [search, setSearch] = useState('');
   const [batches, setBatches] = useState<BatchListRow[]>([]);
+  const loading = useLoadingList();
   const [selected, setSelected] = useState<BatchDetail | null>(null);
   // Best-before correction for the selected batch: null means not editing.
   const [editingBestBefore, setEditingBestBefore] = useState<string | null>(null);
@@ -167,7 +170,8 @@ export function BatchesPage() {
                   </td>
                 </tr>
               ))}
-              {batches.length === 0 && (
+              {batches.length === 0 && loading && <LoadingRow columns={6} />}
+              {batches.length === 0 && !loading && (
                 <tr><td colSpan={6} className="muted" style={{ padding: 20, textAlign: 'center' }}>No batches yet</td></tr>
               )}
               {batches.length > 0 && visible.length === 0 && (

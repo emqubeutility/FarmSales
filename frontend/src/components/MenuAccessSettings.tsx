@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { GRANTABLE_ROLES, MENU_PAGES, type GrantableRole, type RoleMenuMatrix } from '@farm-sales/shared';
 import { api, ApiError } from '../lib/api.js';
 import { Notice, SectionCard } from './ui.js';
+import { SkeletonBlock } from './Skeleton.js';
 
 // Settings > Menu Access: the owner ticks the sidebar pages each role may open.
 // Owner always has every page, so the owner column is fixed on.
@@ -40,7 +41,7 @@ export function MenuAccessSettings() {
   }, []);
 
   if (!draft || !saved) {
-    return message ? <Notice kind="error">{message.text}</Notice> : <div className="muted">Loading…</div>;
+    return message ? <Notice kind="error">{message.text}</Notice> : <SkeletonBlock height={320} />;
   }
 
   const changed = GRANTABLE_ROLES.filter((role) => !sameList(saved[role], draft[role]));

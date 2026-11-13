@@ -17,6 +17,8 @@ import {
   type OrderFilters,
 } from '../lib/order-filters.js';
 import { usePaging, TablePagination } from '../components/Pagination.js';
+import { LoadingRow } from '../components/Skeleton.js';
+import { useLoadingList } from '../lib/request-activity.js';
 
 interface Zone { id: string; name: string }
 interface OrderLine { id: string; itemId: string; qty: string; mrpPaise: number; item: { name: string; size?: string | null }; batches?: { batch: { code: string }; qty: string }[] }
@@ -135,6 +137,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 export function OrdersPage() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState<OrderRow[]>([]);
+  const loading = useLoadingList();
   const [selected, setSelected] = useState<OrderRow | null>(null);
   const [filters, setFilters] = useState<OrderFilters>(DEFAULT_ORDER_FILTERS);
   const [search, setSearch] = useState('');
@@ -473,7 +476,8 @@ export function OrdersPage() {
                   <td className="r"><strong>{formatPaise(order.totalPaise)}</strong></td><td><span className={statusClass(order.status)}>{statusLabel[order.status]}</span></td>
                   <td><button className="btn" style={{ minHeight: 36, padding: '0 12px' }} onClick={(e) => { e.stopPropagation(); setSelected(order); }}>Open</button></td>
                 </tr>)}
-                {visibleOrders.length === 0 && <tr><td colSpan={8} style={{ textAlign: 'center', padding: 40 }}><div style={{ fontWeight: 600 }}>No orders found</div><div className="muted" style={{ marginTop: 5 }}>Try changing the filters or search.</div></td></tr>}
+                {visibleOrders.length === 0 && loading && <LoadingRow columns={8} />}
+                {visibleOrders.length === 0 && !loading && <tr><td colSpan={8} style={{ textAlign: 'center', padding: 40 }}><div style={{ fontWeight: 600 }}>No orders found</div><div className="muted" style={{ marginTop: 5 }}>Try changing the filters or search.</div></td></tr>}
               </tbody>
             </table>
           </div>

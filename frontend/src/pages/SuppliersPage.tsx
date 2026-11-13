@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { api, ApiError } from '../lib/api.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
 import { usePaging, TablePagination } from '../components/Pagination.js';
+import { LoadingRow } from '../components/Skeleton.js';
+import { useLoadingList } from '../lib/request-activity.js';
 
 interface Supplier {
   id: string;
@@ -11,6 +13,7 @@ interface Supplier {
 
 export function SuppliersPage() {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+  const loading = useLoadingList();
   const [search, setSearch] = useState('');
   // Matches the name or GSTIN, ignoring case and surrounding spaces.
   const visible = useMemo(() => {
@@ -142,7 +145,8 @@ export function SuppliersPage() {
                     <td>{s.gstin ?? '–'}</td>
                   </tr>
                 ))}
-                {suppliers.length === 0 && (
+                {suppliers.length === 0 && loading && <LoadingRow columns={2} />}
+                {suppliers.length === 0 && !loading && (
                   <tr><td colSpan={2} className="muted" style={{ padding: 20, textAlign: 'center' }}>No suppliers yet. Add one to start receiving stock.</td></tr>
                 )}
                 {suppliers.length > 0 && visible.length === 0 && (

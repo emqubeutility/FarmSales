@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { api, ApiError } from '../lib/api.js';
 import { formatPaise } from '../lib/format.js';
 import { useAuth } from '../lib/auth-context.js';
+import { SkeletonBlock } from '../components/Skeleton.js';
 
 // The dashboard: today's numbers, a seven-day trend, what needs attention, and the latest sales.
 
@@ -251,7 +252,7 @@ export function DashboardPage() {
         </div>
 
         {!data ? (
-          <div className="muted" style={{ padding: 40, textAlign: 'center' }}>Loading the dashboard…</div>
+          <SkeletonBlock height={360} />
         ) : (
           <>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 14 }}>

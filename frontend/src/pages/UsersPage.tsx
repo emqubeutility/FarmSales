@@ -6,6 +6,7 @@ import { useAuth } from '../lib/auth-context.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
 import { Field, Modal, Notice, Switch } from '../components/ui.js';
 import { Icon } from '../components/Icon.js';
+import { LoadingRow } from '../components/Skeleton.js';
 
 interface UserRow {
   id: string;
@@ -228,7 +229,7 @@ export function UsersPage() {
         <section className="card" style={{ padding: 0, overflow: 'hidden' }}>
           <div style={{ overflowX: 'auto' }}>
           {loading ? (
-            <div className="muted" style={{ padding: 30, textAlign: 'center' }}>Loading users…</div>
+            <table className="tbl users-tbl"><tbody><LoadingRow columns={5} /></tbody></table>
           ) : (
             <table className="tbl users-tbl">
               <thead>

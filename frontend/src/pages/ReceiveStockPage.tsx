@@ -3,6 +3,8 @@ import { api, ApiError } from '../lib/api.js';
 import { formatPaise, formatDate } from '../lib/format.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
 import { usePaging, TablePagination } from '../components/Pagination.js';
+import { LoadingRow } from '../components/Skeleton.js';
+import { useLoadingList } from '../lib/request-activity.js';
 
 interface Supplier { id: string; name: string }
 interface Item { id: string; code: string; name: string; unit: string }
@@ -40,6 +42,7 @@ export function ReceiveStockPage() {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
   const [items, setItems] = useState<Item[]>([]);
   const [receipts, setReceipts] = useState<Receipt[]>([]);
+  const loading = useLoadingList();
   const sortableReceipts = useTableSort(receipts, receiptSortValues);
   const [supplierId, setSupplierId] = useState('');
   const [supplierBillNo, setSupplierBillNo] = useState('');
@@ -280,7 +283,8 @@ export function ReceiveStockPage() {
                   </td>
                 </tr>
               ))}
-              {receipts.length === 0 && (
+              {receipts.length === 0 && loading && <LoadingRow columns={6} />}
+              {receipts.length === 0 && !loading && (
                 <tr><td colSpan={6} className="muted" style={{ padding: 20, textAlign: 'center' }}>No receipts yet</td></tr>
               )}
             </tbody>

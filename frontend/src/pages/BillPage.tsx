@@ -4,6 +4,7 @@ import { splitCgstSgstFromTotal } from '@farm-sales/shared';
 import { api, ApiError } from '../lib/api.js';
 import { formatDate, formatPaise } from '../lib/format.js';
 import { formatAddress } from '../lib/address.js';
+import { SkeletonBlock } from '../components/Skeleton.js';
 
 interface BillLine {
   id: string;
@@ -91,7 +92,7 @@ export function BillSheet({ saleId, onClose }: { saleId: string; onClose?: () =>
       </div>
     );
   }
-  if (!bill) return <div className="card" style={{ width: 640, maxWidth: '100%', margin: '0 auto', padding: 20 }}>Loading…</div>;
+  if (!bill) return <div className="card" style={{ width: 640, maxWidth: '100%', margin: '0 auto', padding: 20 }}><SkeletonBlock height={420} /></div>;
 
   const { cgstPaise, sgstPaise } = splitCgstSgstFromTotal(bill.taxPaise ?? 0);
   const paidPaise = bill.payments.reduce((sum, p) => sum + p.amountPaise, 0);

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Field, Modal, Notice, SectionCard, StatusPill, Switch } from '../components/ui.js';
 import { Icon } from '../components/Icon.js';
 import { MenuAccessSettings } from '../components/MenuAccessSettings.js';
+import { SkeletonBlock } from '../components/Skeleton.js';
 
 // Settings is one page with a menu on the left. Each item is one job, so nothing is buried.
 // Staff accounts live on their own page, Users, and are linked from the menu.
@@ -247,7 +248,7 @@ function BusinessSection() {
     </Field>
   );
 
-  if (!loaded && !message) return <div className="muted">Loading…</div>;
+  if (!loaded && !message) return <SkeletonBlock height={160} />;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -378,7 +379,7 @@ function ChannelsSection() {
         </>
       }
     >
-      {!rows ? <div className="muted">Loading…</div> : (
+      {!rows ? <SkeletonBlock height={160} /> : (
         <Table head={['Channel', 'Default discount %', 'Cashier maximum %', 'Check']}>
           {channelList.map(({ value, label }) => {
             const error = submitted || rows[value] ? problem(value) : undefined;
@@ -439,7 +440,7 @@ function ZonesSection() {
         action={<button type="button" className="btn p" style={{ minHeight: 40 }} onClick={() => setEditor({ mode: 'create' })}>Add zone</button>}
       >
         {message && <div style={{ marginBottom: 12 }}><Notice kind={message.kind}>{message.text}</Notice></div>}
-        {!zones ? <div className="muted">Loading…</div> : (
+        {!zones ? <SkeletonBlock height={160} /> : (
           <Table head={['Zone', 'Pincodes', 'Delivery fee', 'Free above', 'Status', '']} empty={zones.length === 0 ? 'No zones yet. Add the areas you deliver to.' : undefined}>
             {zones.map((z) => (
               <tr key={z.id}>
@@ -575,7 +576,7 @@ function TaxSection() {
         }
       >
         {message && <div style={{ marginBottom: 12 }}><Notice kind={message.kind}>{message.text}</Notice></div>}
-        {!classes ? <div className="muted">Loading…</div> : (
+        {!classes ? <SkeletonBlock height={160} /> : (
           <Table head={['Class', 'HSN code', 'Current GST', 'Rate history', '']} empty={classes.length === 0 ? 'No tax classes yet.' : undefined}>
             {classes.map((tc) => {
               const current = tc.rates[0];
@@ -784,7 +785,7 @@ function CategoriesSection() {
         <button type="button" className="btn p" style={{ minHeight: 40, marginTop: 24 }} onClick={() => void add()}>Add category</button>
       </div>
       {message && <div style={{ marginBottom: 12 }}><Notice kind={message.kind}>{message.text}</Notice></div>}
-      {!categories ? <div className="muted">Loading…</div> : (
+      {!categories ? <SkeletonBlock height={160} /> : (
         <Table head={['Category', 'Status', '']} empty={categories.length === 0 ? 'No categories yet.' : undefined}>
           {categories.map((c) => (
             <tr key={c.id}>
@@ -820,7 +821,7 @@ function BillNumbersSection() {
         description="The prefix starts each bill number, and the next number is the one the following bill gets. Only the next number can be changed here."
       >
         {message && <div style={{ marginBottom: 12 }}><Notice kind={message.kind}>{message.text}</Notice></div>}
-        {!series ? <div className="muted">Loading…</div> : (
+        {!series ? <SkeletonBlock height={160} /> : (
           <Table head={['Prefix', 'Next number', 'Example', '']} empty={series.length === 0 ? 'No series yet. Add MK- for market stall and WH- for the warehouse counter.' : undefined}>
             {series.map((s) => (
               <tr key={s.id}>
