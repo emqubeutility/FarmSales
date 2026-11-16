@@ -77,7 +77,7 @@ function Progress({ status }: { status: OrderRow['status'] }) {
               style={{
                 position: 'relative', width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: 13, fontWeight: 700, background: reached ? green : '#fff', color: reached ? '#fff' : '#7A8A80',
-                border: reached ? `2px solid ${green}` : '2px solid #D9DFD6', boxShadow: active ? '0 0 0 4px #DDEFE4' : 'none',
+                border: reached ? `2px solid ${green}` : '2px solid #D9DFD6', boxShadow: active ? '0 0 0 4px #DDEFE4' : 'none',zIndex:999,
               }}
             >
               {done ? '✓' : i + 1}
@@ -474,7 +474,7 @@ export function OrdersPage() {
                   <td>{channelLabels[order.channel]}</td><td>{order.lines.length} item(s)</td>
                   <td>{paymentPlanLabel(order)}</td>
                   <td className="r"><strong>{formatPaise(order.totalPaise)}</strong></td><td><span className={statusClass(order.status)}>{statusLabel[order.status]}</span></td>
-                  <td><button className="btn" style={{ minHeight: 36, padding: '0 12px' }} onClick={(e) => { e.stopPropagation(); setSelected(order); }}>Open</button></td>
+                  <td style={{ whiteSpace: 'nowrap' }}><div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}><button className="btn" style={{ minHeight: 36, padding: '0 12px' }} onClick={(e) => { e.stopPropagation(); setSelected(order); }}>Open</button>{order.sale && <button className="btn" style={{ minHeight: 36, padding: '0 12px' }} onClick={(e) => { e.stopPropagation(); setBillSaleId(order.sale!.id); }}>Print invoice</button>}</div></td>
                 </tr>)}
                 {visibleOrders.length === 0 && loading && <LoadingRow columns={8} />}
                 {visibleOrders.length === 0 && !loading && <tr><td colSpan={8} style={{ textAlign: 'center', padding: 40 }}><div style={{ fontWeight: 600 }}>No orders found</div><div className="muted" style={{ marginTop: 5 }}>Try changing the filters or search.</div></td></tr>}
@@ -569,9 +569,11 @@ export function OrdersPage() {
                 <Field label="Sales point">{selected.salesPoint === 'WAREHOUSE_COUNTER' ? 'Warehouse counter' : 'Market stall'}</Field>
                 <Field label="Payment plan">{selected.paymentPlan === 'PREPAID' ? `Prepaid${selected.prepaidMode ? ` · ${selected.prepaidMode}` : ''}` : paymentPlanLabel(selected)}</Field>
                 {selected.prepaidReference && <Field label="Payment reference">{selected.prepaidReference}</Field>}
-                {selected.sale && <Field label="Bill">
-                  <button type="button" className="btn" style={{ minHeight: 36, padding: '0 12px' }} onClick={() => setBillSaleId(selected.sale!.id)}>{selected.sale.number} · View</button>
-                </Field>}
+                {selected.sale ? <Field label="Invoice">
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                    <button type="button" className="btn p" style={{ minHeight: 36, padding: '0 12px' }} onClick={() => setBillSaleId(selected.sale!.id)}>Print invoice</button>
+                  </div>
+                </Field> : <Field label="Invoice"><span className="muted">Created when the order is dispatched</span></Field>}
               </Section>
 
               <Section id="delivery" title="Delivery" summary={selected.zone ? selected.zone.name : 'Pickup'} open={openSections.delivery} onToggle={toggleSection}>

@@ -156,7 +156,7 @@ export function PosPage() {
   // Counter screen: which counter the bill is for, the stock filter, the grid or list view, and the stock per item.
   // The counter selector was removed from the top bar, so bills always use the warehouse counter.
   const [salesPoint] = useState<"WAREHOUSE_COUNTER" | "MARKET_STALL">("WAREHOUSE_COUNTER");
-  const [stockFilter, setStockFilter] = useState<"in" | "all" | "out">("in");
+  const [stockFilter, setStockFilter] = useState<"in" | "all" | "out">(orderMode ? "all" : "in");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [stockByItem, setStockByItem] = useState<Record<string, number>>({});
   const { user } = useAuth();
@@ -542,7 +542,7 @@ export function PosPage() {
     const searchable = `${item.name} ${item.code} ${item.size ?? ""}`.toLowerCase();
     const matchesSearch = searchable.includes(search.toLowerCase().trim());
     if (!matchesSearch) return false;
-    if (!orderMode && stockKnown) {
+    if (stockKnown) {
       const stock = stockByItem[item.id] ?? 0;
       if (stockFilter === "in" && stock <= 0) return false;
       if (stockFilter === "out" && stock > 0) return false;
@@ -847,7 +847,7 @@ export function PosPage() {
             />
           )}
           {error && <div className="error-banner">{error}</div>}
-          {!orderMode && (
+          {(
             <div className="pos-category-row" role="group" aria-label="Product categories">
               {["All", "Rice", "Atta & Flours", "Millets", "Ghee & Oils", "Pulses", "Others"].map((category) => (
                 <button
@@ -861,7 +861,7 @@ export function PosPage() {
               ))}
             </div>
           )}
-          {!orderMode && (
+          {(
             <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
               <select
                 className="in"
