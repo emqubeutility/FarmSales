@@ -291,7 +291,7 @@ export function ReceiveStockPage() {
           </table>
             <TablePagination {...paging} />
           <div className="muted" style={{ padding: '10px 16px', fontSize: 12.5 }}>
-            Edit/void only work while nothing has consumed from this receipt's stock yet.
+            Edit/void only work while nothing has consumed from this receipt's stock yet — once it has, you'll get an error suggesting a stock adjustment instead.
           </div>
         </div>
       </div>
