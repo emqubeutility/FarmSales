@@ -107,23 +107,10 @@ interface FilterSummaryProps {
 }
 
 // The applied-filter chips and a clear link. No row counts are shown; the bar is hidden when no filter is on.
-export function FilterSummary({ activeCount, chips, onClearAll }: FilterSummaryProps) {
-  if (chips.length === 0 && activeCount === 0) return null;
-  return (
-    <div className="ft-summary">
-      {chips.map((chip) => (
-        <button key={chip.key} type="button" className="ft-applied" onClick={chip.onRemove} aria-label={`Remove filter ${chip.label}`}>
-          {chip.label}
-          <span aria-hidden="true" className="ft-x">×</span>
-        </button>
-      ))}
-      {activeCount > 0 && (
-        <button type="button" className="ft-clear" onClick={onClearAll}>
-          Clear filters
-        </button>
-      )}
-    </div>
-  );
+// The applied-filter chips and "Clear filters" are not shown. The Filters button still shows how many
+// filters are active, so the page keeps its filter count without the summary.
+export function FilterSummary(_props: FilterSummaryProps) {
+  return null;
 }
 
 interface FilterToolbarProps extends Omit<FilterControlsProps, 'compactSearch'> {

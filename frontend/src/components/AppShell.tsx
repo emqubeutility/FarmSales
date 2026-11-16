@@ -37,7 +37,7 @@ const navGroups: { label: string; items: NavItem[] }[] = [
     label: 'Administration',
     items: [
       { to: '/customers', label: 'Customers', icon: 'customers' },
-      { to: '/reports', label: 'Reports', icon: 'reports', planned: true },
+      { to: '/reports', label: 'Reports', icon: 'reports' },
       { to: '/users', label: 'User Management', icon: 'users' },
       { to: '/settings', label: 'Settings', icon: 'settings' },
     ],

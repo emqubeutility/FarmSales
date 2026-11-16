@@ -23,7 +23,7 @@ export const MENU_PAGES: readonly MenuPage[] = [
   { route: '/receive-stock', label: 'Receive Stock', group: 'Procurement', ownerOnly: false },
   { route: '/suppliers', label: 'Suppliers', group: 'Procurement', ownerOnly: false },
   { route: '/customers', label: 'Customers', group: 'Administration', ownerOnly: false },
-  { route: '/reports', label: 'Reports', group: 'Administration', ownerOnly: true },
+  { route: '/reports', label: 'Reports', group: 'Administration', ownerOnly: false },
   { route: '/users', label: 'User Management', group: 'Administration', ownerOnly: true },
   { route: '/settings', label: 'Settings', group: 'Administration', ownerOnly: true },
 ];

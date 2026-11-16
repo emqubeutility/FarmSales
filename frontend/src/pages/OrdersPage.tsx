@@ -458,9 +458,9 @@ export function OrdersPage() {
       <div className="body" style={{ flexDirection: 'column', gap: 16 }}>
         {error && <div className="error-banner">{error}</div>}
         <div className="order-desk-summary" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10 }}>
-          {ORDER_STATUS_OPTIONS.map((s) => <button key={s.value} type="button" className="card" onClick={() => setFilters({ ...filters, status: s.value })} style={{ textAlign: 'left', padding: '13px 15px', borderColor: filters.status === s.value ? 'var(--accent)' : 'var(--border)', background: filters.status === s.value ? 'var(--accent-bg)' : '#fff' }}>
+          {ORDER_STATUS_OPTIONS.map((s) => <div key={s.value} className="card" style={{ padding: '13px 15px' }}>
             <div className="muted" style={{ fontSize: 12, fontWeight: 600 }}>{s.label}</div><div style={{ fontSize: 24, fontWeight: 700, marginTop: 4 }}>{counts[s.value as keyof typeof counts]}</div>
-          </button>)}
+          </div>)}
         </div>
         <section className="card" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1, overflow: 'hidden' }}>
           

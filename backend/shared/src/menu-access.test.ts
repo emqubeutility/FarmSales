@@ -56,10 +56,10 @@ describe('updateRoleMenuSchema', () => {
 });
 
 describe('page reservations', () => {
-  it('reserves settings, users and reports for the owner', () => {
+  it('reserves settings and users for the owner', () => {
     expect(isOwnerOnlyRoute('/settings')).toBe(true);
     expect(isOwnerOnlyRoute('/users')).toBe(true);
-    expect(isOwnerOnlyRoute('/reports')).toBe(true);
+    expect(isOwnerOnlyRoute('/reports')).toBe(false);
     expect(isOwnerOnlyRoute('/pos')).toBe(false);
   });
 

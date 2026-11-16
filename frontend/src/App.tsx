@@ -19,7 +19,7 @@ import { BillPage } from './pages/BillPage.js';
 import { SuppliersPage } from './pages/SuppliersPage.js';
 import { CustomersPage } from './pages/CustomersPage.js';
 import { UsersPage } from './pages/UsersPage.js';
-import { PlaceholderPage } from './pages/PlaceholderPage.js';
+import { ReportsPage } from './pages/ReportsPage.js';
 
 export default function App() {
   return (
@@ -44,7 +44,7 @@ export default function App() {
             <Route path="/suppliers" element={<SuppliersPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/customers" element={<CustomersPage />} />
-            <Route path="/reports" element={<PlaceholderPage title="Reports" description="Sales, inventory, profitability and GST reports will be available here." />} />
+            <Route path="/reports" element={<ReportsPage />} />
             <Route path="/users" element={<UsersPage />} />
             </Route>
           </Route>
