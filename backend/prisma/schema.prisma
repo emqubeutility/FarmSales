@@ -1,11 +1,11 @@
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "rhel-openssl-3.0.x"]
   previewFeatures = ["relationJoins"]
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
@@ -61,8 +61,8 @@ model AuditLog {
 }
 
 model TaxClass {
-  id   String @id @default(uuid())
-  name String @unique // e.g. "Ghee", "Flours", "Millet grains"
+  id   String  @id @default(uuid())
+  name String  @unique // e.g. "Ghee", "Flours", "Millet grains"
   hsn  String? // left null until confirmed with the CA
 
   rates TaxRate[]
@@ -85,33 +85,34 @@ model TaxRate {
 }
 
 model Item {
-  id             String   @id @default(uuid())
-  code           String   @unique // e.g. "RF500", used in label barcode ITEMCODE-BATCHCODE
-  name           String
-  size           String? // e.g. "500 g"
-  unit           String // kg, nos, etc.
-  ean13          String? // for WooCommerce / online listing, independent of the label barcode
-  taxClassId     String?
-  categoryId     String? // Rice, Atta, Ghee ... maintained by the owner in Settings
-  mrpPaise       Int? // tax-inclusive MRP
-  shelfLifeDays  Int?
-  reorderLevel   Int?
-  trackBatches   Boolean  @default(true)
-  active         Boolean  @default(true)
-  createdAt      DateTime @default(now())
+  id            String   @id @default(uuid())
+  code          String   @unique // e.g. "RF500", used in label barcode ITEMCODE-BATCHCODE
+  name          String
+  size          String? // e.g. "500 g"
+  unit          String // kg, nos, etc.
+  ean13         String? // for WooCommerce / online listing, independent of the label barcode
+  taxClassId    String?
+  categoryId    String? // Rice, Atta, Ghee ... maintained by the owner in Settings
+  mrpPaise      Int? // tax-inclusive MRP
+  shelfLifeDays Int?
+  reorderLevel  Int?
+  trackBatches  Boolean  @default(true)
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
 
   taxClass TaxClass? @relation(fields: [taxClassId], references: [id])
   category Category? @relation(fields: [categoryId], references: [id])
 
-  batches              Batch[]
-  stockLedgerEntries   StockLedger[]
-  stockBalances        StockBalance[]
-  itemCost             ItemCost?
-  goodsReceiptLines    GoodsReceiptLine[]
-  stockCountLines      StockCountLine[]
-  saleLines            SaleLine[]              @relation("SaleLineItem")
-  orderLines           OrderLine[]
-  packUnits            PackUnit[]
+  batches             Batch[]
+  stockLedgerEntries  StockLedger[]
+  stockBalances       StockBalance[]
+  itemCost            ItemCost?
+  goodsReceiptLines   GoodsReceiptLine[]
+  stockCountLines     StockCountLine[]
+  saleLines           SaleLine[]           @relation("SaleLineItem")
+  orderLines          OrderLine[]
+  packUnits           PackUnit[]
+  marketplaceListings MarketplaceListing[]
 
   @@map("item")
 }
@@ -143,8 +144,8 @@ model Supplier {
   name  String
   gstin String?
 
-  batches        Batch[]
-  goodsReceipts  GoodsReceipt[]
+  batches       Batch[]
+  goodsReceipts GoodsReceipt[]
 
   @@map("supplier")
 }
@@ -155,25 +156,24 @@ enum BatchStatus {
 }
 
 model Batch {
-  id            String      @id @default(uuid())
-  itemId        String
-  code          String      @unique // e.g. "RAGI-261006A", "RF500-261006A"
-  supplierId    String?
-  supplierLot   String?
-  receivedOn    DateTime?
-  mfgDate       DateTime?
-  bestBefore    DateTime? // required when item.trackBatches, enforced at the API layer
-  status        BatchStatus @default(ACTIVE)
+  id          String      @id @default(uuid())
+  itemId      String
+  code        String      @unique // e.g. "RAGI-261006A", "RF500-261006A"
+  supplierId  String?
+  supplierLot String?
+  receivedOn  DateTime?
+  mfgDate     DateTime?
+  bestBefore  DateTime? // required when item.trackBatches, enforced at the API layer
+  status      BatchStatus @default(ACTIVE)
 
   item     Item      @relation(fields: [itemId], references: [id])
   supplier Supplier? @relation(fields: [supplierId], references: [id])
-
 
   stockLedgerEntries StockLedger[]
   stockBalances      StockBalance[]
   goodsReceiptLines  GoodsReceiptLine[]
   stockCountLines    StockCountLine[]
-  saleLineBatches    SaleLineBatch[]  @relation("SaleLineBatchBatch")
+  saleLineBatches    SaleLineBatch[]    @relation("SaleLineBatchBatch")
   orderLineBatches   OrderLineBatch[]
   packUnits          PackUnit[]
 
@@ -218,14 +218,14 @@ enum LedgerReason {
 // Append-only. Corrections are reversing entries, never UPDATE/DELETE (enforced by a DB trigger
 // in the phase-2 migration, not just app-level convention).
 model StockLedger {
-  id           String       @id @default(uuid())
-  ts           DateTime     @default(now())
-  itemId       String
-  batchId      String?
-  qtyDelta     Decimal      @db.Decimal(12, 3)
-  reason       LedgerReason
-  refType      String
-  refId        String
+  id            String       @id @default(uuid())
+  ts            DateTime     @default(now())
+  itemId        String
+  batchId       String?
+  qtyDelta      Decimal      @db.Decimal(12, 3)
+  reason        LedgerReason
+  refType       String
+  refId         String
   unitCostPaise Int?
 
   item  Item   @relation(fields: [itemId], references: [id])
@@ -251,9 +251,9 @@ model StockBalance {
 
 // Item-level weighted-average cost. Batches carry no cost of their own.
 model ItemCost {
-  itemId      String  @id
+  itemId       String  @id
   avgCostPaise Int
-  qtyOnHand   Decimal @db.Decimal(12, 3)
+  qtyOnHand    Decimal @db.Decimal(12, 3)
 
   item Item @relation(fields: [itemId], references: [id])
 
@@ -288,15 +288,15 @@ model GoodsReceipt {
 }
 
 model GoodsReceiptLine {
-  id             String  @id @default(uuid())
-  receiptId      String
-  itemId         String
-  receivedAs     String? // free-text pack description, e.g. "2 bags x 50 kg"
-  qtyBase        Decimal @db.Decimal(12, 3)
-  ratePaise      Int
+  id              String  @id @default(uuid())
+  receiptId       String
+  itemId          String
+  receivedAs      String? // free-text pack description, e.g. "2 bags x 50 kg"
+  qtyBase         Decimal @db.Decimal(12, 3)
+  ratePaise       Int
   taxRateSnapshot Decimal @db.Decimal(5, 2)
-  amountPaise    Int
-  batchId        String?
+  amountPaise     Int
+  batchId         String?
 
   receipt GoodsReceipt @relation(fields: [receiptId], references: [id])
   item    Item         @relation(fields: [itemId], references: [id])
@@ -311,9 +311,9 @@ enum StockCountStatus {
 }
 
 model StockCount {
-  id        String           @id @default(uuid())
-  ts        DateTime         @default(now())
-  status    StockCountStatus @default(OPEN)
+  id     String           @id @default(uuid())
+  ts     DateTime         @default(now())
+  status StockCountStatus @default(OPEN)
 
   lines StockCountLine[]
 
@@ -321,12 +321,12 @@ model StockCount {
 }
 
 model StockCountLine {
-  id          String  @id @default(uuid())
-  countId     String
-  itemId      String
-  batchId     String?
-  countedQty  Decimal @db.Decimal(12, 3)
-  systemQty   Decimal @db.Decimal(12, 3)
+  id         String  @id @default(uuid())
+  countId    String
+  itemId     String
+  batchId    String?
+  countedQty Decimal @db.Decimal(12, 3)
+  systemQty  Decimal @db.Decimal(12, 3)
 
   count StockCount @relation(fields: [countId], references: [id])
   item  Item       @relation(fields: [itemId], references: [id])
@@ -380,24 +380,24 @@ enum SalePaymentMode {
 // Totals are null while HELD — a held bill is a draft with no stock movement and no bill number;
 // both happen only at finalisation, in the same transaction (non-negotiable).
 model Sale {
-  id            String     @id @default(uuid())
-  number        String?    @unique // e.g. "MK-000125"; allocated at finalize, not at hold
-  salesPoint    SalesPoint
-  channel       Channel
-  status        SaleStatus @default(HELD)
-  customerPhone String?
-  discountPct   Decimal    @db.Decimal(5, 2)
-  grossPaise    Int?
-  discountPaise Int?
-  netPaise      Int?
-  taxablePaise  Int?
-  taxPaise      Int?
-  roundOffPaise Int?
+  id                  String     @id @default(uuid())
+  number              String?    @unique // e.g. "MK-000125"; allocated at finalize, not at hold
+  salesPoint          SalesPoint
+  channel             Channel
+  status              SaleStatus @default(HELD)
+  customerPhone       String?
+  discountPct         Decimal    @db.Decimal(5, 2)
+  grossPaise          Int?
+  discountPaise       Int?
+  netPaise            Int?
+  taxablePaise        Int?
+  taxPaise            Int?
+  roundOffPaise       Int?
   deliveryChargePaise Int? // set only for a bill created from a dispatched Order; included in totalPaise
-  totalPaise    Int?
-  createdAt     DateTime   @default(now())
-  finalizedAt   DateTime?
-  voidedAt      DateTime?
+  totalPaise          Int?
+  createdAt           DateTime   @default(now())
+  finalizedAt         DateTime?
+  voidedAt            DateTime?
 
   lines    SaleLine[]
   payments Payment[]
@@ -544,8 +544,8 @@ model Return {
   totalPaise   Int
   createdAt    DateTime          @default(now())
 
-  sale       Sale        @relation(fields: [saleId], references: [id])
-  creditNote CreditNote? @relation(fields: [creditNoteId], references: [id])
+  sale       Sale         @relation(fields: [saleId], references: [id])
+  creditNote CreditNote?  @relation(fields: [creditNoteId], references: [id])
   lines      ReturnLine[]
 
   @@map("return")
@@ -572,16 +572,16 @@ model ReturnLine {
 // behind this install. CLAUDE.md forbids inventing GSTIN/FSSAI/UPI details, so these all start
 // null/placeholder and only ever hold what the owner actually typed in Settings.
 model BusinessProfile {
-  id            String  @id
-  name          String
-  address       String?
-  gstin         String?
-  fssaiNumber   String?
-  phone         String?
-  email         String?
-  logoUrl       String?
-  upiId         String?
-  upiQrImageUrl String?
+  id               String  @id
+  name             String
+  address          String?
+  gstin            String?
+  fssaiNumber      String?
+  phone            String?
+  email            String?
+  logoUrl          String?
+  upiId            String?
+  upiQrImageUrl    String?
   // Printed-bill options: show the company logo, and the GSTIN line, on bills.
   showLogoOnBills  Boolean @default(true)
   showGstinOnBills Boolean @default(true)
@@ -692,6 +692,31 @@ model OrderLineBatch {
   batch     Batch     @relation(fields: [batchId], references: [id])
 
   @@map("order_line_batch")
+}
+
+// ---------- Marketplaces (Flipkart, Amazon) ----------
+
+enum MarketplaceChannel {
+  FLIPKART
+  AMAZON
+}
+
+// Which of our items are listed on a marketplace, and the seller SKU they use there. A row means
+// "listed". Marketplace connection keys live in server config (env), never in this table.
+// Orders and stock sync are not built yet; they wait for the marketplace APIs.
+model MarketplaceListing {
+  id             String             @id @default(uuid())
+  marketplace    MarketplaceChannel
+  itemId         String
+  marketplaceSku String
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  item Item @relation(fields: [itemId], references: [id])
+
+  @@unique([marketplace, itemId])
+  @@unique([marketplace, marketplaceSku])
+  @@map("marketplace_listing")
 }
 
 // Express session store (connect-pg-simple). Declared so Prisma migrations own the table.

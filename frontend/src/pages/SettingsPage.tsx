@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
-import type { Channel } from '@farm-sales/shared';
+import type { Channel, Marketplace, MarketplaceConnectionState } from '@farm-sales/shared';
 import { api, ApiError } from '../lib/api.js';
 import { formatPaise } from '../lib/format.js';
 import { Link } from 'react-router-dom';
@@ -11,11 +11,12 @@ import { SkeletonBlock } from '../components/Skeleton.js';
 // Settings is one page with a menu on the left. Each item is one job, so nothing is buried.
 // Staff accounts live on their own page, Users, and are linked from the menu.
 
-type SectionId = 'business' | 'channels' | 'categories' | 'zones' | 'tax' | 'menu' | 'billing';
+type SectionId = 'business' | 'channels' | 'marketplaces' | 'categories' | 'zones' | 'tax' | 'menu' | 'billing';
 
 const sections: { id: SectionId; label: string; help: string; icon: string }[] = [
   { id: 'business', label: 'Business Profile', help: 'Name, address and printed details', icon: 'store' },
   { id: 'channels', label: 'Channels & Discounts', help: 'How much a cashier may discount', icon: 'percent' },
+  { id: 'marketplaces', label: 'Marketplaces', help: 'Flipkart and Amazon listings and SKUs', icon: 'store' },
   { id: 'categories', label: 'Product Categories', help: 'Rice, Atta, Ghee and so on', icon: 'tag' },
   { id: 'zones', label: 'Delivery Zones', help: 'Pincodes and delivery fees', icon: 'truck' },
   { id: 'tax', label: 'Tax Classes & GST', help: 'Rates by product class', icon: 'file' },
@@ -401,6 +402,152 @@ function ChannelsSection() {
         </Table>
       )}
     </SectionCard>
+  );
+}
+
+// ---------- Marketplaces ----------
+
+interface MarketplaceStatusRow { marketplace: Marketplace; label: string; state: MarketplaceConnectionState }
+interface SettingsItem { id: string; code: string; name: string; size: string | null; active: boolean }
+interface MarketplaceListingRow { itemId: string; marketplaceSku: string }
+
+const marketplaceStateLabel: Record<MarketplaceConnectionState, { tone: 'green' | 'grey' | 'amber'; text: string }> = {
+  NOT_STARTED: { tone: 'grey', text: 'Not built yet' },
+  NOT_CONFIGURED: { tone: 'amber', text: 'Waiting for API access' },
+  CONFIGURED: { tone: 'green', text: 'Keys added, not tested' },
+};
+
+// Records which items are listed on each marketplace and their seller SKU. Orders and stock do not
+// sync yet; that waits for the marketplace API access.
+function MarketplacesSection() {
+  const [statuses, setStatuses] = useState<MarketplaceStatusRow[] | null>(null);
+  const [items, setItems] = useState<SettingsItem[] | null>(null);
+  const [marketplace, setMarketplace] = useState<Marketplace>('FLIPKART');
+  const [skus, setSkus] = useState<Record<string, string> | null>(null);
+  const [message, setMessage] = useState<{ kind: 'error' | 'success'; text: string } | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    api.get<MarketplaceStatusRow[]>('/marketplaces').then(setStatuses)
+      .catch((err) => setMessage({ kind: 'error', text: errorText(err, 'Could not load marketplaces') }));
+    api.get<SettingsItem[]>('/items').then((data) => setItems(data.filter((item) => item.active)))
+      .catch((err) => setMessage({ kind: 'error', text: errorText(err, 'Could not load items') }));
+  }, []);
+
+  // Reloads the SKUs when the owner switches marketplace. Stale responses are ignored.
+  useEffect(() => {
+    let cancelled = false;
+    setSkus(null);
+    setMessage(null);
+    api.get<MarketplaceListingRow[]>(`/marketplaces/${marketplace}/listings`).then((rows) => {
+      if (!cancelled) setSkus(Object.fromEntries(rows.map((row) => [row.itemId, row.marketplaceSku])));
+    }).catch((err) => {
+      if (!cancelled) setMessage({ kind: 'error', text: errorText(err, 'Could not load listings') });
+    });
+    return () => { cancelled = true; };
+  }, [marketplace]);
+
+  const usage = new Map<string, number>();
+  for (const sku of Object.values(skus ?? {})) {
+    const key = sku.trim();
+    if (key) usage.set(key, (usage.get(key) ?? 0) + 1);
+  }
+  const duplicate = (sku: string) => (usage.get(sku.trim()) ?? 0) > 1;
+  const hasDuplicates = [...usage.values()].some((count) => count > 1);
+  const current = statuses?.find((s) => s.marketplace === marketplace);
+  const label = current?.label ?? marketplace;
+
+  async function save() {
+    if (!items || !skus) return;
+    setMessage(null);
+    if (hasDuplicates) {
+      setMessage({ kind: 'error', text: 'Two items have the same SKU. Fix the highlighted rows first.' });
+      return;
+    }
+    const listings = items
+      .filter((item) => (skus[item.id] ?? '').trim() !== '')
+      .map((item) => ({ itemId: item.id, marketplaceSku: skus[item.id].trim() }));
+    setSaving(true);
+    try {
+      await api.put(`/marketplaces/${marketplace}/listings`, { listings });
+      setMessage({ kind: 'success', text: `Saved. ${listings.length} items are listed on ${label}.` });
+    } catch (err) {
+      setMessage({ kind: 'error', text: errorText(err, 'Could not save listings') });
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <>
+      <SectionCard title="Connection status" description="Marketplace keys are kept on the server. They are never shown here.">
+        {!statuses ? <SkeletonBlock height={80} /> : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {statuses.map((row) => (
+              <div key={row.marketplace} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <strong>{row.label}</strong>
+                <StatusPill tone={marketplaceStateLabel[row.state].tone}>{marketplaceStateLabel[row.state].text}</StatusPill>
+              </div>
+            ))}
+          </div>
+        )}
+      </SectionCard>
+
+      <SectionCard
+        title={`${label} listings`}
+        description="Enter the SKU each item uses on this marketplace. Leave it blank for items that are not listed there."
+        footer={
+          <>
+            <button type="button" className="btn p" style={{ minHeight: 44, padding: '0 20px' }} disabled={saving || !items || !skus} onClick={() => void save()}>
+              {saving ? 'Saving…' : 'Save listings'}
+            </button>
+            {message && <span style={{ fontSize: 13.5, color: message.kind === 'error' ? danger : '#14502F', fontWeight: 600 }}>{message.text}</span>}
+          </>
+        }
+      >
+        <div role="group" aria-label="Marketplace" style={{ display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
+          {(statuses ?? []).map((row) => (
+            <button
+              key={row.marketplace}
+              type="button"
+              className={marketplace === row.marketplace ? 'btn p' : 'btn'}
+              aria-pressed={marketplace === row.marketplace}
+              style={{ minHeight: 44, padding: '0 16px' }}
+              onClick={() => setMarketplace(row.marketplace)}
+            >
+              {row.label}
+            </button>
+          ))}
+        </div>
+        {!items || !skus ? <SkeletonBlock height={160} /> : (
+          <Table head={['Item', 'Our code', `${label} SKU`, 'Check']} empty="No active items yet.">
+            {items.map((item) => {
+              const sku = skus[item.id] ?? '';
+              const clash = sku.trim() !== '' && duplicate(sku);
+              return (
+                <tr key={item.id}>
+                  <td><strong>{item.name}</strong>{item.size ? <span className="muted"> · {item.size}</span> : null}</td>
+                  <td className="muted">{item.code}</td>
+                  <td style={{ width: 240 }}>
+                    <input
+                      className="in"
+                      aria-label={`${label} SKU for ${item.name}`}
+                      aria-invalid={clash}
+                      placeholder="Not listed"
+                      value={sku}
+                      onChange={(e) => setSkus((prev) => (prev ? { ...prev, [item.id]: e.target.value } : prev))}
+                    />
+                  </td>
+                  <td>
+                    {clash ? <span style={{ color: danger, fontSize: 12.5 }}>Same SKU as another item</span> : sku.trim() ? <StatusPill tone="green">Listed</StatusPill> : <span className="muted" style={{ fontSize: 12.5 }}>Not listed</span>}
+                  </td>
+                </tr>
+              );
+            })}
+          </Table>
+        )}
+      </SectionCard>
+    </>
   );
 }
 
@@ -950,6 +1097,7 @@ export function SettingsPage() {
           {active === 'business' && <BusinessSection />}
           {active === 'menu' && <MenuAccessSettings />}
           {active === 'channels' && <ChannelsSection />}
+          {active === 'marketplaces' && <MarketplacesSection />}
           {active === 'zones' && <ZonesSection />}
           {active === 'tax' && <TaxSection />}
           {active === 'categories' && <CategoriesSection />}

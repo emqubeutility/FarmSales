@@ -27,6 +27,7 @@ import { BusinessProfileModule } from './business-profile/business-profile.modul
 import { PackUnitsModule } from './pack-units/pack-units.module.js';
 import { DashboardModule } from './dashboard/dashboard.module.js';
 import { MenuAccessModule } from './menu-access/menu-access.module.js';
+import { MarketplacesModule } from './marketplaces/marketplaces.module.js';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { MenuAccessModule } from './menu-access/menu-access.module.js';
     BusinessProfileModule,
     DashboardModule,
     MenuAccessModule,
+    MarketplacesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
