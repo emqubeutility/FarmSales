@@ -1,6 +1,6 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { Prisma, type LedgerReason } from '@prisma/client';
-import { allocateFefo, InsufficientStockError, isExpired, type FefoAllocation } from '@farm-sales/shared';
+import { allocateFefo, freeQty, holdCapacity, InsufficientStockError, isExpired, type FefoAllocation, type OrderSource } from '@farm-sales/shared';
 import type { PrismaTx } from '../common/prisma-tx.type.js';
 
 export interface RecordMovementParams {
@@ -146,22 +146,40 @@ export class StockService {
     return tx.itemCost.update({ where: { itemId: params.itemId }, data: { avgCostPaise: newAvgCostPaise } });
   }
 
-  async getFefoCandidates(tx: PrismaTx, itemId: string) {
-    const balances = await tx.stockBalance.findMany({
-      where: { itemId, qty: { gt: 0 } },
-      include: { batch: true },
-    });
+  /**
+   * What each batch can give to a pool. 'FREE' is stock no platform has reserved (POS and walk-in
+   * sales use this). A platform or DIRECT pool is what that source may take from its own
+   * reservation, as holdCapacity defines it. Expired and held batches are never offered.
+   */
+  async candidatesFor(tx: PrismaTx, itemId: string, pool: 'FREE' | OrderSource) {
+    const [balances, reservations] = await Promise.all([
+      tx.stockBalance.findMany({ where: { itemId, qty: { gt: 0 } }, include: { batch: true } }),
+      tx.channelReservation.findMany({ where: { itemId } }),
+    ]);
     // Expired stock is never allocated to a sale or an order. The stock stays on
     // record and can be seen on Batches. It is only removed by a stock adjustment or a void.
     return balances
       .filter((b) => b.batch.status === 'ACTIVE' && !isExpired(b.batch.bestBefore))
-      .map((b) => ({
-        batchId: b.batchId,
-        qty: b.qty.toNumber(),
-        // Non-expiry items (packaging, materials) have no bestBefore; fall back to receivedOn so
-        // they still get a stable FIFO order instead of breaking the allocator's Date requirement.
-        bestBefore: b.batch.bestBefore ?? b.batch.receivedOn ?? new Date(0),
-      }));
+      .map((b) => {
+        const onBatch = reservations.filter((r) => r.batchId === b.batchId);
+        const reservedTotal = onBatch.reduce((sum, r) => sum + r.reservedQty.toNumber(), 0);
+        const own = onBatch.find((r) => r.source === (pool === 'FREE' ? 'DIRECT' : pool));
+        const capacity = pool === 'FREE'
+          ? freeQty(b.qty.toNumber(), reservedTotal)
+          : holdCapacity(pool, b.qty.toNumber(), reservedTotal, own?.reservedQty.toNumber() ?? 0, own?.heldQty.toNumber() ?? 0);
+        return {
+          batchId: b.batchId,
+          qty: capacity,
+          // Non-expiry items (packaging, materials) have no bestBefore; fall back to receivedOn so
+          // they still get a stable FIFO order instead of breaking the allocator's Date requirement.
+          bestBefore: b.batch.bestBefore ?? b.batch.receivedOn ?? new Date(0),
+        };
+      })
+      .filter((c) => c.qty > 0);
+  }
+
+  getFefoCandidates(tx: PrismaTx, itemId: string) {
+    return this.candidatesFor(tx, itemId, 'FREE');
   }
 
   async decrementFefo(tx: PrismaTx, params: DecrementFefoParams): Promise<FefoAllocation[]> {
@@ -189,7 +207,8 @@ export class StockService {
     return allocations;
   }
 
-  adjust(tx: PrismaTx, params: AdjustParams) {
+  async adjust(tx: PrismaTx, params: AdjustParams) {
+    if (params.qtyDelta < 0) await this.assertFreeCovers(tx, params.itemId, params.batchId, -params.qtyDelta);
     return this.recordMovement(tx, {
       itemId: params.itemId,
       batchId: params.batchId,
@@ -198,5 +217,21 @@ export class StockService {
       refType: params.refType,
       refId: params.refId,
     });
+  }
+
+  // Removing stock must not take units that platforms or open direct orders have reserved.
+  private async assertFreeCovers(tx: PrismaTx, itemId: string, batchId: string, qty: number) {
+    const [balance, reservations] = await Promise.all([
+      tx.stockBalance.findUnique({ where: { itemId_batchId: { itemId, batchId } } }),
+      tx.channelReservation.findMany({ where: { itemId, batchId } }),
+    ]);
+    const onHand = balance?.qty.toNumber() ?? 0;
+    const reservedTotal = reservations.reduce((sum, r) => sum + r.reservedQty.toNumber(), 0);
+    const free = freeQty(onHand, reservedTotal);
+    if (qty > free) {
+      throw new ConflictException(
+        `Only ${Math.max(0, free)} free in this batch. The rest is reserved for platforms or open direct orders.`,
+      );
+    }
   }
 }

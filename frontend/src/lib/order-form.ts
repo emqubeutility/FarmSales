@@ -1,4 +1,4 @@
-import { createOrderSchema, type Channel } from "@farm-sales/shared";
+import { createOrderSchema, type Channel, type OrderSource as PlacedOn } from "@farm-sales/shared";
 
 // "Order from" choices for the Order Desk. Each one sets the sales channel (which drives the
 // channel discount) and, for marketplaces, the customer name.
@@ -18,15 +18,17 @@ export interface OrderSourceOption {
   channel: Channel;
   // Set for a marketplace: the customer name is fixed to it.
   marketplace?: string;
+  // Where the order was placed, for stock reservations. Our website is our Shopify shop.
+  placedOn?: PlacedOn;
 }
 
 export const ORDER_SOURCES: OrderSourceOption[] = [
   { value: "walk_in", label: "Walk-in customer", channel: "WALK_IN" },
   { value: "phone", label: "Phone order", channel: "PHONE" },
   { value: "existing", label: "Existing customer", channel: "PHONE" },
-  { value: "flipkart", label: "Flipkart", channel: "ONLINE", marketplace: "Flipkart" },
-  { value: "amazon", label: "Amazon", channel: "ONLINE", marketplace: "Amazon" },
-  { value: "website", label: "Website", channel: "ONLINE" },
+  { value: "flipkart", label: "Flipkart", channel: "ONLINE", marketplace: "Flipkart", placedOn: "FLIPKART" },
+  { value: "amazon", label: "Amazon", channel: "ONLINE", marketplace: "Amazon", placedOn: "AMAZON" },
+  { value: "website", label: "Website", channel: "ONLINE", placedOn: "SHOPIFY" },
   { value: "email", label: "Email", channel: "EMAIL" },
   { value: "social", label: "Social media", channel: "SOCIAL" },
 ];
@@ -52,6 +54,7 @@ export interface OrderFormValues {
   paymentPlan: OrderPaymentPlan;
   prepaidMode: "CASH" | "UPI";
   prepaidReference: string;
+  externalOrderId: string; // the order number on the platform, when the order came from one
 }
 
 export const emptyOrderForm: OrderFormValues = {
@@ -69,6 +72,7 @@ export const emptyOrderForm: OrderFormValues = {
   paymentPlan: "COD",
   prepaidMode: "UPI",
   prepaidReference: "",
+  externalOrderId: "",
 };
 
 export type OrderFormKey = keyof OrderFormValues | "lines";
@@ -110,6 +114,8 @@ export function buildOrderBody(
     deliveryState: delivery ? values.deliveryState || undefined : undefined,
     deliveryPincode: delivery ? values.deliveryPincode.trim() || undefined : undefined,
     zoneId: delivery && values.zoneId ? values.zoneId : undefined,
+    source: option.placedOn ?? "DIRECT",
+    externalOrderId: values.externalOrderId.trim() || undefined,
     discountPct,
     lines: lines.map((line) => ({ itemId: line.itemId, qty: line.qty })),
   };

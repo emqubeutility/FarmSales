@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { calcBillTotals, calcDeliveryCharge, DiscountExceedsMaxError } from '@farm-sales/shared';
-import type { CancelOrderDto, CreateOrderDto, DispatchOrderDto, RecordDeliveryDto } from '@farm-sales/shared';
+import { Prisma } from '@prisma/client';
+import { calcBillTotals, calcDeliveryCharge, DiscountExceedsMaxError, ORDER_SOURCE_LABELS } from '@farm-sales/shared';
+import type { CancelOrderDto, CreateOrderDto, DispatchOrderDto, OrderSource, RecordDeliveryDto } from '@farm-sales/shared';
+import { ReservationsService } from '../reservations/reservations.service.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditLogService } from '../common/audit-log.service.js';
 import { StockService } from '../stock/stock.service.js';
@@ -25,11 +27,15 @@ export class OrdersService {
     private readonly documentSeries: DocumentSeriesService,
     private readonly taxClasses: TaxClassesService,
     private readonly packUnits: PackUnitsService,
+    private readonly reservations: ReservationsService,
   ) {}
 
-  list(status?: string) {
+  list(status?: string, source?: string) {
     return this.prisma.order.findMany({
-      where: status ? { status: status as never } : undefined,
+      where: {
+        ...(status ? { status: status as never } : {}),
+        ...(source ? { source: source as never } : {}),
+      },
       relationLoadStrategy: 'join',
       orderBy: { createdAt: 'desc' },
       include,
@@ -49,6 +55,17 @@ export class OrdersService {
    * the same units before this is packed; real reservation tracking isn't built in this pass.
    */
   async create(dto: CreateOrderDto, userId: string) {
+    try {
+      return await this.createInTransaction(dto, userId);
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+        throw new BadRequestException(`Order ${dto.externalOrderId} is already entered for ${ORDER_SOURCE_LABELS[dto.source]}`);
+      }
+      throw err;
+    }
+  }
+
+  private createInTransaction(dto: CreateOrderDto, userId: string) {
     return this.prisma.$transaction(async (tx) => {
       const channelDiscount = await tx.channelDiscount.findUnique({ where: { channel: dto.channel } });
       if (!channelDiscount) throw new NotFoundException(`No discount configured for channel ${dto.channel}`);
@@ -85,6 +102,8 @@ export class OrdersService {
         data: {
           code,
           channel: dto.channel,
+          source: dto.source,
+          externalOrderId: dto.externalOrderId || null,
           salesPoint: dto.salesPoint,
           paymentPlan: dto.paymentPlan,
           prepaidMode: dto.paymentPlan === 'PREPAID' ? dto.prepaidMode : undefined,
@@ -110,13 +129,24 @@ export class OrdersService {
         },
       });
 
+      // Stock is held as soon as the order is taken, so no other sale can take it before packing.
       for (const line of billLines) {
-        await tx.orderLine.create({ data: { orderId: order.id, itemId: line.itemId, qty: line.qty, mrpPaise: line.mrpPaise, taxRatePct: line.taxRatePct } });
+        const orderLine = await tx.orderLine.create({ data: { orderId: order.id, itemId: line.itemId, qty: line.qty, mrpPaise: line.mrpPaise, taxRatePct: line.taxRatePct } });
+        await this.holdLine(tx, orderLine.id, line.itemId, line.qty, dto.source, order.id);
       }
 
       await this.auditLog.record(tx, { userId, entity: 'Order', entityId: order.id, action: 'create', after: { code: order.code, totalPaise: order.totalPaise } });
       return tx.order.findUnique({ where: { id: order.id }, include });
     });
+  }
+
+  // Holds stock for one order line, and records the batches it will come from.
+  private async holdLine(tx: PrismaTx, orderLineId: string, itemId: string, qty: number, source: OrderSource, orderId: string) {
+    const allocations = await this.reservations.hold(tx, { itemId, qty, source, refId: orderId });
+    for (const allocation of allocations) {
+      await tx.orderLineBatch.create({ data: { orderLineId, batchId: allocation.batchId, qty: allocation.qty } });
+    }
+    return allocations;
   }
 
   /**
@@ -146,21 +176,18 @@ export class OrdersService {
   /** FEFO-allocates and decrements stock for every line — the real stock movement, done once. */
   async pack(id: string, userId: string) {
     return this.prisma.$transaction(async (tx) => {
-      const order = await tx.order.findUnique({ where: { id }, include: { lines: true } });
+      const order = await tx.order.findUnique({ where: { id }, include: { lines: { include: { batches: true } } } });
       if (!order) throw new NotFoundException(`Order ${id} not found`);
       if (order.status !== 'NEW') throw new BadRequestException('Only a new order can be packed');
 
       for (const line of order.lines) {
-        const allocations = await this.stock.decrementFefo(tx, {
-          itemId: line.itemId,
-          qty: line.qty.toNumber(),
-          reason: 'SALE',
-          refType: 'Order',
-          refId: id,
-        });
-        for (const allocation of allocations) {
-          await tx.orderLineBatch.create({ data: { orderLineId: line.id, batchId: allocation.batchId, qty: allocation.qty } });
-          await this.packUnits.take(tx, line.itemId, allocation.batchId, allocation.qty, `Order:${id}`);
+        // Stock was held when the order was taken. Orders taken before holds existed are held now.
+        const holds = line.batches.length > 0
+          ? line.batches.map((b) => ({ batchId: b.batchId, qty: b.qty.toNumber() }))
+          : (await this.holdLine(tx, line.id, line.itemId, line.qty.toNumber(), order.source, id)).map((a) => ({ batchId: a.batchId, qty: a.qty }));
+        for (const hold of holds) {
+          await this.reservations.consume(tx, { itemId: line.itemId, batchId: hold.batchId, source: order.source, qty: hold.qty, refId: id });
+          await this.packUnits.take(tx, line.itemId, hold.batchId, hold.qty, `Order:${id}`);
         }
       }
 
@@ -292,15 +319,28 @@ export class OrdersService {
 
       for (const line of order.lines) {
         for (const orderLineBatch of line.batches) {
-          await this.stock.adjust(tx, {
-            itemId: orderLineBatch.batch.itemId,
-            batchId: orderLineBatch.batchId,
-            qtyDelta: orderLineBatch.qty.toNumber(),
-            reason: 'RETURN',
-            refType: 'OrderCancel',
-            refId: id,
-          });
+          if (order.status === 'NEW') {
+            // Not packed, so the stock never left the warehouse. The hold just ends.
+            await this.reservations.releaseHold(tx, {
+              itemId: line.itemId,
+              batchId: orderLineBatch.batchId,
+              source: order.source,
+              qty: orderLineBatch.qty.toNumber(),
+              refId: id,
+            });
+          } else {
+            // Packed or dispatched, so the stock went out. It goes back on the shelf as free stock.
+            await this.stock.adjust(tx, {
+              itemId: orderLineBatch.batch.itemId,
+              batchId: orderLineBatch.batchId,
+              qtyDelta: orderLineBatch.qty.toNumber(),
+              reason: 'RETURN',
+              refType: 'OrderCancel',
+              refId: id,
+            });
+          }
         }
+        if (order.status === 'NEW') await tx.orderLineBatch.deleteMany({ where: { orderLineId: line.id } });
       }
       // Packs taken when the order was packed go back on the shelf.
       await this.packUnits.release(tx, `Order:${id}`);

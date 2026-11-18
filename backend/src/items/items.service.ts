@@ -1,8 +1,14 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { CreateItemDto, ListItemsQuery, UpdateItemDto } from '@farm-sales/shared';
+import { CreateItemDto, freeQty, ListItemsQuery, ORDER_SOURCES, UpdateItemDto } from '@farm-sales/shared';
+import type { OrderSource } from '@farm-sales/shared';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditLogService } from '../common/audit-log.service.js';
+
+// Reserved and held quantities for each order source, starting from zero.
+function emptyPools(): Record<OrderSource, { reserved: number; held: number }> {
+  return Object.fromEntries(ORDER_SOURCES.map((s) => [s, { reserved: 0, held: 0 }])) as Record<OrderSource, { reserved: number; held: number }>;
+}
 
 @Injectable()
 export class ItemsService {
@@ -40,7 +46,7 @@ export class ItemsService {
         batches: {
           where: { status: 'ACTIVE' },
           orderBy: { bestBefore: 'asc' },
-          include: { stockBalances: true, supplier: true },
+          include: { stockBalances: true, supplier: true, channelReservations: true },
         },
       },
     });
@@ -53,9 +59,27 @@ export class ItemsService {
           bestBefore: b.bestBefore,
           supplier: b.supplier ? { name: b.supplier.name } : null,
           qty: b.stockBalances.find((sb) => sb.itemId === item.id)?.qty ?? new Prisma.Decimal(0),
+          reservations: b.channelReservations.map((r) => ({
+            source: r.source,
+            reserved: r.reservedQty.toNumber(),
+            held: r.heldQty.toNumber(),
+          })),
         }))
         .filter((b) => b.qty.greaterThan(0));
       const totalQty = batches.reduce((sum, b) => sum.add(b.qty), new Prisma.Decimal(0));
+      // Reserved and held per platform, per batch and in total. Free is on hand minus all reservations.
+      const platforms = emptyPools();
+      let freeTotal = 0;
+      for (const b of item.batches) {
+        const onHand = b.stockBalances.find((sb) => sb.itemId === item.id)?.qty.toNumber() ?? 0;
+        if (onHand <= 0) continue;
+        const reservedTotal = b.channelReservations.reduce((sum, r) => sum + r.reservedQty.toNumber(), 0);
+        freeTotal += freeQty(onHand, reservedTotal);
+        for (const r of b.channelReservations) {
+          platforms[r.source].reserved += r.reservedQty.toNumber();
+          platforms[r.source].held += r.heldQty.toNumber();
+        }
+      }
 
       return {
         id: item.id,
@@ -67,6 +91,8 @@ export class ItemsService {
         reorderLevel: item.reorderLevel,
         trackBatches: item.trackBatches,
         totalQty,
+        freeQty: freeTotal,
+        platforms,
         batches,
       };
     });

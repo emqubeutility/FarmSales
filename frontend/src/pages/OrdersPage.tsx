@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { Channel } from '@farm-sales/shared';
+import { ORDER_SOURCE_LABELS, ORDER_SOURCES } from '@farm-sales/shared';
+import type { Channel, OrderSource } from '@farm-sales/shared';
 import { api, ApiError } from '../lib/api.js';
 import { formatDate, formatPaise } from '../lib/format.js';
 import { formatAddress } from '../lib/address.js';
@@ -31,6 +32,8 @@ interface OrderRow {
   collectedMode: 'CASH' | 'UPI' | 'ALREADY_PAID' | null; collectedAmountPaise?: number | null;
   cashHandedOverAt: string | null; deliveryStaffName: string | null;
   sale: { id: string; number: string } | null; lines: OrderLine[]; createdAt?: string;
+  source: OrderSource; externalOrderId?: string | null;
+  packedAt?: string | null; dispatchedAt?: string | null; deliveredAt?: string | null; cancelledAt?: string | null;
   prepaidMode?: string | null; prepaidReference?: string | null;
 }
 
@@ -183,16 +186,27 @@ export function OrdersPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected?.id]);
 
-  const counts = useMemo(() => ({
+  // Orders placed on one source (or all of them). The status cards and the list follow it.
+  const [sourceFilter, setSourceFilter] = useState<'ALL' | OrderSource>('ALL');
+  const sourceCounts = useMemo(() => ({
     ALL: orders.length,
-    NEW: orders.filter((o) => o.status === 'NEW').length,
-    PACKED: orders.filter((o) => o.status === 'PACKED').length,
-    DISPATCHED: orders.filter((o) => o.status === 'DISPATCHED').length,
-    DELIVERED: orders.filter((o) => o.status === 'DELIVERED').length,
-    CANCELLED: orders.filter((o) => o.status === 'CANCELLED').length,
+    DIRECT: orders.filter((o) => o.source === 'DIRECT').length,
+    FLIPKART: orders.filter((o) => o.source === 'FLIPKART').length,
+    AMAZON: orders.filter((o) => o.source === 'AMAZON').length,
+    SHOPIFY: orders.filter((o) => o.source === 'SHOPIFY').length,
   }), [orders]);
+  const placed = useMemo(() => (sourceFilter === 'ALL' ? orders : orders.filter((o) => o.source === sourceFilter)), [orders, sourceFilter]);
 
-  const visibleOrders = useMemo(() => searchOrders(filterOrders(orders, filters), search), [orders, filters, search]);
+  const counts = useMemo(() => ({
+    ALL: placed.length,
+    NEW: placed.filter((o) => o.status === 'NEW').length,
+    PACKED: placed.filter((o) => o.status === 'PACKED').length,
+    DISPATCHED: placed.filter((o) => o.status === 'DISPATCHED').length,
+    DELIVERED: placed.filter((o) => o.status === 'DELIVERED').length,
+    CANCELLED: placed.filter((o) => o.status === 'CANCELLED').length,
+  }), [placed]);
+
+  const visibleOrders = useMemo(() => searchOrders(filterOrders(placed, filters), search), [placed, filters, search]);
 
   function toggleSection(id: SectionKey) {
     setOpenSections((s) => ({ ...s, [id]: !s[id] }));
@@ -457,6 +471,20 @@ export function OrdersPage() {
       </div>
       <div className="body" style={{ flexDirection: 'column', gap: 16 }}>
         {error && <div className="error-banner">{error}</div>}
+        <div role="group" aria-label="Where the order was placed" style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {([['ALL', 'All'], ...ORDER_SOURCES.map((s) => [s, ORDER_SOURCE_LABELS[s]])] as [string, string][]).map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              className={sourceFilter === value ? 'btn p' : 'btn'}
+              aria-pressed={sourceFilter === value}
+              style={{ minHeight: 44, padding: '0 16px' }}
+              onClick={() => setSourceFilter(value as 'ALL' | OrderSource)}
+            >
+              {label} <span style={{ opacity: 0.75, marginLeft: 4 }}>{sourceCounts[value as keyof typeof sourceCounts]}</span>
+            </button>
+          ))}
+        </div>
         <div className="order-desk-summary" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10 }}>
           {ORDER_STATUS_OPTIONS.map((s) => <div key={s.value} className="card" style={{ padding: '13px 15px' }}>
             <div className="muted" style={{ fontSize: 12, fontWeight: 600 }}>{s.label}</div><div style={{ fontSize: 24, fontWeight: 700, marginTop: 4 }}>{counts[s.value as keyof typeof counts]}</div>
@@ -466,12 +494,13 @@ export function OrdersPage() {
           
           <div style={{ overflow: 'auto', flex: 1 }}>
             <table className="tbl order-desk-table">
-              <thead><tr><th>Order</th><th>Customer</th><th>Channel</th><th>Items</th><th>Payment</th><th className="r">Total</th><th>Status</th><th /></tr></thead>
+              <thead><tr><th>Order</th><th>Customer</th><th>Placed on</th><th>Items</th><th>Payment</th><th className="r">Total</th><th>Status</th><th /></tr></thead>
               <tbody>
                 {pageRows.map((order) => <tr key={order.id} onClick={() => setSelected(order)} className={selected?.id === order.id ? 'sel' : ''} style={{ cursor: 'pointer' }}>
                   <td><strong>{order.code}</strong><div className="muted" style={{ fontSize: 11 }}>{order.createdAt ? new Date(order.createdAt).toLocaleString('en-IN') : ''}</div></td>
                   <td>{order.customerName}<div className="muted" style={{ fontSize: 12 }}>{order.customerPhone || 'No phone'}</div></td>
-                  <td>{channelLabels[order.channel]}</td><td>{order.lines.length} item(s)</td>
+                  <td>{ORDER_SOURCE_LABELS[order.source]}{order.externalOrderId && <div className="muted" style={{ fontSize: 11 }}>{order.externalOrderId}</div>}<div className="muted" style={{ fontSize: 11 }}>{channelLabels[order.channel]}</div></td>
+                  <td>{order.lines.length} item(s)</td>
                   <td>{paymentPlanLabel(order)}</td>
                   <td className="r"><strong>{formatPaise(order.totalPaise)}</strong></td><td><span className={statusClass(order.status)}>{statusLabel[order.status]}</span></td>
                   <td style={{ whiteSpace: 'nowrap' }}><div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}><button className="btn" style={{ minHeight: 36, padding: '0 12px' }} onClick={(e) => { e.stopPropagation(); setSelected(order); }}>Open</button>{order.sale && <button className="btn" style={{ minHeight: 36, padding: '0 12px' }} onClick={(e) => { e.stopPropagation(); setBillSaleId(order.sale!.id); }}>Print invoice</button>}</div></td>
@@ -565,10 +594,16 @@ export function OrdersPage() {
 
               <Section id="information" title="Order information" open={openSections.information} onToggle={toggleSection}>
                 <Field label="Order number">{selected.code}</Field>
+                <Field label="Placed on">{ORDER_SOURCE_LABELS[selected.source]}{selected.externalOrderId ? ` · ${selected.externalOrderId}` : ''}</Field>
                 <Field label="Channel">{channelLabels[selected.channel]}</Field>
                 <Field label="Sales point">{selected.salesPoint === 'WAREHOUSE_COUNTER' ? 'Warehouse counter' : 'Market stall'}</Field>
                 <Field label="Payment plan">{selected.paymentPlan === 'PREPAID' ? `Prepaid${selected.prepaidMode ? ` · ${selected.prepaidMode}` : ''}` : paymentPlanLabel(selected)}</Field>
                 {selected.prepaidReference && <Field label="Payment reference">{selected.prepaidReference}</Field>}
+                <Field label="Received">{selected.createdAt ? new Date(selected.createdAt).toLocaleString('en-IN') : '–'}</Field>
+                {selected.packedAt && <Field label="Packed">{new Date(selected.packedAt).toLocaleString('en-IN')}</Field>}
+                {selected.dispatchedAt && <Field label="Out for delivery">{new Date(selected.dispatchedAt).toLocaleString('en-IN')}</Field>}
+                {selected.deliveredAt && <Field label="Delivered">{new Date(selected.deliveredAt).toLocaleString('en-IN')}</Field>}
+                {selected.cancelledAt && <Field label="Cancelled">{new Date(selected.cancelledAt).toLocaleString('en-IN')}</Field>}
                 {selected.sale ? <Field label="Invoice">
                   <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                     <button type="button" className="btn p" style={{ minHeight: 36, padding: '0 12px' }} onClick={() => setBillSaleId(selected.sale!.id)}>Print invoice</button>

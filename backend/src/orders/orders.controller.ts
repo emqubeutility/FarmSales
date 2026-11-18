@@ -17,8 +17,8 @@ export class OrdersController {
   constructor(private readonly orders: OrdersService) {}
 
   @Get()
-  list(@Query('status') status?: string) {
-    return this.orders.list(status);
+  list(@Query('status') status?: string, @Query('source') source?: string) {
+    return this.orders.list(status, source);
   }
 
   @Get(':id')

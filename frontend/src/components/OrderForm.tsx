@@ -106,6 +106,19 @@ export function OrderForm({ values, customers, zones, errors, onChange, onSource
         </Field>
       )}
 
+      {option.placedOn && option.placedOn !== "DIRECT" && (
+        <Field label={`${option.label} order number`} hint="As shown on the platform. Optional, but it stops the same order being entered twice.">
+          <input
+            className="in"
+            maxLength={60}
+            autoComplete="off"
+            placeholder="e.g. OD123456789"
+            value={values.externalOrderId}
+            onChange={(e) => onChange("externalOrderId", e.target.value)}
+          />
+        </Field>
+      )}
+
       <Field
         label="Mobile number"
         required={phoneRequired}

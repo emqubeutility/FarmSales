@@ -8,6 +8,8 @@ function makeTx() {
   const balances = new Map<string, Prisma.Decimal>();
 
   const tx = {
+    // No platform reservations in these tests, so all on-hand stock is free.
+    channelReservation: { findMany: vi.fn(() => Promise.resolve([])) },
     stockLedger: {
       create: vi.fn((args: { data: Record<string, unknown> }) => {
         ledgerRows.push(args.data);

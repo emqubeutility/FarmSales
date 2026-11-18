@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { api, ApiError } from '../lib/api.js';
 import { formatDate } from '../lib/format.js';
 import { SortTh, useTableSort } from '../lib/table-sort.js';
@@ -15,13 +15,22 @@ import {
 import { usePaging, TablePagination } from '../components/Pagination.js';
 import { LoadingRow } from '../components/Skeleton.js';
 import { useLoadingList } from '../lib/request-activity.js';
+import { ORDER_SOURCE_LABELS } from '@farm-sales/shared';
+import type { OrderSource } from '@farm-sales/shared';
+import { StockTransferDialog, type TransferBatch } from '../components/StockTransferDialog.js';
 
+interface InventoryReservation {
+  source: OrderSource;
+  reserved: number;
+  held: number;
+}
 interface InventoryBatch {
   id: string;
   code: string;
   bestBefore: string | null;
   supplier: { name: string } | null;
   qty: string;
+  reservations: InventoryReservation[];
 }
 interface InventoryItem {
   id: string;
@@ -33,7 +42,24 @@ interface InventoryItem {
   reorderLevel: number | null;
   trackBatches: boolean;
   totalQty: string;
+  freeQty: number;
+  platforms: Record<OrderSource, { reserved: number; held: number }>;
   batches: InventoryBatch[];
+}
+
+// Where the stock sits, in the order the table shows it. Direct orders reserve for themselves.
+const placeColumns: OrderSource[] = ['FLIPKART', 'AMAZON', 'SHOPIFY', 'DIRECT'];
+
+// What a place can still sell, with what open orders already hold.
+function placeCell(place: { reserved: number; held: number }) {
+  if (place.reserved === 0) return <span className="muted">–</span>;
+  const available = Math.round((place.reserved - place.held) * 1000) / 1000;
+  return (
+    <>
+      {available}
+      {place.held > 0 && <span className="muted" style={{ fontSize: 12, marginLeft: 4 }}>({place.held} held)</span>}
+    </>
+  );
 }
 
 
@@ -53,6 +79,7 @@ export function InventoryPage() {
   const [reason, setReason] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [transferOpen, setTransferOpen] = useState(false);
 
   function load() {
     api.get<InventoryItem[]>('/items/inventory').then((all) => {
@@ -154,12 +181,17 @@ export function InventoryPage() {
             total={items.length}
             noun="items"
           />
+          <div style={{ overflowX: 'auto' }}>
           <table className="tbl">
             <thead>
               <tr>
                 <SortTh label="Item" sortKey="item" sort={sortable.sort} onSort={sortable.toggle} />
                 <SortTh label="Type" sortKey="type" sort={sortable.sort} onSort={sortable.toggle} />
                 <SortTh label="On hand" sortKey="onHand" align="r" sort={sortable.sort} onSort={sortable.toggle} />
+                <th className="r" title="On hand minus everything reserved for a platform or direct orders">Free</th>
+                {placeColumns.map((place) => (
+                  <th key={place} className="r">{ORDER_SOURCE_LABELS[place]}</th>
+                ))}
                 <SortTh label="Reorder level" sortKey="reorder" align="r" sort={sortable.sort} onSort={sortable.toggle} />
                 <th></th>
               </tr>
@@ -180,15 +212,19 @@ export function InventoryPage() {
                       {totalQty} {item.unit}
                       {low && <span className="pill a" style={{ marginLeft: 6 }}>Low</span>}
                     </td>
+                    <td className="r">{item.freeQty}</td>
+                    {placeColumns.map((place) => (
+                      <td key={place} className="r">{placeCell(item.platforms[place])}</td>
+                    ))}
                     <td className="r muted">{item.reorderLevel ?? '–'}</td>
                     <td><button type="button" className="btn" onClick={() => select(item)}>View / adjust</button></td>
                   </tr>
                 );
               })}
-              {visible.length === 0 && loading && <LoadingRow columns={5} />}
+              {visible.length === 0 && loading && <LoadingRow columns={10} />}
               {visible.length === 0 && !loading && (
                 <tr>
-                  <td colSpan={5} style={{ textAlign: 'center', padding: 40 }}>
+                  <td colSpan={10} style={{ textAlign: 'center', padding: 40 }}>
                     {items.length === 0 ? (
                       <span className="muted">No stock yet</span>
                     ) : (
@@ -212,6 +248,7 @@ export function InventoryPage() {
               )}
             </tbody>
           </table>
+          </div>
             <TablePagination {...paging} />
         </div>
 
@@ -227,14 +264,40 @@ export function InventoryPage() {
             </div>
 
             <div>
+              <div className="muted" style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 6 }}>Where the stock is</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', rowGap: 6, fontSize: 14 }}>
+                <span>Free</span>
+                <b>{selected.freeQty} {selected.unit}</b>
+                {placeColumns.map((place) => (
+                  <Fragment key={place}>
+                    <span>{ORDER_SOURCE_LABELS[place]}</span>
+                    <span>{placeCell(selected.platforms[place])} {selected.platforms[place].reserved > 0 ? selected.unit : ''}</span>
+                  </Fragment>
+                ))}
+              </div>
+              {selected.batches.length > 0 && (
+                <button type="button" className="btn" style={{ minHeight: 44, marginTop: 10, width: '100%' }} onClick={() => setTransferOpen(true)}>
+                  Move reserved stock
+                </button>
+              )}
+            </div>
+
+            <div>
               <div className="muted" style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 6 }}>Batches</div>
               {selected.batches.map((b) => (
-                <div key={b.id} className="row">
-                  <span>
-                    <b>{b.code}</b>
-                    {b.bestBefore && <span className="muted"> &middot; BB {formatDate(b.bestBefore)}</span>}
-                  </span>
-                  <span>{b.qty}</span>
+                <div key={b.id}>
+                  <div className="row">
+                    <span>
+                      <b>{b.code}</b>
+                      {b.bestBefore && <span className="muted"> &middot; BB {formatDate(b.bestBefore)}</span>}
+                    </span>
+                    <span>{b.qty}</span>
+                  </div>
+                  {b.reservations.length > 0 && (
+                    <div className="muted" style={{ fontSize: 12, marginBottom: 6 }}>
+                      {b.reservations.map((r) => `${ORDER_SOURCE_LABELS[r.source]} ${Math.round((r.reserved - r.held) * 1000) / 1000}`).join(' · ')}
+                    </div>
+                  )}
                 </div>
               ))}
               {selected.batches.length === 0 && <div className="muted" style={{ fontSize: 13 }}>No stock on hand</div>}
@@ -265,6 +328,20 @@ export function InventoryPage() {
           </div>
         )}
       </div>
+      {transferOpen && selected && (
+        <StockTransferDialog
+          itemId={selected.id}
+          itemName={selected.name}
+          unit={selected.unit}
+          batches={selected.batches.map((b): TransferBatch => ({ id: b.id, code: b.code, qty: Number(b.qty), reservations: b.reservations }))}
+          initialBatchId={batchId || selected.batches[0]?.id || ''}
+          onClose={() => setTransferOpen(false)}
+          onDone={() => {
+            setTransferOpen(false);
+            load();
+          }}
+        />
+      )}
     </>
   );
 }

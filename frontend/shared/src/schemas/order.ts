@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { channelSchema } from './channel-discount.js';
 import { citySchema, landmarkSchema, pincodeSchema, stateSchema } from './address.js';
 import { salesPointSchema, salePaymentModeSchema } from './sale.js';
+import { orderSourceSchema } from '../reservation.js';
 
 export const orderPaymentPlanSchema = z.enum(['PREPAID', 'COD', 'UPI_ON_DELIVERY']);
 
@@ -38,6 +39,8 @@ export const orderAddressSchema = z
 export const createOrderSchema = z
   .object({
     channel: channelSchema,
+    source: orderSourceSchema.default('DIRECT'), // where it was placed; DIRECT is our counter, phone or email
+    externalOrderId: z.string().trim().max(60, 'Order number can be 60 characters at most').optional(),
     salesPoint: salesPointSchema,
     paymentPlan: orderPaymentPlanSchema,
     prepaidMode: salePaymentModeSchema.optional(), // required when paymentPlan = PREPAID
