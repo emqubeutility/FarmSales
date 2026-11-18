@@ -1,9 +1,40 @@
-// The FarmSales Power BI report, shown inside the app. It is a publish-to-web link: anyone who has
-// the link can open the report, so only publish figures that are fine to share.
-const POWER_BI_REPORT_URL =
-  'https://app.powerbi.com/view?r=eyJrIjoiY2JkMzRhZGItYzEzYy00ZWJhLWIwMDItODE4MDc0ZDU0NmEwIiwidCI6ImM2NzQ0YmU0LWU3MGUtNDg2NS05Y2I2LTUzNDgxMzJmMTM5OCJ9';
+import { useCallback, useEffect, useState } from 'react';
+import { api, ApiError } from '../lib/api.js';
+import { Notice } from '../components/ui.js';
+import { PowerBiReport, type PowerBiEmbed } from '../components/PowerBiReport.js';
+
+// The Power BI sales report, embedded in the app. The server signs in as a service principal and
+// returns a short-lived embed token, so the report is never public and no password is in the browser.
+
+const REFRESH_BEFORE_EXPIRY_MS = 5 * 60_000;
+const MIN_REFRESH_MS = 60_000;
 
 export function ReportsPage() {
+  const [embed, setEmbed] = useState<PowerBiEmbed | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const load = useCallback(async () => {
+    setError(null);
+    try {
+      setEmbed(await api.get<PowerBiEmbed>('/powerbi/embed'));
+    } catch (e) {
+      setEmbed(null);
+      setError(e instanceof ApiError ? e.message : 'The report could not be loaded.');
+    }
+  }, []);
+
+  useEffect(() => {
+    void load();
+  }, [load]);
+
+  // Embed tokens last about an hour. Fetch a new one shortly before the current one expires.
+  useEffect(() => {
+    if (!embed) return;
+    const wait = new Date(embed.expiresAt).getTime() - Date.now() - REFRESH_BEFORE_EXPIRY_MS;
+    const timer = window.setTimeout(() => void load(), Math.max(wait, MIN_REFRESH_MS));
+    return () => window.clearTimeout(timer);
+  }, [embed, load]);
+
   return (
     <>
       <div className="top" style={{ gap: 12 }}>
@@ -14,14 +45,24 @@ export function ReportsPage() {
       </div>
 
       <div className="body" style={{ flexDirection: 'column', gap: 16 }}>
-        <section className="card" style={{ padding: 0, overflow: 'hidden', flex: 1, minHeight: 480 }}>
-          <iframe
-            title="FarmSales Power BI report"
-            src={POWER_BI_REPORT_URL}
-            allowFullScreen
-            style={{ width: '100%', height: '100%', minHeight: 480, border: 0, display: 'block' }}
-          />
-        </section>
+        {error && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <Notice kind="error">{error}</Notice>
+            <div>
+              <button type="button" className="btn" onClick={() => void load()}>Try again</button>
+            </div>
+          </div>
+        )}
+
+        {!error && (
+          <section className="card" style={{ padding: 0, overflow: 'hidden', flex: 1, minHeight: 480 }}>
+            {embed ? (
+              <PowerBiReport embed={embed} onError={setError} />
+            ) : (
+              <div className="muted" style={{ padding: 24, fontSize: 13 }}>Loading report…</div>
+            )}
+          </section>
+        )}
       </div>
     </>
   );
